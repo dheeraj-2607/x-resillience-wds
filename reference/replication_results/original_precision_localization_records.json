@@ -1,0 +1,6802 @@
+[
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU7",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU10",
+   "Tank T3",
+   "Pump PU11"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU10",
+   "Tank T3",
+   "Pump PU9"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU10",
+   "Tank T3",
+   "Pump PU11"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "L_T3",
+   "F_PU10",
+   "P_J317",
+   "L_T7",
+   "S_PU10"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 2
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU7",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU10",
+   "Tank T3",
+   "Pump PU11"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU10",
+   "Tank T3",
+   "Pump PU9"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU10",
+   "Tank T3",
+   "Pump PU11"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "L_T3",
+   "F_PU10",
+   "P_J317",
+   "L_T7",
+   "S_PU10"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU7",
+   "Pump PU4",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Tank T3",
+   "Tank T5",
+   "Pump PU4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 7,
+  "C_ppr_only_graph": [
+   "Tank T3",
+   "Tank T5",
+   "Pump PU4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 12,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T3",
+   "Tank T5",
+   "Pump PU4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 10,
+  "shap_top_sensors": [
+   "L_T3",
+   "L_T5",
+   "L_T6",
+   "P_J280",
+   "S_PU4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 14,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU10",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Pump PU10",
+   "Tank T3"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T3",
+   "L_T4",
+   "F_PU10"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 2,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 14,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU10",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Pump PU10",
+   "Tank T3"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T3",
+   "L_T4",
+   "F_PU10"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Pump PU8",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Valve V2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU9",
+   "Pump PU1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 9,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Valve V2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 6,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU1",
+   "P_J302",
+   "F_PU2",
+   "F_V2"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 2,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Pump PU8",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Valve V2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU9",
+   "Pump PU1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 9,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Valve V2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 6,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU1",
+   "P_J302",
+   "F_PU2",
+   "F_V2"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU8",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 9,
+  "B_shap_direct_no_graph": [
+   "Tank T7",
+   "Tank T4",
+   "Pump PU6"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Tank T7",
+   "Pump PU2",
+   "Pump PU6"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 5,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T7",
+   "Pump PU6",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "L_T7",
+   "P_J280",
+   "P_J415",
+   "L_T4",
+   "F_PU6"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU8",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 9,
+  "B_shap_direct_no_graph": [
+   "Tank T7",
+   "Tank T4",
+   "Pump PU6"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Tank T7",
+   "Pump PU2",
+   "Pump PU6"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 5,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T7",
+   "Pump PU6",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "L_T7",
+   "P_J280",
+   "P_J415",
+   "L_T4",
+   "F_PU6"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 6,
+  "B_shap_direct_no_graph": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 4,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "F_PU6",
+   "S_PU6",
+   "L_T7",
+   "P_J280",
+   "F_PU2"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 6,
+  "B_shap_direct_no_graph": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 4,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "F_PU6",
+   "S_PU6",
+   "L_T7",
+   "P_J280",
+   "F_PU2"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 10,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 12,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 10,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU1",
+   "F_PU2",
+   "S_PU2",
+   "P_J269"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 42,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 10,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 12,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 10,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU1",
+   "F_PU2",
+   "S_PU2",
+   "P_J269"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Valve V2",
+   "Pump PU2",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 9,
+  "B_shap_direct_no_graph": [
+   "Tank T5",
+   "Pump PU1",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 9,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T5",
+   "Pump PU5"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 15,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T5",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 12,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T5",
+   "P_J256",
+   "F_PU1",
+   "P_J269"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Pump PU1",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Tank T7",
+   "Tank T6",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU9",
+   "Pump PU5"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 13,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU10",
+   "Tank T7",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 9,
+  "shap_top_sensors": [
+   "P_J280",
+   "P_J300",
+   "P_J302",
+   "L_T7",
+   "L_T6"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T2",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T3",
+   "Tank T6"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 5,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T3"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T3",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 6,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T3",
+   "L_T6",
+   "L_T2"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T2",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T3",
+   "Tank T6"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 5,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T3"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T3",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 6,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T3",
+   "L_T6",
+   "L_T2"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Valve V2",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU2",
+   "S_PU2",
+   "F_V2",
+   "L_T1"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Valve V2",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU2",
+   "S_PU2",
+   "F_V2",
+   "L_T1"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Valve V2",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU1",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU1",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU1",
+   "P_J269",
+   "P_J280",
+   "L_T4"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Valve V2",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU1",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU1",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU1",
+   "P_J269",
+   "P_J280",
+   "L_T4"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T2",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 2,
+  "C_ppr_only_graph": [
+   "Tank T1",
+   "Tank T2",
+   "Tank T4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T2",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 2,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T2",
+   "L_T4",
+   "L_T7",
+   "L_T3"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T2",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 2,
+  "C_ppr_only_graph": [
+   "Tank T1",
+   "Tank T2",
+   "Tank T4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T2",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 2,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T2",
+   "L_T4",
+   "L_T7",
+   "L_T3"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU4",
+   "Pump PU7",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T6",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU9",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 11,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T6",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "P_J280",
+   "P_J302",
+   "L_T6",
+   "F_PU1",
+   "L_T4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU7",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Tank T4",
+   "Tank T7",
+   "Tank T3"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 2,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T4",
+   "Tank T7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T4",
+   "Pump PU2",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T4",
+   "L_T7",
+   "L_T3",
+   "P_J256"
+  ]
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Valve V2",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Tank T5",
+   "Pump PU1",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 11,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T5",
+   "Pump PU1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 16,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T5",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 13,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T5",
+   "F_PU1",
+   "L_T2",
+   "P_J269"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 42,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU7",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU11",
+   "Tank T4",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU11",
+   "Pump PU10",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 9,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU11",
+   "Pump PU10",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "F_PU11",
+   "S_PU11",
+   "L_T4",
+   "P_J280",
+   "L_T3"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 2,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU7",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU11",
+   "Tank T4",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU11",
+   "Pump PU10",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 9,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU11",
+   "Pump PU10",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "F_PU11",
+   "S_PU11",
+   "L_T4",
+   "P_J280",
+   "L_T3"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU7",
+   "Pump PU10",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 8,
+  "B_shap_direct_no_graph": [
+   "Tank T3",
+   "Tank T5",
+   "Pump PU4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Tank T3",
+   "Tank T5",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T3",
+   "Tank T5",
+   "Pump PU4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 7,
+  "shap_top_sensors": [
+   "L_T3",
+   "L_T5",
+   "L_T6",
+   "L_T2",
+   "L_T7"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T6",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T6"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T6",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T6",
+   "L_T7",
+   "L_T3"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T6",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T6"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T6",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T6",
+   "L_T7",
+   "L_T3"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Valve V2",
+   "Pump PU8"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 2,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T2",
+   "F_V2",
+   "F_PU1"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Valve V2",
+   "Pump PU8"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 2,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T2",
+   "F_V2",
+   "F_PU1"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Tank T4",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 5,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Tank T1",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 4,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T2",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T2",
+   "P_J280",
+   "F_PU1",
+   "P_J415"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Tank T4",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 5,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Tank T1",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 4,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T2",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T2",
+   "P_J280",
+   "F_PU1",
+   "P_J415"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU7",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 5,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 5,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU1",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "F_PU1",
+   "L_T1",
+   "P_J280",
+   "F_PU2",
+   "S_PU2"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU7",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 5,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 5,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU1",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "F_PU1",
+   "L_T1",
+   "P_J280",
+   "F_PU2",
+   "S_PU2"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Tank T2",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 14,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 12,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 14,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T7",
+   "F_PU2",
+   "S_PU2",
+   "L_T4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 123,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Tank T2",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 14,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 12,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 14,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T7",
+   "F_PU2",
+   "S_PU2",
+   "L_T4"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU4",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 7,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU5",
+   "Pump PU4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 12,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 9,
+  "shap_top_sensors": [
+   "P_J256",
+   "P_J280",
+   "F_PU1",
+   "F_PU2",
+   "S_PU2"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU4",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU5",
+   "Pump PU4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 11,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "P_J256",
+   "P_J280",
+   "F_PU1",
+   "F_PU2",
+   "S_PU2"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T2",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Tank T3",
+   "Pump PU10",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 13,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 17,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T3",
+   "Pump PU10",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 17,
+  "shap_top_sensors": [
+   "L_T3",
+   "P_J280",
+   "L_T1",
+   "F_PU10",
+   "S_PU10"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T2",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Tank T3",
+   "Pump PU10",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 13,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 17,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T3",
+   "Pump PU10",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 17,
+  "shap_top_sensors": [
+   "L_T3",
+   "P_J280",
+   "L_T1",
+   "F_PU10",
+   "S_PU10"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Tank T1",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "S_PU2",
+   "F_PU2",
+   "P_J306",
+   "F_PU8"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Tank T1",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "S_PU2",
+   "F_PU2",
+   "P_J306",
+   "F_PU8"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Tank T1",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "S_V2",
+   "P_J14",
+   "F_V2",
+   "F_PU1"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Tank T1",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "S_V2",
+   "P_J14",
+   "F_V2",
+   "F_PU1"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T4",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 8,
+  "C_ppr_only_graph": [
+   "Tank T1",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 10,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T4",
+   "Valve V2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 9,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T4",
+   "L_T7",
+   "P_J280",
+   "L_T6"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T4",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 8,
+  "C_ppr_only_graph": [
+   "Tank T1",
+   "Pump PU2",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 10,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T4",
+   "Valve V2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 9,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T4",
+   "L_T7",
+   "P_J280",
+   "L_T6"
+  ]
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU4",
+   "Pump PU7",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Tank T6",
+   "Tank T7",
+   "Tank T3"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 2,
+  "C_ppr_only_graph": [
+   "Tank T6",
+   "Pump PU2",
+   "Pump PU9"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 4,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T6",
+   "Pump PU2",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "L_T6",
+   "P_J280",
+   "L_T7",
+   "L_T3",
+   "P_J415"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Valve V2",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 9,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Pump PU8",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 9,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU8",
+   "Pump PU9"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 12,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU8",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 10,
+  "shap_top_sensors": [
+   "F_PU1",
+   "L_T2",
+   "P_J306",
+   "P_J280",
+   "P_J302"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 123,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU6",
+   "Pump PU7"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 11,
+  "B_shap_direct_no_graph": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 6,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "F_PU11",
+   "S_PU11",
+   "L_T3",
+   "P_J280",
+   "L_T7"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU6",
+   "Pump PU7"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 11,
+  "B_shap_direct_no_graph": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 6,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "F_PU11",
+   "S_PU11",
+   "L_T3",
+   "P_J280",
+   "L_T7"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU7",
+   "Pump PU4",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Tank T3",
+   "Pump PU4",
+   "Tank T5"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Tank T3",
+   "Tank T5",
+   "Pump PU4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 9,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T3",
+   "Tank T5",
+   "Pump PU4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 7,
+  "shap_top_sensors": [
+   "L_T3",
+   "L_T5",
+   "L_T4",
+   "P_J280",
+   "F_PU4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 2,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU7",
+   "Pump PU4",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Tank T3",
+   "Pump PU4",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 5,
+  "C_ppr_only_graph": [
+   "Tank T3",
+   "Pump PU4",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 8,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T3",
+   "Pump PU4",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 6,
+  "shap_top_sensors": [
+   "L_T3",
+   "L_T4",
+   "P_J280",
+   "F_PU4",
+   "S_PU4"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T4",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Valve V2",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Pump PU2",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T4",
+   "L_T7",
+   "L_T3"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T4",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Valve V2",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Pump PU2",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T4",
+   "L_T7",
+   "L_T3"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 2,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 2,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "F_PU1",
+   "L_T2",
+   "S_PU2"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 2,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 2,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "F_PU1",
+   "L_T2",
+   "S_PU2"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU4",
+   "Tank T5"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 6,
+  "B_shap_direct_no_graph": [
+   "Tank T6",
+   "Pump PU6",
+   "Tank T3"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 7,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU8",
+   "Tank T6"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 8,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T6",
+   "Pump PU6",
+   "Pump PU8"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "L_T6",
+   "P_J280",
+   "L_T3",
+   "L_T5",
+   "P_J306"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU4",
+   "Tank T5"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 6,
+  "B_shap_direct_no_graph": [
+   "Tank T6",
+   "Pump PU6",
+   "Tank T3"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 7,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU8",
+   "Tank T6"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 8,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T6",
+   "Pump PU6",
+   "Pump PU8"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "L_T6",
+   "P_J280",
+   "L_T3",
+   "L_T5",
+   "P_J306"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 8,
+  "B_shap_direct_no_graph": [
+   "Pump PU6",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU6",
+   "Pump PU2",
+   "Pump PU7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU6",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "F_PU6",
+   "S_PU6",
+   "F_PU1",
+   "L_T1",
+   "P_J280"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 8,
+  "B_shap_direct_no_graph": [
+   "Pump PU6",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU6",
+   "Pump PU2",
+   "Pump PU7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU6",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "F_PU6",
+   "S_PU6",
+   "F_PU1",
+   "L_T1",
+   "P_J280"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Tank T2",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 15,
+  "B_shap_direct_no_graph": [
+   "Tank T7",
+   "Tank T6",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 11,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T6"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 11,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T7",
+   "Pump PU2",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 11,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T7",
+   "L_T6",
+   "F_PU1",
+   "L_T1"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 2,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 2024,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Tank T2",
+   "Pump PU2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 15,
+  "B_shap_direct_no_graph": [
+   "Tank T7",
+   "Tank T6",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 11,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T6"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 11,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T7",
+   "Pump PU2",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 11,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T7",
+   "L_T6",
+   "F_PU1",
+   "L_T1"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T3",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Tank T6",
+   "Tank T7",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 13,
+  "C_ppr_only_graph": [
+   "Tank T6",
+   "Tank T7",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 17,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T6",
+   "Tank T7",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 15,
+  "shap_top_sensors": [
+   "L_T6",
+   "P_J256",
+   "L_T7",
+   "P_J280",
+   "L_T1"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Pump PU4",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Tank T6",
+   "Tank T7",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 12,
+  "C_ppr_only_graph": [
+   "Tank T6",
+   "Tank T7",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 17,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T6",
+   "Tank T7",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 14,
+  "shap_top_sensors": [
+   "L_T6",
+   "P_J256",
+   "L_T7",
+   "P_J280",
+   "L_T1"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T2",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Pump PU10",
+   "Tank T5"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 8,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU10",
+   "Pump PU9"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 11,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU10",
+   "Tank T1",
+   "Tank T5"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 11,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T5",
+   "L_T3",
+   "L_T6"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T2",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Pump PU10",
+   "Tank T5"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 8,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU10",
+   "Pump PU9"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 11,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU10",
+   "Tank T1",
+   "Tank T5"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 11,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T5",
+   "L_T3",
+   "L_T6"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Tank T1",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "L_T1",
+   "F_PU2",
+   "S_PU2",
+   "L_T2"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Tank T1",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "L_T1",
+   "F_PU2",
+   "S_PU2",
+   "L_T2"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Tank T1",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "P_J14",
+   "S_V2",
+   "L_T1",
+   "F_V2"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Tank T1",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "P_J14",
+   "S_V2",
+   "L_T1",
+   "F_V2"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Valve V2",
+   "Pump PU7",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 4,
+  "B_shap_direct_no_graph": [
+   "Tank T2",
+   "Tank T4",
+   "Tank T6"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Tank T2",
+   "Tank T4",
+   "Tank T6"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T2",
+   "Tank T4",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "L_T2",
+   "L_T4",
+   "L_T6",
+   "L_T7",
+   "L_T1"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Valve V2",
+   "Pump PU7",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 4,
+  "B_shap_direct_no_graph": [
+   "Tank T2",
+   "Tank T4",
+   "Tank T6"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Tank T2",
+   "Tank T4",
+   "Tank T6"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T2",
+   "Tank T4",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "L_T2",
+   "L_T4",
+   "L_T6",
+   "L_T7",
+   "L_T1"
+  ]
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU4",
+   "Pump PU7",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Tank T6",
+   "Tank T4",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU9",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T6",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "L_T6",
+   "P_J280",
+   "P_J302",
+   "L_T4",
+   "L_T7"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Valve V2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 8,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Pump PU4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 5,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 6,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Pump PU4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 6,
+  "shap_top_sensors": [
+   "F_PU1",
+   "P_J280",
+   "P_J269",
+   "L_T7",
+   "L_T4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 2024,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Valve V2",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU11",
+   "Tank T5",
+   "Tank T3"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU11",
+   "Pump PU2",
+   "Tank T5"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU11",
+   "Tank T5",
+   "Tank T3"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 6,
+  "shap_top_sensors": [
+   "F_PU11",
+   "S_PU11",
+   "L_T5",
+   "P_J280",
+   "L_T3"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Valve V2",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU11",
+   "Tank T5",
+   "Tank T3"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU11",
+   "Pump PU2",
+   "Tank T5"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU11",
+   "Tank T5",
+   "Tank T3"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 6,
+  "shap_top_sensors": [
+   "F_PU11",
+   "S_PU11",
+   "L_T5",
+   "P_J280",
+   "L_T3"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU7",
+   "Valve V2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 9,
+  "B_shap_direct_no_graph": [
+   "Tank T3",
+   "Tank T6",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 5,
+  "C_ppr_only_graph": [
+   "Tank T3",
+   "Tank T6",
+   "Tank T4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 9,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T3",
+   "Tank T6",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 6,
+  "shap_top_sensors": [
+   "L_T3",
+   "L_T6",
+   "L_T4",
+   "P_J280",
+   "L_T7"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T4",
+   "Pump PU7"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T4",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T4",
+   "P_J280",
+   "L_T6",
+   "P_J256"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T4",
+   "Pump PU7"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Tank T4"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 2,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Tank T4",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T4",
+   "P_J280",
+   "L_T6",
+   "P_J256"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Valve V2",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 6,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU1",
+   "F_PU2",
+   "S_PU2",
+   "P_J269"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Valve V2",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 6,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU1",
+   "F_PU2",
+   "S_PU2",
+   "P_J269"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU4",
+   "Tank T4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 6,
+  "B_shap_direct_no_graph": [
+   "Pump PU7",
+   "Tank T3",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU10",
+   "Pump PU7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU7",
+   "Tank T3",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "L_T3",
+   "L_T7",
+   "P_J280",
+   "P_J415",
+   "L_T4"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU4",
+   "Tank T4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 6,
+  "B_shap_direct_no_graph": [
+   "Pump PU7",
+   "Tank T3",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU10",
+   "Pump PU7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU7",
+   "Tank T3",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "L_T3",
+   "L_T7",
+   "P_J280",
+   "P_J415",
+   "L_T4"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 7,
+  "B_shap_direct_no_graph": [
+   "Valve V2",
+   "Tank T1",
+   "Pump PU6"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 8,
+  "C_ppr_only_graph": [
+   "Valve V2",
+   "Tank T1",
+   "Tank T7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 8,
+  "D_proposed_ppr_plus_shap": [
+   "Valve V2",
+   "Tank T1",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T7",
+   "L_T2",
+   "F_V2",
+   "F_PU6"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Pump PU2",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 7,
+  "B_shap_direct_no_graph": [
+   "Valve V2",
+   "Tank T1",
+   "Pump PU6"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 8,
+  "C_ppr_only_graph": [
+   "Valve V2",
+   "Tank T1",
+   "Tank T7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 8,
+  "D_proposed_ppr_plus_shap": [
+   "Valve V2",
+   "Tank T1",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "L_T1",
+   "L_T7",
+   "L_T2",
+   "F_V2",
+   "F_PU6"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Valve V2",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Valve V2",
+   "Pump PU7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Valve V2",
+   "Pump PU7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "P_J280",
+   "P_J415",
+   "S_PU2",
+   "F_PU2",
+   "L_T4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 3407,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Valve V2",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Valve V2",
+   "Pump PU7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Valve V2",
+   "Pump PU7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "P_J280",
+   "P_J415",
+   "S_PU2",
+   "F_PU2",
+   "L_T4"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Pump PU4",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 14,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Tank T7",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 11,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU5",
+   "Tank T7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 16,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 12,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU1",
+   "L_T7",
+   "P_J256",
+   "L_T6"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Pump PU4",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Tank T7",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 10,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU5",
+   "Tank T7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 16,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 11,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU1",
+   "L_T7",
+   "P_J256",
+   "L_T6"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T4",
+   "Valve V2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 11,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 16,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 16,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T4",
+   "P_J422",
+   "F_V2"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Tank T1",
+   "Tank T4",
+   "Valve V2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 11,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T1",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 16,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T1",
+   "Valve V2",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 16,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T1",
+   "L_T4",
+   "P_J422",
+   "F_V2"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "L_T1",
+   "F_PU2",
+   "S_PU2",
+   "L_T6"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "L_T1",
+   "F_PU2",
+   "S_PU2",
+   "L_T6"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU1",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU1",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU1",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU1",
+   "L_T1",
+   "S_PU2",
+   "F_PU2"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU1",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU1",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU1",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU1",
+   "L_T1",
+   "S_PU2",
+   "F_PU2"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 3,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T4",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 3,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU5",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T4",
+   "Valve V2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "P_J300",
+   "L_T4",
+   "P_J280",
+   "P_J289",
+   "L_T2"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 3,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T4",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 3,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU5",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T4",
+   "Valve V2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 4,
+  "shap_top_sensors": [
+   "P_J300",
+   "L_T4",
+   "P_J280",
+   "P_J289",
+   "L_T2"
+  ]
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU4",
+   "Tank T2",
+   "Pump PU7"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Tank T6",
+   "Pump PU2",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 8,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T6",
+   "Pump PU9"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 13,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T6",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 9,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T6",
+   "F_PU1",
+   "L_T3",
+   "P_J302"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Valve V2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Tank T5",
+   "Pump PU2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 12,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 14,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU1",
+   "Pump PU2",
+   "Tank T5"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 14,
+  "shap_top_sensors": [
+   "F_PU1",
+   "P_J280",
+   "P_J269",
+   "P_J306",
+   "L_T5"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 3407,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Valve V2",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 7,
+  "B_shap_direct_no_graph": [
+   "Pump PU7",
+   "Tank T2",
+   "Pump PU8"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 7,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU8",
+   "Valve V2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 10,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T2",
+   "Pump PU7",
+   "Pump PU8"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T2",
+   "F_PU1",
+   "P_J415",
+   "P_J422"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Valve V2",
+   "Pump PU7"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 7,
+  "C_ppr_only_graph": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 10,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "F_PU11",
+   "L_T3",
+   "S_PU11",
+   "L_T5",
+   "L_T4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 3
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 1,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Valve V2",
+   "Pump PU7"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 12,
+  "B_shap_direct_no_graph": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 7,
+  "C_ppr_only_graph": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 10,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU11",
+   "Tank T3",
+   "Pump PU10"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 8,
+  "shap_top_sensors": [
+   "F_PU11",
+   "L_T3",
+   "S_PU11",
+   "L_T5",
+   "L_T4"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU7",
+   "Pump PU10",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 9,
+  "B_shap_direct_no_graph": [
+   "Tank T3",
+   "Tank T5",
+   "Tank T6"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 8,
+  "C_ppr_only_graph": [
+   "Tank T3",
+   "Tank T5",
+   "Tank T6"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 13,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T3",
+   "Tank T5",
+   "Tank T6"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 12,
+  "shap_top_sensors": [
+   "L_T3",
+   "L_T5",
+   "L_T6",
+   "L_T4",
+   "P_J280"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 2,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 2,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 3,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Tank T4",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 3,
+  "C_ppr_only_graph": [
+   "Pump PU9",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU1",
+   "Tank T4",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "F_PU1",
+   "P_J302",
+   "L_T4",
+   "L_T1",
+   "P_J307"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 3,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU1",
+   "Pump PU2",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 3,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Tank T4",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 3,
+  "C_ppr_only_graph": [
+   "Pump PU9",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 7,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU1",
+   "Tank T4",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "F_PU1",
+   "P_J302",
+   "L_T4",
+   "L_T1",
+   "P_J307"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Pump PU8",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 3,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T2",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T2",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T2",
+   "L_T1",
+   "L_T4",
+   "F_PU2"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 2,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 4,
+  "target": "Tank T1",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Tank T1",
+   "Pump PU8",
+   "Valve V2"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T2",
+   "Tank T1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 3,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Tank T2",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 3,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T2",
+   "Tank T1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T2",
+   "L_T1",
+   "L_T4",
+   "F_PU2"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Tank T4",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 7,
+  "B_shap_direct_no_graph": [
+   "Tank T2",
+   "Pump PU1",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 11,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU10",
+   "Tank T2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 14,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T2",
+   "Pump PU10",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 13,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T2",
+   "F_PU1",
+   "L_T3",
+   "L_T7"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 2,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 5,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Tank T4",
+   "Pump PU4"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 7,
+  "B_shap_direct_no_graph": [
+   "Tank T2",
+   "Pump PU1",
+   "Pump PU10"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 11,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU10",
+   "Tank T2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 14,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T2",
+   "Pump PU10",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 13,
+  "shap_top_sensors": [
+   "P_J280",
+   "L_T2",
+   "F_PU1",
+   "L_T3",
+   "L_T7"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Tank T3",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 6,
+  "B_shap_direct_no_graph": [
+   "Pump PU6",
+   "Tank T1",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU6",
+   "Tank T1",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 5,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU6",
+   "Tank T1",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "F_PU6",
+   "L_T1",
+   "S_PU6",
+   "F_PU1",
+   "L_T4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 6,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU6",
+   "Tank T3",
+   "Tank T1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 6,
+  "B_shap_direct_no_graph": [
+   "Pump PU6",
+   "Tank T1",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU6",
+   "Tank T1",
+   "Pump PU2"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 5,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU6",
+   "Tank T1",
+   "Pump PU2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "F_PU6",
+   "L_T1",
+   "S_PU6",
+   "F_PU1",
+   "L_T4"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Valve V2",
+   "Tank T7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 6,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU2",
+   "S_PU2",
+   "L_T7",
+   "L_T4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 9999,
+  "dataset": "Dataset04",
+  "attack": 7,
+  "target": "Pump PU7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU11",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 4,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Valve V2",
+   "Tank T7"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 6,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 5,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU2",
+   "S_PU2",
+   "L_T7",
+   "L_T4"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Pump PU4",
+   "Pump PU8"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 4,
+  "B_shap_direct_no_graph": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 11,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU5",
+   "Pump PU1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 16,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Pump PU1",
+   "Tank T4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 13,
+  "shap_top_sensors": [
+   "P_J280",
+   "F_PU1",
+   "P_J256",
+   "L_T4",
+   "L_T1"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 8,
+  "target": "Tank T3",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Valve V2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 10,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Pump PU10",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 6,
+  "C_ppr_only_graph": [
+   "Pump PU5",
+   "Pump PU9",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 13,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU10",
+   "Pump PU1",
+   "Pump PU5"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 11,
+  "shap_top_sensors": [
+   "P_J300",
+   "F_PU1",
+   "P_J415",
+   "P_J256",
+   "P_J302"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Pump PU10",
+   "Tank T2",
+   "Pump PU4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 2,
+  "C_ppr_only_graph": [
+   "Pump PU10",
+   "Pump PU9",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 4,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU10",
+   "Tank T2",
+   "Pump PU4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 2,
+  "shap_top_sensors": [
+   "L_T2",
+   "L_T1",
+   "P_J280",
+   "P_J302",
+   "L_T7"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 9,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Pump PU10",
+   "Tank T2",
+   "Pump PU4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 2,
+  "C_ppr_only_graph": [
+   "Pump PU10",
+   "Pump PU9",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 4,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU10",
+   "Tank T2",
+   "Pump PU4"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 2,
+  "shap_top_sensors": [
+   "L_T2",
+   "L_T1",
+   "P_J280",
+   "P_J302",
+   "L_T7"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU2",
+   "S_PU2",
+   "S_PU3",
+   "L_T4"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 10,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Pump PU2",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Pump PU2",
+   "Pump PU8"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU2",
+   "S_PU2",
+   "S_PU3",
+   "L_T4"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Pump PU1",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU1"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU1",
+   "P_J14",
+   "S_V2",
+   "F_V2"
+  ],
+  "student_D_top1": true,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": true,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 11,
+  "target": "Pump PU3",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU3",
+   "Pump PU1",
+   "Tank T3"
+  ],
+  "A_raw_residual_top1": true,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 1,
+  "B_shap_direct_no_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU1"
+  ],
+  "B_shap_direct_no_graph_top1": true,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 1,
+  "C_ppr_only_graph": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU1"
+  ],
+  "C_ppr_only_graph_top1": true,
+  "C_ppr_only_graph_top3": true,
+  "C_ppr_only_graph_rank": 1,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU3",
+   "Valve V2",
+   "Pump PU1"
+  ],
+  "D_proposed_ppr_plus_shap_top1": true,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 1,
+  "shap_top_sensors": [
+   "F_PU3",
+   "F_PU1",
+   "P_J14",
+   "S_V2",
+   "F_V2"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Tank T7",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 3,
+  "C_ppr_only_graph": [
+   "Tank T7",
+   "Pump PU5",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 6,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T7",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "L_T7",
+   "L_T1",
+   "P_J300",
+   "L_T2",
+   "L_T4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": true,
+  "shap1_top5_overlap_between_runs": 5,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 12,
+  "target": "Tank T2",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU2",
+   "Tank T2",
+   "Pump PU1"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": true,
+  "A_raw_residual_rank": 2,
+  "B_shap_direct_no_graph": [
+   "Tank T7",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 3,
+  "C_ppr_only_graph": [
+   "Tank T7",
+   "Pump PU5",
+   "Tank T1"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 6,
+  "D_proposed_ppr_plus_shap": [
+   "Tank T7",
+   "Tank T1",
+   "Tank T2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "L_T7",
+   "L_T1",
+   "P_J300",
+   "L_T2",
+   "L_T4"
+  ]
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Pump PU4",
+   "Pump PU2",
+   "Pump PU7"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 13,
+  "B_shap_direct_no_graph": [
+   "Tank T6",
+   "Tank T7",
+   "Tank T4"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": true,
+  "B_shap_direct_no_graph_rank": 2,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Pump PU9",
+   "Pump PU10"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 5,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU2",
+   "Tank T6",
+   "Tank T7"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": true,
+  "D_proposed_ppr_plus_shap_rank": 3,
+  "shap_top_sensors": [
+   "P_J280",
+   "P_J415",
+   "L_T6",
+   "L_T7",
+   "L_T4"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": true,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 4,
+  "shap_conv_vs_1perm_top5_overlap": 5
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 13,
+  "target": "Tank T7",
+  "attack_type": "Actuator Manipulation",
+  "timing": "detector",
+  "detected": false
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "oracle",
+  "detected": true,
+  "n_candidates": 22,
+  "A_raw_residual": [
+   "Valve V2",
+   "Pump PU2",
+   "Pump PU10"
+  ],
+  "A_raw_residual_top1": false,
+  "A_raw_residual_top3": false,
+  "A_raw_residual_rank": 9,
+  "B_shap_direct_no_graph": [
+   "Pump PU1",
+   "Tank T2",
+   "Tank T7"
+  ],
+  "B_shap_direct_no_graph_top1": false,
+  "B_shap_direct_no_graph_top3": false,
+  "B_shap_direct_no_graph_rank": 10,
+  "C_ppr_only_graph": [
+   "Pump PU2",
+   "Valve V2",
+   "Pump PU8"
+  ],
+  "C_ppr_only_graph_top1": false,
+  "C_ppr_only_graph_top3": false,
+  "C_ppr_only_graph_rank": 13,
+  "D_proposed_ppr_plus_shap": [
+   "Pump PU1",
+   "Pump PU2",
+   "Tank T2"
+  ],
+  "D_proposed_ppr_plus_shap_top1": false,
+  "D_proposed_ppr_plus_shap_top3": false,
+  "D_proposed_ppr_plus_shap_rank": 12,
+  "shap_top_sensors": [
+   "F_PU1",
+   "L_T2",
+   "L_T7",
+   "L_T5",
+   "P_J280"
+  ],
+  "student_D_top1": false,
+  "student_D_top3": false,
+  "student_A_top1_incl_junctions": false,
+  "student_B_top1_incl_junctions": false,
+  "shap1_top5_overlap_between_runs": 3,
+  "shap_conv_vs_1perm_top5_overlap": 4
+ },
+ {
+  "seed": 9999,
+  "dataset": "Test Dataset",
+  "attack": 14,
+  "target": "Tank T4",
+  "attack_type": "Sensor Spoofing/Concealment",
+  "timing": "detector",
+  "detected": false
+ }
+]
