@@ -1,0 +1,636 @@
+{
+  "simulation": {
+    "engine": "WNTR EpanetSimulator",
+    "demand_model": "PDA",
+    "minimum_pressure_m": 0.0,
+    "required_pressure_m": 20.0,
+    "detection_policy": "Median observed detection delay among C-Town 5-seed runs; state is snapshotted at that exact timestamp before response simulation.",
+    "unit_definitions": {
+      "unmet_demand_volume_m3": "m^3",
+      "pressure_violation_junction_hours": "junction-hours",
+      "pressure_head_deficit_mh": "m*h"
+    }
+  },
+  "baseline_definitions": {
+    "baseline_0_no_action": "Continue observed incident status replay after detection.",
+    "baseline_1_naive_isolation": "Close the highest-ranked SHAP controllable component; fall back to the incident anchor link if the top sensor has no isolatable link.",
+    "baseline_2_random_feasible": "One seeded random action from the optimizer's feasible candidate set."
+  },
+  "summary": {
+    "attack_count": 14,
+    "evaluated_attack_count": 12,
+    "not_detected_attack_count": 2,
+    "mean_optimizer_unmet_demand_reduction_pct": -0.0014513806968748033,
+    "mean_optimizer_pressure_violation_hours_reduction_pct": 0.1025012199039746
+  },
+  "table_r6": [
+    {
+      "attack_id": 1,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Tank T7",
+      "status": "EVALUATED",
+      "detection_seed": 2024,
+      "detection_delay_hours": 0.0,
+      "detection_timestamp": "2016-09-13T23:00:00",
+      "simulation_horizon_after_detection_hours": 49,
+      "actuator_sensors_replayed": [],
+      "shap_top5_sensors": [
+        "F_PU11",
+        "S_PU11",
+        "L_T6",
+        "L_T4",
+        "F_PU10"
+      ],
+      "naive_isolation_sensor": "F_PU11",
+      "naive_isolated_link": "PU11",
+      "random_action_id": "restore_PU10",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "open_route_V2",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 2470.865159046972,
+        "pressure_violation_junction_hours": 300.0,
+        "pressure_head_deficit_mh": 3811.7847095131874
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 2470.865159046972,
+        "pressure_violation_junction_hours": 300.0,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 2470.8651588497028,
+        "pressure_violation_junction_hours": 300.0,
+        "unmet_demand_reduction_pct_vs_no_action": 7.983818950712638e-09,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 2470.865159046972,
+        "pressure_violation_junction_hours": 300.0,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      }
+    },
+    {
+      "attack_id": 2,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Tank T7",
+      "status": "NOT_DETECTED",
+      "detection_timestamp": null,
+      "baseline_0_no_action": null,
+      "baseline_1_naive_isolation": null,
+      "baseline_2_random_feasible": null,
+      "optimizer_best": null
+    },
+    {
+      "attack_id": 3,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T1",
+      "status": "EVALUATED",
+      "detection_seed": 9999,
+      "detection_delay_hours": 4.0,
+      "detection_timestamp": "2016-10-09T13:00:00",
+      "simulation_horizon_after_detection_hours": 55,
+      "actuator_sensors_replayed": [],
+      "shap_top5_sensors": [
+        "L_T3",
+        "L_T4",
+        "L_T1",
+        "L_T7",
+        "L_T6"
+      ],
+      "naive_isolation_sensor": "L_T3",
+      "naive_isolated_link": "PU5",
+      "random_action_id": "boost_adjacent_pumps",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "restore_PU8",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 4649.173264503049,
+        "pressure_violation_junction_hours": 375.25,
+        "pressure_head_deficit_mh": 4324.8712639808655
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 4649.173264503049,
+        "pressure_violation_junction_hours": 375.25,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 4649.023102386522,
+        "pressure_violation_junction_hours": 375.0,
+        "unmet_demand_reduction_pct_vs_no_action": 0.00322986707494004,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.06662225183211193
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 4649.173264503049,
+        "pressure_violation_junction_hours": 375.25,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      }
+    },
+    {
+      "attack_id": 4,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T1",
+      "status": "EVALUATED",
+      "detection_seed": 2024,
+      "detection_delay_hours": 19.0,
+      "detection_timestamp": "2016-10-30T14:00:00",
+      "simulation_horizon_after_detection_hours": 74,
+      "actuator_sensors_replayed": [],
+      "shap_top5_sensors": [
+        "P_J280",
+        "L_T4",
+        "F_V2",
+        "L_T7",
+        "L_T6"
+      ],
+      "naive_isolation_sensor": "P_J280",
+      "naive_isolated_link": "PU2",
+      "random_action_id": "switch_PU1_to_PU8",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "restore_PU1",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 7208.884430974989,
+        "pressure_violation_junction_hours": 454.25,
+        "pressure_head_deficit_mh": 5758.809367656708
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 7208.2266579769175,
+        "pressure_violation_junction_hours": 451.0,
+        "unmet_demand_reduction_pct_vs_no_action": 0.009124476947438247,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.7154650522839846
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 7208.8837611794415,
+        "pressure_violation_junction_hours": 454.25,
+        "unmet_demand_reduction_pct_vs_no_action": 9.29125101363593e-06,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 7208.884430974989,
+        "pressure_violation_junction_hours": 454.25,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      }
+    },
+    {
+      "attack_id": 5,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU7",
+      "status": "EVALUATED",
+      "detection_seed": 2024,
+      "detection_delay_hours": 6.0,
+      "detection_timestamp": "2016-11-26T23:00:00",
+      "simulation_horizon_after_detection_hours": 53,
+      "actuator_sensors_replayed": [],
+      "shap_top5_sensors": [
+        "L_T7",
+        "L_T4",
+        "L_T1",
+        "L_T2",
+        "F_PU8"
+      ],
+      "naive_isolation_sensor": "L_T7",
+      "naive_isolated_link": "PU10",
+      "random_action_id": "switch_PU7_to_PU6",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "restore_PU7",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 3075.035764006704,
+        "pressure_violation_junction_hours": 305.5,
+        "pressure_head_deficit_mh": 4104.480838954449
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 3075.2512735495993,
+        "pressure_violation_junction_hours": 307.0,
+        "unmet_demand_reduction_pct_vs_no_action": -0.007008358908139312,
+        "pressure_violation_hours_reduction_pct_vs_no_action": -0.4909983633387889
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 3074.9927327829464,
+        "pressure_violation_junction_hours": 307.75,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0013993731149848886,
+        "pressure_violation_hours_reduction_pct_vs_no_action": -0.7364975450081833
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 3075.035764006704,
+        "pressure_violation_junction_hours": 305.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      }
+    },
+    {
+      "attack_id": 6,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU7",
+      "status": "EVALUATED",
+      "detection_seed": 2024,
+      "detection_delay_hours": 11.0,
+      "detection_timestamp": "2016-12-06T18:00:00",
+      "simulation_horizon_after_detection_hours": 82,
+      "actuator_sensors_replayed": [],
+      "shap_top5_sensors": [
+        "F_PU2",
+        "S_PU2",
+        "P_J269",
+        "P_J280",
+        "F_PU6"
+      ],
+      "naive_isolation_sensor": "F_PU2",
+      "naive_isolated_link": "PU2",
+      "random_action_id": "switch_PU7_to_PU6",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "restore_PU7",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 8118.721419908243,
+        "pressure_violation_junction_hours": 509.25,
+        "pressure_head_deficit_mh": 6350.9829912781715
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 8119.486780675019,
+        "pressure_violation_junction_hours": 521.75,
+        "unmet_demand_reduction_pct_vs_no_action": -0.009427109604961193,
+        "pressure_violation_hours_reduction_pct_vs_no_action": -2.454590083456063
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 8118.711210344732,
+        "pressure_violation_junction_hours": 512.75,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0001257533419743923,
+        "pressure_violation_hours_reduction_pct_vs_no_action": -0.6872852233676976
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 8118.721419908243,
+        "pressure_violation_junction_hours": 509.25,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      }
+    },
+    {
+      "attack_id": 7,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU7",
+      "status": "EVALUATED",
+      "detection_seed": 3407,
+      "detection_delay_hours": 0.0,
+      "detection_timestamp": "2016-12-14T15:00:00",
+      "simulation_horizon_after_detection_hours": 109,
+      "actuator_sensors_replayed": [],
+      "shap_top5_sensors": [
+        "L_T6",
+        "F_PU1",
+        "P_J415",
+        "S_PU2",
+        "L_T3"
+      ],
+      "naive_isolation_sensor": "L_T6",
+      "naive_isolated_link": "PU10",
+      "random_action_id": "open_route_V2",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "open_route_V2",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 10507.327783780178,
+        "pressure_violation_junction_hours": 637.75,
+        "pressure_head_deficit_mh": 8430.563167452812
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 10507.327783780178,
+        "pressure_violation_junction_hours": 637.75,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 10507.327783780178,
+        "pressure_violation_junction_hours": 637.75,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 10507.327783780178,
+        "pressure_violation_junction_hours": 637.75,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      }
+    },
+    {
+      "attack_id": 8,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T3",
+      "status": "EVALUATED",
+      "detection_seed": 2024,
+      "detection_delay_hours": 21.0,
+      "detection_timestamp": "2017-01-17T06:00:00",
+      "simulation_horizon_after_detection_hours": 48,
+      "actuator_sensors_replayed": [],
+      "shap_top5_sensors": [
+        "P_J302",
+        "L_T7",
+        "S_PU7",
+        "F_PU7",
+        "P_J300"
+      ],
+      "naive_isolation_sensor": "P_J302",
+      "naive_isolated_link": "PU9",
+      "random_action_id": "restore_PU4",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "switch_PU4_to_PU5",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 4222.926300914032,
+        "pressure_violation_junction_hours": 301.5,
+        "pressure_head_deficit_mh": 3747.468374311924
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 4222.926300914032,
+        "pressure_violation_junction_hours": 301.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 4222.904872585824,
+        "pressure_violation_junction_hours": 298.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0005074284200465423,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.9950248756218906
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 4222.926300914032,
+        "pressure_violation_junction_hours": 301.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      }
+    },
+    {
+      "attack_id": 9,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T2",
+      "status": "EVALUATED",
+      "detection_seed": 2024,
+      "detection_delay_hours": 1.0,
+      "detection_timestamp": "2017-01-30T09:00:00",
+      "simulation_horizon_after_detection_hours": 63,
+      "actuator_sensors_replayed": [],
+      "shap_top5_sensors": [
+        "L_T3",
+        "L_T1",
+        "L_T5",
+        "L_T6",
+        "P_J415"
+      ],
+      "naive_isolation_sensor": "L_T3",
+      "naive_isolated_link": "PU5",
+      "random_action_id": "restore_V2",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "restore_V2",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 4608.8262719511,
+        "pressure_violation_junction_hours": 410.5,
+        "pressure_head_deficit_mh": 4926.50423002243
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 4608.8262719511,
+        "pressure_violation_junction_hours": 410.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 4608.8262719511,
+        "pressure_violation_junction_hours": 410.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 4608.8262719511,
+        "pressure_violation_junction_hours": 410.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      }
+    },
+    {
+      "attack_id": 10,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU3",
+      "status": "EVALUATED",
+      "detection_seed": 2024,
+      "detection_delay_hours": 0.0,
+      "detection_timestamp": "2017-02-09T03:00:00",
+      "simulation_horizon_after_detection_hours": 30,
+      "actuator_sensors_replayed": [
+        "S_PU3"
+      ],
+      "shap_top5_sensors": [
+        "F_PU3",
+        "F_PU2",
+        "S_PU2",
+        "S_PU3",
+        "L_T5"
+      ],
+      "naive_isolation_sensor": "F_PU3",
+      "naive_isolated_link": "PU3",
+      "random_action_id": "switch_PU3_to_PU8",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "switch_PU3_to_PU1",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 1924.0840047612378,
+        "pressure_violation_junction_hours": 158.0,
+        "pressure_head_deficit_mh": 2289.045591711998
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 1924.146468888055,
+        "pressure_violation_junction_hours": 156.5,
+        "unmet_demand_reduction_pct_vs_no_action": -0.003246434493646491,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.9493670886075949
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 1924.146468848765,
+        "pressure_violation_junction_hours": 156.5,
+        "unmet_demand_reduction_pct_vs_no_action": -0.0032464324516269633,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.9493670886075949
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 1924.1464688356682,
+        "pressure_violation_junction_hours": 156.5,
+        "unmet_demand_reduction_pct_vs_no_action": -0.003246431770953787,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.9493670886075949
+      }
+    },
+    {
+      "attack_id": 11,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU3",
+      "status": "EVALUATED",
+      "detection_seed": 2024,
+      "detection_delay_hours": 0.0,
+      "detection_timestamp": "2017-02-12T01:00:00",
+      "simulation_horizon_after_detection_hours": 30,
+      "actuator_sensors_replayed": [
+        "S_PU3"
+      ],
+      "shap_top5_sensors": [
+        "F_PU3",
+        "F_PU1",
+        "S_PU2",
+        "F_PU2",
+        "P_J269"
+      ],
+      "naive_isolation_sensor": "F_PU3",
+      "naive_isolated_link": "PU3",
+      "random_action_id": "switch_PU3_to_PU2",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "switch_PU3_to_PU1",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 1888.5144035720546,
+        "pressure_violation_junction_hours": 155.75,
+        "pressure_head_deficit_mh": 2316.0473724603653
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 1888.7887304819574,
+        "pressure_violation_junction_hours": 154.5,
+        "unmet_demand_reduction_pct_vs_no_action": -0.014526069241724185,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.8025682182985554
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 1888.7887304819574,
+        "pressure_violation_junction_hours": 154.5,
+        "unmet_demand_reduction_pct_vs_no_action": -0.014526069241724185,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.8025682182985554
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 1888.7887304541268,
+        "pressure_violation_junction_hours": 154.5,
+        "unmet_demand_reduction_pct_vs_no_action": -0.014526067768050602,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.8025682182985554
+      }
+    },
+    {
+      "attack_id": 12,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T2",
+      "status": "EVALUATED",
+      "detection_seed": 3407,
+      "detection_delay_hours": 32.0,
+      "detection_timestamp": "2017-02-25T13:00:00",
+      "simulation_horizon_after_detection_hours": 67,
+      "actuator_sensors_replayed": [],
+      "shap_top5_sensors": [
+        "L_T2",
+        "P_J280",
+        "L_T7",
+        "L_T6",
+        "L_T3"
+      ],
+      "naive_isolation_sensor": "L_T2",
+      "naive_isolated_link": "V2",
+      "random_action_id": "restore_V2",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "restore_V2",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 5922.087063657607,
+        "pressure_violation_junction_hours": 479.0,
+        "pressure_head_deficit_mh": 5272.970669031143
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 5922.087063657607,
+        "pressure_violation_junction_hours": 479.0,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 5922.065985103448,
+        "pressure_violation_junction_hours": 481.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0003559311765067488,
+        "pressure_violation_hours_reduction_pct_vs_no_action": -0.5219206680584552
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 5922.065985103448,
+        "pressure_violation_junction_hours": 481.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0003559311765067488,
+        "pressure_violation_hours_reduction_pct_vs_no_action": -0.5219206680584552
+      }
+    },
+    {
+      "attack_id": 13,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target": "Tank T7",
+      "status": "EVALUATED",
+      "detection_seed": 42,
+      "detection_delay_hours": 26.0,
+      "detection_timestamp": "2017-03-11T16:00:00",
+      "simulation_horizon_after_detection_hours": 53,
+      "actuator_sensors_replayed": [
+        "L_T7",
+        "S_PU10",
+        "S_PU11"
+      ],
+      "shap_top5_sensors": [
+        "L_T6",
+        "L_T7",
+        "P_J307",
+        "P_J415",
+        "L_T4"
+      ],
+      "naive_isolation_sensor": "L_T6",
+      "naive_isolated_link": "PU10",
+      "random_action_id": "restore_PU10",
+      "random_feasible_action_status": "SELECTED",
+      "optimizer_status": "OPTIMIZED",
+      "optimizer_best_action_id": "restore_PU10",
+      "baseline_0_no_action": {
+        "unmet_demand_volume_m3": 5211.582488484269,
+        "pressure_violation_junction_hours": 515.5,
+        "pressure_head_deficit_mh": 13032.347566408105
+      },
+      "baseline_1_naive_isolation": {
+        "unmet_demand_volume_m3": 5276.087782416076,
+        "pressure_violation_junction_hours": 558.0,
+        "unmet_demand_reduction_pct_vs_no_action": -1.2377295010554108,
+        "pressure_violation_hours_reduction_pct_vs_no_action": -8.244422890397672
+      },
+      "baseline_2_random_feasible": {
+        "unmet_demand_volume_m3": 5211.582488484269,
+        "pressure_violation_junction_hours": 515.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      },
+      "optimizer_best": {
+        "unmet_demand_volume_m3": 5211.582488484269,
+        "pressure_violation_junction_hours": 515.5,
+        "unmet_demand_reduction_pct_vs_no_action": 0.0,
+        "pressure_violation_hours_reduction_pct_vs_no_action": 0.0
+      }
+    },
+    {
+      "attack_id": 14,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T4",
+      "status": "NOT_DETECTED",
+      "detection_timestamp": null,
+      "baseline_0_no_action": null,
+      "baseline_1_naive_isolation": null,
+      "baseline_2_random_feasible": null,
+      "optimizer_best": null
+    }
+  ]
+}

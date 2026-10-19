@@ -1,0 +1,5 @@
+timing,method,top1,top3,concealment_top1,concealment_top3
+oracle,B_shap_direct_no_graph,17.1 ± 6.4,28.6 ± 5.1,3.3,13.3
+oracle,E_hydraulic_signature,21.4 ± 5.1,41.4 ± 6.0,16.7,36.7
+detector,B_shap_direct_no_graph,15.7 ± 3.2,21.4 ± 5.1,3.3,10.0
+detector,E_hydraulic_signature,17.1 ± 3.9,32.9 ± 6.4,6.7,30.0

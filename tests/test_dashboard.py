@@ -116,7 +116,10 @@ def test_dashboard_uses_latest_training_metrics_and_formats_unavailable_auc():
     assert _format_validation_metric(expected["precision"]) == f"{expected['precision']:.4f}"
     assert _format_validation_metric(expected["roc_auc"]) == "N/A"
     assert _format_validation_metric(expected["pr_auc"]) == "N/A"
-    assert _calculate_validation_accuracy(expected) == pytest.approx(122 / 219)
+    confusion = expected["confusion_matrix"]
+    total = sum(confusion.values())
+    expected_accuracy = (confusion["TN"] + confusion["TP"]) / total if total else None
+    assert _calculate_validation_accuracy(expected) == pytest.approx(expected_accuracy)
 
 
 class TestDashboardDataIntegrity:

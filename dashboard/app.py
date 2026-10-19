@@ -239,7 +239,7 @@ def main():
     ].sort_values(by="cpis_score", ascending=False)
 
     # Tabs Layout
-    tab_overview, tab_timeline, tab_episodes, tab_attribution, tab_topology, tab_val, tab_demo = st.tabs(
+    tab_overview, tab_timeline, tab_episodes, tab_attribution, tab_topology, tab_val, tab_case, tab_demo = st.tabs(
         [
             "Executive Overview",
             "Anomaly Timeline",
@@ -247,6 +247,7 @@ def main():
             "Sensor Attribution & PU3 Warning",
             "Topology & Region Mapping",
             "Ground-Truth Validation",
+            "Stage 2 Case Study",
             "Live Demonstration / What-If Simulation",
         ]
     )
@@ -695,7 +696,112 @@ def main():
         else:
             st.info("Localization results are not available. Run `python -m src.root_cause.evaluate_localization` to generate them.")
 
-    # TAB 7: LIVE DEMONSTRATION / WHAT-IF SIMULATION
+    # TAB 7: STAGE 2 SYNTHETIC CASE STUDY
+    with tab_case:
+        st.subheader("Synthetic Incident Walkthrough")
+        pipeline_report_path = ROOT_DIR / "results" / "synthetic_attacks" / "synthetic_attack_pipeline_report.json"
+        master_path = ROOT_DIR / "results" / "synthetic_attack_ground_truth.csv"
+        if not pipeline_report_path.is_file() or not master_path.is_file():
+            st.info("Stage 2 synthetic attack outputs are not available. Run `scripts/generate_synthetic_attacks.py` to create them.")
+        else:
+            pipeline_report = json.loads(pipeline_report_path.read_text(encoding="utf-8"))
+            synthetic_scenarios = pipeline_report.get("scenarios", [])
+            master_attacks = pd.read_csv(master_path)
+            if not synthetic_scenarios:
+                st.info("The Stage 2 pipeline report contains no scenarios.")
+            else:
+                recommended_id = pipeline_report.get("recommended_case_study")
+                scenarios_by_id = {scenario["scenario_id"]: scenario for scenario in synthetic_scenarios}
+                scenario_ids = list(scenarios_by_id)
+                default_index = scenario_ids.index(recommended_id) if recommended_id in scenarios_by_id else 0
+                selected_scenario_id = st.selectbox(
+                    "Synthetic incident",
+                    options=scenario_ids,
+                    index=default_index,
+                    format_func=lambda scenario_id: (
+                        f"{scenario_id} · {scenarios_by_id[scenario_id]['attack_type']} · "
+                        f"{scenarios_by_id[scenario_id]['target']}"
+                    ),
+                )
+                selected_case = scenarios_by_id[selected_scenario_id]
+                scenario_id = selected_case["scenario_id"]
+                attack_details = master_attacks[master_attacks["scenario_id"] == scenario_id]
+                attack_details = attack_details.iloc[0].to_dict() if not attack_details.empty else {}
+
+                st.markdown("### Alert Raised")
+                detection = selected_case["detection"]
+                alert_cols = st.columns(4)
+                alert_cols[0].metric("Mean F1", f"{detection['mean_f1']:.3f}")
+                alert_cols[1].metric("Mean precision", f"{detection['mean_precision']:.3f}")
+                alert_cols[2].metric("Mean recall", f"{detection['mean_recall']:.3f}")
+                alert_cols[3].metric("Attack duration", f"{selected_case['duration_hours']} h")
+                st.caption(
+                    f"{selected_case['attack_type']} · {selected_case['start_time']} · "
+                    f"{attack_details.get('mode', 'scenario mode unavailable')}"
+                )
+
+                scenario_csv = ROOT_DIR / "results" / "synthetic_attacks" / "scenarios" / f"{scenario_id}.csv"
+                if scenario_csv.is_file():
+                    scenario_frame = pd.read_csv(scenario_csv)
+                    scenario_frame["DATETIME"] = pd.to_datetime(scenario_frame["DATETIME"], dayfirst=True)
+                    affected_sensors = [
+                        sensor for sensor in str(attack_details.get("affected_sensors", "")).split(";")
+                        if sensor in scenario_frame.columns
+                    ]
+                    if affected_sensors:
+                        selected_sensor = st.selectbox("Signal to inspect", affected_sensors, key="stage2_case_sensor")
+                        st.line_chart(scenario_frame, x="DATETIME", y=selected_sensor, height=250)
+
+                st.markdown("### Asset Inferred")
+                localization = selected_case["sensitivity_localization"]
+                local_cols = st.columns(3)
+                local_cols[0].metric("Top-1 asset", localization["top3_assets"][0])
+                local_cols[1].metric("Target", selected_case["target"])
+                local_cols[2].metric("Top-1 hit", "Yes" if localization["top1"] else "No")
+                st.write("**Method E top-three:** " + " → ".join(localization["top3_assets"]))
+                masked = localization.get("masked_sensors", [])
+                if masked:
+                    st.caption("Concealment masking applied to: " + ", ".join(masked))
+
+                st.markdown("### Hydraulic Impact Assessed")
+                cpis = selected_case["cpis"]
+                incident = cpis["incident"]
+                impact_cols = st.columns(4)
+                impact_cols[0].metric("Physical CPIS", f"{cpis['cpis_score']:.3f} · {cpis['cpis_severity']}")
+                impact_cols[1].metric("Excess unmet demand", f"{cpis['excess_unmet_demand_volume_m3']:.2f} m³")
+                impact_cols[2].metric("Mean head deficit", f"{incident['mean_pressure_head_deficit_m']:.2f} m")
+                impact_cols[3].metric("Storage loss", f"{cpis['excess_tank_storage_loss_m3']:.2f} m³")
+                factor_frame = pd.DataFrame(
+                    [{"Impact factor": name.replace("_", " ").title(), "Value": value}
+                     for name, value in cpis["impact_factors"].items()]
+                )
+                st.dataframe(factor_frame, use_container_width=True, hide_index=True)
+
+                st.markdown("### Recovery Action Deployed")
+                recovery = selected_case["recovery"]
+                if recovery.get("status") == "NOT_DETECTED":
+                    st.warning("No seed detected this scenario; a detection-triggered response is not claimed.")
+                elif recovery.get("ranked_actions"):
+                    st.caption(
+                        f"Detection timestamp: {recovery['detection_timestamp']} · "
+                        f"Optimizer status: {recovery['status']} · Anchor: {recovery['anchor_link']}"
+                    )
+                    ranked = pd.DataFrame(recovery["ranked_actions"])
+                    st.dataframe(ranked, use_container_width=True, hide_index=True)
+                    base0 = recovery.get("baseline_0_no_action", {})
+                    best = recovery.get("optimizer_best", {})
+                    summary_cols = st.columns(3)
+                    summary_cols[0].metric("No-action unmet demand", f"{base0.get('unmet_demand_volume_m3', 0):.2f} m³")
+                    summary_cols[1].metric("Best action", best.get("action_id", "Unavailable"))
+                    summary_cols[2].metric(
+                        "Unmet-demand reduction",
+                        f"{best['unmet_demand_reduction_pct']:.2f}%"
+                        if best.get("unmet_demand_reduction_pct") is not None else "N/A",
+                    )
+                else:
+                    st.info("No recovery ranking is available for this scenario.")
+
+    # TAB 8: LIVE DEMONSTRATION / WHAT-IF SIMULATION
     with tab_demo:
         st.subheader("Presentation Demo Mode: Multi-Component Anomaly Simulation & Explainable Incident Workflow")
 
@@ -945,15 +1051,6 @@ def main():
                             demo_pipe["dma_zones"],
                         )
 
-                        # Topology & Operational Rerouting Analysis
-                        topo_res = analyze_topology_and_impact(
-                            demo_pipe["g"],
-                            demo_pipe["net"],
-                            target_col,
-                            demo_pipe["sensor_nodes_map"],
-                            component_map,
-                            demo_pipe["dma_zones"],
-                        )
                         root_cause_assessment = _get_root_cause_assessor()(
                             xai_res,
                             score_dist,
@@ -962,6 +1059,26 @@ def main():
                             sensor_nodes=demo_pipe["sensor_nodes_map"],
                             dma_zones=demo_pipe["dma_zones"],
                         )
+                        candidate_component = root_cause_assessment["candidate_component"]
+                        candidate_sensor = root_cause_assessment["candidate_sensor"]
+                        for sensor in sensor_cols:
+                            mapped_component = resolve_sensor_component(sensor, component_map)
+                            if (
+                                f"{mapped_component['component_type']} {mapped_component['component_id']}"
+                                == candidate_component
+                            ):
+                                candidate_sensor = sensor
+                                break
+
+                        # Topology & Operational Rerouting Analysis
+                        topo_res = analyze_topology_and_impact(
+                            demo_pipe["g"],
+                            demo_pipe["net"],
+                            candidate_sensor,
+                            demo_pipe["sensor_nodes_map"],
+                            component_map,
+                            demo_pipe["dma_zones"],
+                        )
                         if topo_res["is_edge"]:
                             critical_nodes = [
                                 node for node in topo_res["affected_topology_nodes"]
@@ -969,7 +1086,7 @@ def main():
                             ]
                             recovery_result = optimize_component_outage(
                                 demo_pipe["net"].wn,
-                                topo_res["comp_id"],
+                                root_cause_assessment["candidate_component_id"],
                                 dma_zones=demo_pipe["dma_zones"],
                                 affected_nodes=topo_res["affected_topology_nodes"],
                                 critical_nodes=critical_nodes,

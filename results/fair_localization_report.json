@@ -29,7 +29,9 @@
             "mean": 58.57142857142857,
             "std": 11.736911946539278
           },
+          "top1_actuator": 25.0,
           "top3_actuator": 30.0,
+          "top1_spoof": 6.666666666666667,
           "top3_spoof": 33.33333333333333
         },
         "B_shap_direct_no_graph": {
@@ -49,7 +51,9 @@
             "mean": 42.857142857142854,
             "std": 7.142857142857142
           },
+          "top1_actuator": 27.500000000000004,
           "top3_actuator": 40.0,
+          "top1_spoof": 3.3333333333333335,
           "top3_spoof": 13.333333333333334
         },
         "C_ppr_only_graph": {
@@ -69,7 +73,9 @@
             "mean": 47.14285714285714,
             "std": 9.583148474999097
           },
+          "top1_actuator": 27.500000000000004,
           "top3_actuator": 40.0,
+          "top1_spoof": 3.3333333333333335,
           "top3_spoof": 13.333333333333334
         },
         "D_proposed_ppr_plus_shap": {
@@ -89,8 +95,32 @@
             "mean": 44.285714285714285,
             "std": 5.976143046671968
           },
+          "top1_actuator": 27.500000000000004,
           "top3_actuator": 40.0,
+          "top1_spoof": 3.3333333333333335,
           "top3_spoof": 13.333333333333334
+        },
+        "E_hydraulic_signature": {
+          "top1": {
+            "mean": 21.428571428571427,
+            "std": 5.050762722761053
+          },
+          "top3": {
+            "mean": 41.42857142857143,
+            "std": 5.976143046671968
+          },
+          "lenient_top1": {
+            "mean": 28.571428571428573,
+            "std": 5.050762722761055
+          },
+          "lenient_top3": {
+            "mean": 57.14285714285713,
+            "std": 5.050762722761055
+          },
+          "top1_actuator": 25.0,
+          "top3_actuator": 45.0,
+          "top1_spoof": 16.666666666666664,
+          "top3_spoof": 36.666666666666664
         }
       },
       "D_vs_B_top3": {
@@ -120,7 +150,9 @@
             "mean": 47.142857142857146,
             "std": 10.832679205787928
           },
+          "top1_actuator": 25.0,
           "top3_actuator": 30.0,
+          "top1_spoof": 6.666666666666667,
           "top3_spoof": 30.0
         },
         "B_shap_direct_no_graph": {
@@ -140,7 +172,9 @@
             "mean": 34.285714285714285,
             "std": 5.976143046671968
           },
+          "top1_actuator": 25.0,
           "top3_actuator": 30.0,
+          "top1_spoof": 3.3333333333333335,
           "top3_spoof": 10.0
         },
         "C_ppr_only_graph": {
@@ -160,7 +194,9 @@
             "mean": 35.714285714285715,
             "std": 5.050762722761053
           },
+          "top1_actuator": 25.0,
           "top3_actuator": 30.0,
+          "top1_spoof": 3.3333333333333335,
           "top3_spoof": 10.0
         },
         "D_proposed_ppr_plus_shap": {
@@ -180,8 +216,32 @@
             "mean": 35.714285714285715,
             "std": 5.050762722761053
           },
+          "top1_actuator": 25.0,
           "top3_actuator": 30.0,
+          "top1_spoof": 3.3333333333333335,
           "top3_spoof": 10.0
+        },
+        "E_hydraulic_signature": {
+          "top1": {
+            "mean": 17.14285714285714,
+            "std": 3.912303982179758
+          },
+          "top3": {
+            "mean": 32.857142857142854,
+            "std": 6.388765649999399
+          },
+          "lenient_top1": {
+            "mean": 24.285714285714285,
+            "std": 3.9123039821797576
+          },
+          "lenient_top3": {
+            "mean": 45.714285714285715,
+            "std": 3.9123039821797594
+          },
+          "top1_actuator": 25.0,
+          "top3_actuator": 35.0,
+          "top1_spoof": 6.666666666666667,
+          "top3_spoof": 30.0
         }
       },
       "D_vs_B_top3": {
@@ -198,5 +258,11 @@
     "lenient_top3": 27.12430426716141
   },
   "harmonised_precision": true,
-  "shap_permutations": 50
+  "shap_permutations": 50,
+  "hydraulic_signature_file": "results\\sensitivity_signatures.npz",
+  "hydraulic_signature_shape": [
+    22,
+    43
+  ],
+  "method_e_evidence": "absolute permutation-SHAP mass; target asset sensor channels masked for spoof/concealment"
 }

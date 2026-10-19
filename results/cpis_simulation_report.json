@@ -1,0 +1,1508 @@
+{
+  "simulation": {
+    "engine": "WNTR EpanetSimulator",
+    "demand_model": "PDA",
+    "minimum_pressure_m": 0.0,
+    "required_pressure_m": 20.0,
+    "hydraulic_timestep_minutes": 15,
+    "attack_count": 14,
+    "actuator_replay_policy": "Observed S_* status changes replayed only for Actuator Manipulation intervals; sensor-only attacks leave plant controls unchanged."
+  },
+  "units": {
+    "unmet_demand_volume_m3": "m^3",
+    "required_demand_volume_m3": "m^3",
+    "delivered_demand_volume_m3": "m^3",
+    "tank_net_volume_loss_m3": "m^3",
+    "pressure_violation_junction_hours": "junction-hours",
+    "pressure_head_deficit_mh": "m*h",
+    "mean_pressure_head_deficit_m": "m",
+    "impact_factors": "dimensionless ratios in [0, 1]"
+  },
+  "default_weights": {
+    "pressure_impact": 0.3,
+    "flow_impact": 0.3,
+    "service_disruption": 0.25,
+    "infrastructure_criticality": 0.15
+  },
+  "weight_sensitivity": {
+    "distribution": "Dirichlet(1,1,1,1)",
+    "sample_count": 1000,
+    "kendall_tau_vs_default_mean": 0.9928684210526314,
+    "kendall_tau_vs_default_median": 0.9999999999999998,
+    "kendall_tau_vs_default_min": 0.9210526315789472,
+    "kendall_tau_vs_default_max": 0.9999999999999998,
+    "spearman_default_cpis_vs_unmet_demand": 0.8638588343820746
+  },
+  "table_r5": [
+    {
+      "attack_id": 1,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Tank T7",
+      "start_time": "2016-09-13T23:00:00",
+      "end_time": "2016-09-16T00:00:00",
+      "actuator_status_sensors_replayed": [
+        "L_T7"
+      ],
+      "pda_baseline": {
+        "duration_hours": 49.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 30126.92620632554,
+        "delivered_demand_volume_m3": 30122.848189836364,
+        "unmet_demand_volume_m3": 2470.865159046972,
+        "unmet_demand_fraction": 0.0820151761293252,
+        "pressure_violation_junction_hours": 300.0,
+        "pressure_head_deficit_mh": 3811.7847095131874,
+        "mean_pressure_head_deficit_m": 12.717695908526663,
+        "max_pressure_head_deficit_m": 17.02999472618103,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 0.0,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -143.0264893694113,
+          "T1": -14.088990357034618,
+          "T7": -9.107140962026136,
+          "T6": -16.349540700487466,
+          "T5": -324.83907302338457,
+          "T2": -639.1479506756639,
+          "T4": -41.1016759119446
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 574.8364485763468,
+          "1": 987.0643408901207,
+          "4": 377.41116377632494,
+          "5": 310.0790119874301,
+          "3": 221.47419381674956
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 11.141189575195312,
+          "1": 2558.66298943758,
+          "4": 1241.980530500412,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 49.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 30126.92620632554,
+        "delivered_demand_volume_m3": 30122.783583857854,
+        "unmet_demand_volume_m3": 2470.9183446115817,
+        "unmet_demand_fraction": 0.08201694151236644,
+        "pressure_violation_junction_hours": 301.5,
+        "pressure_head_deficit_mh": 3815.9786272644997,
+        "mean_pressure_head_deficit_m": 12.668692532696083,
+        "max_pressure_head_deficit_m": 17.029980897903442,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 8.28205164735023,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -143.31792371727107,
+          "T1": -32.52795648680376,
+          "T7": 8.28205164735023,
+          "T6": -16.349540700487466,
+          "T5": -326.0750174863357,
+          "T2": -639.228161454879,
+          "T4": -40.996132952426706
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 574.8363931575605,
+          "1": 987.0648960471418,
+          "4": 377.46388722207945,
+          "5": 310.078974640626,
+          "3": 221.474193544174
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 11.127225399017334,
+          "1": 2560.703113257885,
+          "4": 1244.1482886075974,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 1.5,
+      "excess_unmet_demand_volume_m3": 0.05318556460952095,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [
+        1,
+        4
+      ],
+      "impact_factors": {
+        "pressure_impact": 7.889753839680202e-05,
+        "flow_impact": 0.0,
+        "service_disruption": 1.7653830412461379e-06,
+        "infrastructure_criticality": 0.4
+      },
+      "cpis_score": 0.06,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0001,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.4
+    },
+    {
+      "attack_id": 2,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Tank T7",
+      "start_time": "2016-09-26T11:00:00",
+      "end_time": "2016-09-27T10:00:00",
+      "actuator_status_sensors_replayed": [
+        "L_T7",
+        "S_PU10",
+        "S_PU11"
+      ],
+      "pda_baseline": {
+        "duration_hours": 23.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 14070.774249512451,
+        "delivered_demand_volume_m3": 15081.188383847255,
+        "unmet_demand_volume_m3": 2242.472845455398,
+        "unmet_demand_fraction": 0.15937096322422337,
+        "pressure_violation_junction_hours": 168.0,
+        "pressure_head_deficit_mh": 1803.43337392807,
+        "mean_pressure_head_deficit_m": 10.701907072123277,
+        "max_pressure_head_deficit_m": 17.03071093559265,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 887.2893902101425,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -39.1019045950145,
+          "T1": 887.2893902101425,
+          "T7": -88.17764024672378,
+          "T6": -16.349540700487466,
+          "T5": -120.00182088910466,
+          "T2": -1601.3978572523804,
+          "T4": -112.15806747290571
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 599.1808831347371,
+          "1": 864.5308287936324,
+          "4": 330.3041977156074,
+          "5": 268.8222672298652,
+          "3": 179.63466858155627
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 2.797031879425049,
+          "1": 1199.575809597969,
+          "4": 601.060532450676,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 23.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 14070.774249512451,
+        "delivered_demand_volume_m3": 15009.736044325324,
+        "unmet_demand_volume_m3": 2307.813846123844,
+        "unmet_demand_fraction": 0.16401470204838298,
+        "pressure_violation_junction_hours": 224.25,
+        "pressure_head_deficit_mh": 3075.2346057537943,
+        "mean_pressure_head_deficit_m": 13.72954859474711,
+        "max_pressure_head_deficit_m": 62.938045501708984,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 660.1958379967979,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -36.10623060073499,
+          "T1": 430.45387788329754,
+          "T7": 94.7902683084747,
+          "T6": 134.95169180502566,
+          "T5": -134.33420222472586,
+          "T2": -1506.6016534425346,
+          "T4": -109.53410712550703
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 599.1809105977482,
+          "1": 864.5295324243352,
+          "4": 395.64629342019197,
+          "5": 268.8224480658322,
+          "3": 179.63466161573635
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 2.8080825805664062,
+          "1": 1212.9360073804855,
+          "4": 1859.4905157927424,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 56.25,
+      "excess_unmet_demand_volume_m3": 65.34100066844621,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "impact_factors": {
+        "pressure_impact": 0.006303227252353205,
+        "flow_impact": 0.0,
+        "service_disruption": 0.004643738824159606,
+        "infrastructure_criticality": 0.8
+      },
+      "cpis_score": 0.1231,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0063,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0046,
+      "cpis_infrastructure_criticality": 0.8
+    },
+    {
+      "attack_id": 3,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T1",
+      "start_time": "2016-10-09T09:00:00",
+      "end_time": "2016-10-11T20:00:00",
+      "actuator_status_sensors_replayed": [],
+      "pda_baseline": {
+        "duration_hours": 59.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 34926.62542361468,
+        "delivered_demand_volume_m3": 36946.674635230265,
+        "unmet_demand_volume_m3": 4278.976831150597,
+        "unmet_demand_fraction": 0.12251331983127933,
+        "pressure_violation_junction_hours": 406.0,
+        "pressure_head_deficit_mh": 4627.035426497459,
+        "mean_pressure_head_deficit_m": 11.406940915527484,
+        "max_pressure_head_deficit_m": 17.030552864074707,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 1030.2339382075554,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -27.411772556251947,
+          "T1": 1030.2339382075554,
+          "T7": -84.86995157611638,
+          "T6": -16.349540700487466,
+          "T5": -267.9297179712519,
+          "T2": -1674.8890431248876,
+          "T4": -185.86277544884655
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1091.369681572538,
+          "1": 1632.6428370154688,
+          "4": 631.040167982086,
+          "5": 543.6480698865764,
+          "3": 380.27607469392717
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 13.533976078033447,
+          "1": 3100.608955860138,
+          "4": 1512.892494559288,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 59.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 34926.62542361468,
+        "delivered_demand_volume_m3": 36946.674635230265,
+        "unmet_demand_volume_m3": 4278.976831150597,
+        "unmet_demand_fraction": 0.12251331983127933,
+        "pressure_violation_junction_hours": 406.0,
+        "pressure_head_deficit_mh": 4627.035426497459,
+        "mean_pressure_head_deficit_m": 11.406940915527484,
+        "max_pressure_head_deficit_m": 17.030552864074707,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 1030.2339382075554,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -27.411772556251947,
+          "T1": 1030.2339382075554,
+          "T7": -84.86995157611638,
+          "T6": -16.349540700487466,
+          "T5": -267.9297179712519,
+          "T2": -1674.8890431248876,
+          "T4": -185.86277544884655
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1091.369681572538,
+          "1": 1632.6428370154688,
+          "4": 631.040167982086,
+          "5": 543.6480698865764,
+          "3": 380.27607469392717
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 13.533976078033447,
+          "1": 3100.608955860138,
+          "4": 1512.892494559288,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 0.0,
+      "excess_unmet_demand_volume_m3": 0.0,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [],
+      "impact_factors": {
+        "pressure_impact": 0.0,
+        "flow_impact": 0.0,
+        "service_disruption": 0.0,
+        "infrastructure_criticality": 0.0
+      },
+      "cpis_score": 0.0,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.0
+    },
+    {
+      "attack_id": 4,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T1",
+      "start_time": "2016-10-29T19:00:00",
+      "end_time": "2016-11-02T16:00:00",
+      "actuator_status_sensors_replayed": [],
+      "pda_baseline": {
+        "duration_hours": 93.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 56625.01100651457,
+        "delivered_demand_volume_m3": 56850.11485786388,
+        "unmet_demand_volume_m3": 8429.77066272177,
+        "unmet_demand_fraction": 0.14887009314226793,
+        "pressure_violation_junction_hours": 576.5,
+        "pressure_head_deficit_mh": 7250.595734536648,
+        "mean_pressure_head_deficit_m": 12.582919419353424,
+        "max_pressure_head_deficit_m": 17.03069233894348,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 0.0,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -322.0213992990968,
+          "T1": -276.3320642026374,
+          "T7": -17.704137845744683,
+          "T6": -16.349540700487466,
+          "T5": -302.79707513031383,
+          "T2": -101.2881020372908,
+          "T4": -150.38735114812494
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 2132.5456552613637,
+          "1": 3307.962763789876,
+          "4": 1257.5300087446149,
+          "5": 1034.761831618855,
+          "3": 696.9704033070612
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 22.47913694381714,
+          "1": 4832.0149493813515,
+          "4": 2396.101648211479,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 93.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 56625.01100651457,
+        "delivered_demand_volume_m3": 56850.11485786388,
+        "unmet_demand_volume_m3": 8429.77066272177,
+        "unmet_demand_fraction": 0.14887009314226793,
+        "pressure_violation_junction_hours": 576.5,
+        "pressure_head_deficit_mh": 7250.595734536648,
+        "mean_pressure_head_deficit_m": 12.582919419353424,
+        "max_pressure_head_deficit_m": 17.03069233894348,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 0.0,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -322.0213992990968,
+          "T1": -276.3320642026374,
+          "T7": -17.704137845744683,
+          "T6": -16.349540700487466,
+          "T5": -302.79707513031383,
+          "T2": -101.2881020372908,
+          "T4": -150.38735114812494
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 2132.5456552613637,
+          "1": 3307.962763789876,
+          "4": 1257.5300087446149,
+          "5": 1034.761831618855,
+          "3": 696.9704033070612
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 22.47913694381714,
+          "1": 4832.0149493813515,
+          "4": 2396.101648211479,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 0.0,
+      "excess_unmet_demand_volume_m3": 0.0,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [],
+      "impact_factors": {
+        "pressure_impact": 0.0,
+        "flow_impact": 0.0,
+        "service_disruption": 0.0,
+        "infrastructure_criticality": 0.0
+      },
+      "cpis_score": 0.0,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.0
+    },
+    {
+      "attack_id": 5,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU7",
+      "start_time": "2016-11-26T17:00:00",
+      "end_time": "2016-11-29T04:00:00",
+      "actuator_status_sensors_replayed": [
+        "S_PU7"
+      ],
+      "pda_baseline": {
+        "duration_hours": 59.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 34926.62542361468,
+        "delivered_demand_volume_m3": 36430.177648260025,
+        "unmet_demand_volume_m3": 5406.1843739558,
+        "unmet_demand_fraction": 0.154786908508503,
+        "pressure_violation_junction_hours": 411.25,
+        "pressure_head_deficit_mh": 4655.322824537754,
+        "mean_pressure_head_deficit_m": 11.326054363666628,
+        "max_pressure_head_deficit_m": 17.030892372131348,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 1504.4729903144853,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -259.0986903332808,
+          "T1": 1492.1062645870402,
+          "T7": -1.8203284806196507,
+          "T6": 12.366725727445214,
+          "T5": -313.9883446985443,
+          "T2": -1467.2155734034081,
+          "T4": -65.09889743063582
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1341.9904561886592,
+          "1": 2127.605044828844,
+          "4": 835.534057086619,
+          "5": 670.734420781092,
+          "3": 430.32039507058624
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 13.34714674949646,
+          "1": 3106.059281408787,
+          "4": 1535.9163963794708,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 59.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 34926.62542361468,
+        "delivered_demand_volume_m3": 36430.39313902436,
+        "unmet_demand_volume_m3": 5406.205043371659,
+        "unmet_demand_fraction": 0.1547875003038914,
+        "pressure_violation_junction_hours": 351.75,
+        "pressure_head_deficit_mh": 4588.212478756905,
+        "mean_pressure_head_deficit_m": 13.052132709843578,
+        "max_pressure_head_deficit_m": 17.030622720718384,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 1355.0536584999586,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -164.10577760743894,
+          "T1": 1350.7232463541986,
+          "T7": -15.564892947308806,
+          "T6": 4.330412145760079,
+          "T5": -278.9185264519941,
+          "T2": -805.7224521050998,
+          "T4": -234.1088978512331
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1341.6346438643784,
+          "1": 2127.577294816994,
+          "4": 835.9357259657504,
+          "5": 670.734755564007,
+          "3": 430.3226231605292
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 0.0,
+          "1": 3065.258632540703,
+          "4": 1522.9538462162018,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 0.0,
+      "excess_unmet_demand_volume_m3": 0.02066941585871973,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [
+        3,
+        4,
+        5
+      ],
+      "impact_factors": {
+        "pressure_impact": 0.0,
+        "flow_impact": 0.0,
+        "service_disruption": 5.917953884186209e-07,
+        "infrastructure_criticality": 0.6
+      },
+      "cpis_score": 0.09,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.6
+    },
+    {
+      "attack_id": 6,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU7",
+      "start_time": "2016-12-06T07:00:00",
+      "end_time": "2016-12-10T04:00:00",
+      "actuator_status_sensors_replayed": [
+        "S_PU7"
+      ],
+      "pda_baseline": {
+        "duration_hours": 93.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 56625.01100651457,
+        "delivered_demand_volume_m3": 57535.54733028637,
+        "unmet_demand_volume_m3": 7889.5448434998325,
+        "unmet_demand_fraction": 0.1393296831782012,
+        "pressure_violation_junction_hours": 581.75,
+        "pressure_head_deficit_mh": 7180.013015389442,
+        "mean_pressure_head_deficit_m": 12.348319916128089,
+        "max_pressure_head_deficit_m": 17.030599355697632,
+        "tank_net_volume_loss_m3": 62.402182229625694,
+        "tank_gross_depletion_m3": 912.5382541476258,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -249.29497442213773,
+          "T1": 909.8963493205342,
+          "T7": -17.50191306739761,
+          "T6": 2.6419048270916505,
+          "T5": -135.55151010221786,
+          "T2": -306.4672752696283,
+          "T4": -141.32039905661867
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 2019.455944721146,
+          "1": 3090.359145343035,
+          "4": 1132.29362487545,
+          "5": 988.9963328043934,
+          "3": 658.4397957558091
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 18.895339965820312,
+          "1": 4827.6377329826355,
+          "4": 2333.4799424409866,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 93.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 56625.01100651457,
+        "delivered_demand_volume_m3": 57534.22430664216,
+        "unmet_demand_volume_m3": 7890.525616530178,
+        "unmet_demand_fraction": 0.1393470036698517,
+        "pressure_violation_junction_hours": 585.0,
+        "pressure_head_deficit_mh": 7196.2910214066505,
+        "mean_pressure_head_deficit_m": 12.307586784505132,
+        "max_pressure_head_deficit_m": 17.030566930770874,
+        "tank_net_volume_loss_m3": 28.778709095098137,
+        "tank_gross_depletion_m3": 926.4101561787227,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -248.13940334515888,
+          "T1": 925.1652926199704,
+          "T7": -19.53210321376416,
+          "T6": 1.2448635587523427,
+          "T5": -132.1791352516293,
+          "T2": -284.3291002062487,
+          "T4": -213.45170506682354
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 2019.5319414996131,
+          "1": 3090.353023111737,
+          "4": 1133.2040488065416,
+          "5": 988.996343862607,
+          "3": 658.4402592496796
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 44.350472927093506,
+          "1": 4817.75605982542,
+          "4": 2334.1844886541367,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 3.25,
+      "excess_unmet_demand_volume_m3": 0.9807730303455173,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "impact_factors": {
+        "pressure_impact": 9.006761999778295e-05,
+        "flow_impact": 0.0,
+        "service_disruption": 1.732049165045958e-05,
+        "infrastructure_criticality": 0.8
+      },
+      "cpis_score": 0.12,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0001,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.8
+    },
+    {
+      "attack_id": 7,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU7",
+      "start_time": "2016-12-14T15:00:00",
+      "end_time": "2016-12-19T04:00:00",
+      "actuator_status_sensors_replayed": [
+        "S_PU1",
+        "S_PU2",
+        "S_PU7"
+      ],
+      "pda_baseline": {
+        "duration_hours": 109.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 66015.19999691017,
+        "delivered_demand_volume_m3": 67051.18747390444,
+        "unmet_demand_volume_m3": 10507.327783780178,
+        "unmet_demand_fraction": 0.1591652798790577,
+        "pressure_violation_junction_hours": 637.75,
+        "pressure_head_deficit_mh": 8430.563167452812,
+        "mean_pressure_head_deficit_m": 13.223761171988665,
+        "max_pressure_head_deficit_m": 17.030850648880005,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 131.36659968398425,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -288.2432547097532,
+          "T1": 124.323599075532,
+          "T7": -22.331480659039954,
+          "T6": 7.043000608452246,
+          "T5": -292.4105672069111,
+          "T2": -392.0728762481131,
+          "T4": -181.9901607034593
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 2610.270859211331,
+          "1": 4129.374706441102,
+          "4": 1549.7539950271644,
+          "5": 1298.2093106737896,
+          "3": 919.718912426793
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 32.54393911361694,
+          "1": 5647.514444589615,
+          "4": 2750.5047837495804,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 109.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 66015.19999691017,
+        "delivered_demand_volume_m3": 66921.21206841216,
+        "unmet_demand_volume_m3": 10595.226339537929,
+        "unmet_demand_fraction": 0.16049676953237793,
+        "pressure_violation_junction_hours": 1231.5,
+        "pressure_head_deficit_mh": 13046.791417866829,
+        "mean_pressure_head_deficit_m": 10.599064294742055,
+        "max_pressure_head_deficit_m": 31.58737277984619,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 1493.4803812812925,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -283.65824688819197,
+          "T1": 1493.1864205144127,
+          "T7": -40.84848879962085,
+          "T6": 0.29396076687976347,
+          "T5": -113.88309103585141,
+          "T2": -923.3011046565373,
+          "T4": -234.1088978512331
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 2610.3512506140664,
+          "1": 4210.491092431882,
+          "4": 1556.4508385964127,
+          "5": 1298.212370276601,
+          "3": 919.7207876189674
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 62.34461975097656,
+          "1": 9982.476548910025,
+          "4": 2811.0081808567047,
+          "5": 0.0,
+          "3": 190.962068349123
+        }
+      },
+      "excess_pressure_violation_junction_hours": 593.75,
+      "excess_unmet_demand_volume_m3": 87.89855575775073,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "impact_factors": {
+        "pressure_impact": 0.014039298212427883,
+        "flow_impact": 0.0,
+        "service_disruption": 0.001331489653320217,
+        "infrastructure_criticality": 1.0
+      },
+      "cpis_score": 0.1545,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.014,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0013,
+      "cpis_infrastructure_criticality": 1.0
+    },
+    {
+      "attack_id": 8,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T3",
+      "start_time": "2017-01-16T09:00:00",
+      "end_time": "2017-01-19T06:00:00",
+      "actuator_status_sensors_replayed": [],
+      "pda_baseline": {
+        "duration_hours": 69.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 41775.07682630896,
+        "delivered_demand_volume_m3": 43063.467043023265,
+        "unmet_demand_volume_m3": 6033.855731873746,
+        "unmet_demand_fraction": 0.14443673573506788,
+        "pressure_violation_junction_hours": 463.75,
+        "pressure_head_deficit_mh": 5407.175436258316,
+        "mean_pressure_head_deficit_m": 11.67091427785094,
+        "max_pressure_head_deficit_m": 17.03084135055542,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 1018.0737810444377,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -202.3040098059891,
+          "T1": 1007.1045123714237,
+          "T7": -8.252115048742965,
+          "T6": 10.969268673014142,
+          "T5": -159.36398361390954,
+          "T2": -1264.6807684406797,
+          "T4": -77.76405257278282
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1537.6012511916726,
+          "1": 2290.7200563911956,
+          "4": 909.992637941761,
+          "5": 773.4920828561044,
+          "3": 522.0497034930111
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 8.184087991714478,
+          "1": 3609.5488063097,
+          "4": 1789.4425419569016,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 69.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 41775.07682630896,
+        "delivered_demand_volume_m3": 43063.467043023265,
+        "unmet_demand_volume_m3": 6033.855731873746,
+        "unmet_demand_fraction": 0.14443673573506788,
+        "pressure_violation_junction_hours": 463.75,
+        "pressure_head_deficit_mh": 5407.175436258316,
+        "mean_pressure_head_deficit_m": 11.67091427785094,
+        "max_pressure_head_deficit_m": 17.03084135055542,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 1018.0737810444377,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -202.3040098059891,
+          "T1": 1007.1045123714237,
+          "T7": -8.252115048742965,
+          "T6": 10.969268673014142,
+          "T5": -159.36398361390954,
+          "T2": -1264.6807684406797,
+          "T4": -77.76405257278282
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1537.6012511916726,
+          "1": 2290.7200563911956,
+          "4": 909.992637941761,
+          "5": 773.4920828561044,
+          "3": 522.0497034930111
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 8.184087991714478,
+          "1": 3609.5488063097,
+          "4": 1789.4425419569016,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 0.0,
+      "excess_unmet_demand_volume_m3": 0.0,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [],
+      "impact_factors": {
+        "pressure_impact": 0.0,
+        "flow_impact": 0.0,
+        "service_disruption": 0.0,
+        "infrastructure_criticality": 0.0
+      },
+      "cpis_score": 0.0,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.0
+    },
+    {
+      "attack_id": 9,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T2",
+      "start_time": "2017-01-30T08:00:00",
+      "end_time": "2017-02-02T00:00:00",
+      "actuator_status_sensors_replayed": [],
+      "pda_baseline": {
+        "duration_hours": 64.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 38254.841399975674,
+        "delivered_demand_volume_m3": 40872.41644910939,
+        "unmet_demand_volume_m3": 4700.489348792767,
+        "unmet_demand_fraction": 0.12287305806986709,
+        "pressure_violation_junction_hours": 415.75,
+        "pressure_head_deficit_mh": 5005.664871811867,
+        "mean_pressure_head_deficit_m": 12.01072088620996,
+        "max_pressure_head_deficit_m": 17.0309157371521,
+        "tank_net_volume_loss_m3": 761.0838983520139,
+        "tank_gross_depletion_m3": 1784.1473648902336,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -234.56850313125477,
+          "T1": 1763.4367372129302,
+          "T7": 20.71062767730345,
+          "T6": -16.349540700487466,
+          "T5": -197.91206640115715,
+          "T2": -481.2776125133161,
+          "T4": -92.95574379200434
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1234.5193930316977,
+          "1": 1763.4546487474288,
+          "4": 748.4271667444215,
+          "5": 567.2262843912265,
+          "3": 386.8618558779926
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 12.680488348007202,
+          "1": 3353.180535674095,
+          "4": 1639.8038477897644,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 64.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 38254.841399975674,
+        "delivered_demand_volume_m3": 40872.41644910939,
+        "unmet_demand_volume_m3": 4700.489348792767,
+        "unmet_demand_fraction": 0.12287305806986709,
+        "pressure_violation_junction_hours": 415.75,
+        "pressure_head_deficit_mh": 5005.664871811867,
+        "mean_pressure_head_deficit_m": 12.01072088620996,
+        "max_pressure_head_deficit_m": 17.0309157371521,
+        "tank_net_volume_loss_m3": 761.0838983520139,
+        "tank_gross_depletion_m3": 1784.1473648902336,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -234.56850313125477,
+          "T1": 1763.4367372129302,
+          "T7": 20.71062767730345,
+          "T6": -16.349540700487466,
+          "T5": -197.91206640115715,
+          "T2": -481.2776125133161,
+          "T4": -92.95574379200434
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1234.5193930316977,
+          "1": 1763.4546487474288,
+          "4": 748.4271667444215,
+          "5": 567.2262843912265,
+          "3": 386.8618558779926
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 12.680488348007202,
+          "1": 3353.180535674095,
+          "4": 1639.8038477897644,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 0.0,
+      "excess_unmet_demand_volume_m3": 0.0,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [],
+      "impact_factors": {
+        "pressure_impact": 0.0,
+        "flow_impact": 0.0,
+        "service_disruption": 0.0,
+        "infrastructure_criticality": 0.0
+      },
+      "cpis_score": 0.0,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.0
+    },
+    {
+      "attack_id": 10,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU3",
+      "start_time": "2017-02-09T03:00:00",
+      "end_time": "2017-02-10T09:00:00",
+      "actuator_status_sensors_replayed": [
+        "S_PU3"
+      ],
+      "pda_baseline": {
+        "duration_hours": 30.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 17536.69831443702,
+        "delivered_demand_volume_m3": 17736.137451324932,
+        "unmet_demand_volume_m3": 1924.146468888055,
+        "unmet_demand_fraction": 0.10972113646409762,
+        "pressure_violation_junction_hours": 156.5,
+        "pressure_head_deficit_mh": 2293.6434414982796,
+        "mean_pressure_head_deficit_m": 14.532483023040148,
+        "max_pressure_head_deficit_m": 17.029701709747314,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 0.0,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -125.48168979205508,
+          "T1": -1065.9612695879355,
+          "T7": -68.97881079908753,
+          "T6": -16.349540700487466,
+          "T5": -92.88304769345237,
+          "T2": -110.70639998384314,
+          "T4": -165.4621332429574
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 490.0650948668318,
+          "1": 799.3834196083443,
+          "4": 240.27620215363675,
+          "5": 250.73303489601963,
+          "3": 143.68871736322194
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 5.434402942657471,
+          "1": 1537.1558691859245,
+          "4": 751.0531693696976,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 30.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 17536.69831443702,
+        "delivered_demand_volume_m3": 17736.25524137925,
+        "unmet_demand_volume_m3": 1924.0840047612378,
+        "unmet_demand_fraction": 0.10971757455491168,
+        "pressure_violation_junction_hours": 158.0,
+        "pressure_head_deficit_mh": 2289.045591711998,
+        "mean_pressure_head_deficit_m": 14.365101324535411,
+        "max_pressure_head_deficit_m": 17.039143085479736,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 10.00405095998208,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -123.04629268358354,
+          "T1": -1247.961672937578,
+          "T7": 6.729319701220064,
+          "T6": 3.274731258762017,
+          "T5": -130.55266961155644,
+          "T2": -1100.7583976143248,
+          "T4": -174.19134786400645
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 490.05481910456194,
+          "1": 799.3728102275016,
+          "4": 240.23427051371092,
+          "5": 250.7334283919179,
+          "3": 143.6886765235447
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 5.407813787460327,
+          "1": 1535.2005093097687,
+          "4": 748.437268614769,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 1.5,
+      "excess_unmet_demand_volume_m3": 0.0,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [
+        5
+      ],
+      "impact_factors": {
+        "pressure_impact": 0.0001288659793814433,
+        "flow_impact": 0.0,
+        "service_disruption": 0.0,
+        "infrastructure_criticality": 0.2
+      },
+      "cpis_score": 0.03,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0001,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.2
+    },
+    {
+      "attack_id": 11,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target": "Pump PU3",
+      "start_time": "2017-02-12T01:00:00",
+      "end_time": "2017-02-13T07:00:00",
+      "actuator_status_sensors_replayed": [
+        "S_PU3"
+      ],
+      "pda_baseline": {
+        "duration_hours": 30.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 17536.69831443702,
+        "delivered_demand_volume_m3": 16857.925313122025,
+        "unmet_demand_volume_m3": 1888.7887304819574,
+        "unmet_demand_fraction": 0.10770492236426393,
+        "pressure_violation_junction_hours": 154.5,
+        "pressure_head_deficit_mh": 2317.4948651194572,
+        "mean_pressure_head_deficit_m": 14.999838632718326,
+        "max_pressure_head_deficit_m": 17.029199600219727,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 0.0,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -219.79797781104418,
+          "T1": -573.3338513415742,
+          "T7": -51.72830406489179,
+          "T6": -12.32140504344244,
+          "T5": -98.69088541654585,
+          "T2": -973.3888551096584,
+          "T4": -139.93372694233744
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 429.42885522520567,
+          "1": 797.3094493344266,
+          "4": 246.41783924578138,
+          "5": 265.9412969536436,
+          "3": 149.69128972290048
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 11.73481822013855,
+          "1": 1532.045668900013,
+          "4": 773.7143779993057,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 30.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 17536.69831443702,
+        "delivered_demand_volume_m3": 16858.372939910027,
+        "unmet_demand_volume_m3": 1888.5144035720546,
+        "unmet_demand_fraction": 0.10768927934498036,
+        "pressure_violation_junction_hours": 155.75,
+        "pressure_head_deficit_mh": 2316.0473724603653,
+        "mean_pressure_head_deficit_m": 14.866833350461,
+        "max_pressure_head_deficit_m": 17.03909659385681,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 0.0,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -218.58592720928635,
+          "T1": -2406.628499074801,
+          "T7": -91.31426263957538,
+          "T6": -16.349540700487466,
+          "T5": -92.8229023494705,
+          "T2": -1466.5712997251962,
+          "T4": -158.54338631209987
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 429.45569266962605,
+          "1": 797.2857035950998,
+          "4": 246.14076226905448,
+          "5": 265.9413718468488,
+          "3": 149.69087319142557
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 14.637086629867554,
+          "1": 1532.581466794014,
+          "4": 768.8288190364838,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 1.25,
+      "excess_unmet_demand_volume_m3": 0.0,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [
+        1,
+        2,
+        5
+      ],
+      "impact_factors": {
+        "pressure_impact": 0.00010738831615120275,
+        "flow_impact": 0.0,
+        "service_disruption": 0.0,
+        "infrastructure_criticality": 0.6
+      },
+      "cpis_score": 0.09,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0001,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.6
+    },
+    {
+      "attack_id": 12,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T2",
+      "start_time": "2017-02-24T05:00:00",
+      "end_time": "2017-02-28T08:00:00",
+      "actuator_status_sensors_replayed": [],
+      "pda_baseline": {
+        "duration_hours": 99.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 60506.69339888403,
+        "delivered_demand_volume_m3": 60539.18822278088,
+        "unmet_demand_volume_m3": 8217.366696979174,
+        "unmet_demand_fraction": 0.13580921771426255,
+        "pressure_violation_junction_hours": 675.0,
+        "pressure_head_deficit_mh": 7727.539818823338,
+        "mean_pressure_head_deficit_m": 11.454495058394624,
+        "max_pressure_head_deficit_m": 17.030925035476685,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 626.5021787014332,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -90.46438442905963,
+          "T1": 626.5021787014332,
+          "T7": -78.95747335118041,
+          "T6": -16.349540700487466,
+          "T5": -195.3258166099371,
+          "T2": -1424.4632280817366,
+          "T4": -102.285741413386
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 2046.1351215444424,
+          "1": 3168.0299270989512,
+          "4": 1253.9273515032378,
+          "5": 1059.3532123471696,
+          "3": 689.9210844853743
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 24.82892608642578,
+          "1": 5181.1235738396645,
+          "4": 2521.5873188972473,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 99.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 60506.69339888403,
+        "delivered_demand_volume_m3": 60539.18822278088,
+        "unmet_demand_volume_m3": 8217.366696979174,
+        "unmet_demand_fraction": 0.13580921771426255,
+        "pressure_violation_junction_hours": 675.0,
+        "pressure_head_deficit_mh": 7727.539818823338,
+        "mean_pressure_head_deficit_m": 11.454495058394624,
+        "max_pressure_head_deficit_m": 17.030925035476685,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 626.5021787014332,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -90.46438442905963,
+          "T1": 626.5021787014332,
+          "T7": -78.95747335118041,
+          "T6": -16.349540700487466,
+          "T5": -195.3258166099371,
+          "T2": -1424.4632280817366,
+          "T4": -102.285741413386
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 2046.1351215444424,
+          "1": 3168.0299270989512,
+          "4": 1253.9273515032378,
+          "5": 1059.3532123471696,
+          "3": 689.9210844853743
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 24.82892608642578,
+          "1": 5181.1235738396645,
+          "4": 2521.5873188972473,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 0.0,
+      "excess_unmet_demand_volume_m3": 0.0,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [],
+      "impact_factors": {
+        "pressure_impact": 0.0,
+        "flow_impact": 0.0,
+        "service_disruption": 0.0,
+        "infrastructure_criticality": 0.0
+      },
+      "cpis_score": 0.0,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.0
+    },
+    {
+      "attack_id": 13,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target": "Tank T7",
+      "start_time": "2017-03-10T14:00:00",
+      "end_time": "2017-03-13T21:00:00",
+      "actuator_status_sensors_replayed": [
+        "L_T7",
+        "S_PU10",
+        "S_PU11"
+      ],
+      "pda_baseline": {
+        "duration_hours": 79.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 47265.93973938892,
+        "delivered_demand_volume_m3": 49163.26723481463,
+        "unmet_demand_volume_m3": 7163.480601508097,
+        "unmet_demand_fraction": 0.15155692748320485,
+        "pressure_violation_junction_hours": 499.25,
+        "pressure_head_deficit_mh": 6199.416785418987,
+        "mean_pressure_head_deficit_m": 12.394950382381797,
+        "max_pressure_head_deficit_m": 17.030529737472534,
+        "tank_net_volume_loss_m3": 816.1467634522375,
+        "tank_gross_depletion_m3": 1486.1830182244366,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -36.18078357344331,
+          "T1": 1486.1830182244366,
+          "T7": -6.3709969444207815,
+          "T6": -16.349540700487466,
+          "T5": -229.72895336756156,
+          "T2": -378.89243401192147,
+          "T4": -2.513546174364592
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1875.5465434939294,
+          "1": 2681.5955822507226,
+          "4": 1111.3281029931368,
+          "5": 907.584054881647,
+          "3": 587.4263178886623
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 24.11152720451355,
+          "1": 4171.566948831081,
+          "4": 2003.7383093833923,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 79.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 47265.93973938892,
+        "delivered_demand_volume_m3": 49020.59564850322,
+        "unmet_demand_volume_m3": 7247.922593764545,
+        "unmet_demand_fraction": 0.1533434569105692,
+        "pressure_violation_junction_hours": 625.5,
+        "pressure_head_deficit_mh": 8667.837122046069,
+        "mean_pressure_head_deficit_m": 13.83575760245041,
+        "max_pressure_head_deficit_m": 62.22529602050781,
+        "tank_net_volume_loss_m3": 1024.12248959305,
+        "tank_gross_depletion_m3": 1739.7315200549785,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -35.96729096977862,
+          "T1": 1491.2609251656181,
+          "T7": 157.3543991672145,
+          "T6": 91.11619572214602,
+          "T5": -280.74152335690917,
+          "T2": -395.9385183173849,
+          "T4": -2.9616978178559066
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 1875.56001934323,
+          "1": 2681.591148207574,
+          "4": 1195.7604909682725,
+          "5": 907.5846449589717,
+          "3": 587.4262902864986
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 25.19846749305725,
+          "1": 4181.304182946682,
+          "4": 4461.334471606329,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 126.25,
+      "excess_unmet_demand_volume_m3": 84.44199225644843,
+      "excess_tank_storage_loss_m3": 207.97572614081253,
+      "impacted_dma_zones": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "impact_factors": {
+        "pressure_impact": 0.004118817695419549,
+        "flow_impact": 0.02188882759379749,
+        "service_disruption": 0.0017865294273643514,
+        "infrastructure_criticality": 0.8
+      },
+      "cpis_score": 0.1282,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0041,
+      "cpis_flow_impact": 0.0219,
+      "cpis_service_disruption": 0.0018,
+      "cpis_infrastructure_criticality": 0.8
+    },
+    {
+      "attack_id": 14,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target": "Tank T4",
+      "start_time": "2017-03-25T20:00:00",
+      "end_time": "2017-03-27T01:00:00",
+      "actuator_status_sensors_replayed": [],
+      "pda_baseline": {
+        "duration_hours": 29.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 17031.624272669294,
+        "delivered_demand_volume_m3": 18452.281373504295,
+        "unmet_demand_volume_m3": 2109.439317424666,
+        "unmet_demand_fraction": 0.12385426566799566,
+        "pressure_violation_junction_hours": 175.5,
+        "pressure_head_deficit_mh": 2259.347686111927,
+        "mean_pressure_head_deficit_m": 12.891962411885888,
+        "max_pressure_head_deficit_m": 17.03050184249878,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 1.6776714239911286,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -265.96321177492354,
+          "T1": -873.9576830847986,
+          "T7": 1.6776714239911286,
+          "T6": -16.349540700487466,
+          "T5": -332.89600776439124,
+          "T2": -12.334347887696453,
+          "T4": -10.447129254432582
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 511.33559002079454,
+          "1": 846.0812999541777,
+          "4": 304.08515533769554,
+          "5": 274.6460905229681,
+          "3": 173.29118158902992
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 12.008477687835693,
+          "1": 1492.9116379618645,
+          "4": 754.4275704622269,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "pda_incident": {
+        "duration_hours": 29.0,
+        "junction_count": 388,
+        "required_demand_volume_m3": 17031.624272669294,
+        "delivered_demand_volume_m3": 18452.281373504295,
+        "unmet_demand_volume_m3": 2109.439317424666,
+        "unmet_demand_fraction": 0.12385426566799566,
+        "pressure_violation_junction_hours": 175.5,
+        "pressure_head_deficit_mh": 2259.347686111927,
+        "mean_pressure_head_deficit_m": 12.891962411885888,
+        "max_pressure_head_deficit_m": 17.03050184249878,
+        "tank_net_volume_loss_m3": 0.0,
+        "tank_gross_depletion_m3": 1.6776714239911286,
+        "tank_net_volume_change_by_tank_m3": {
+          "T3": -265.96321177492354,
+          "T1": -873.9576830847986,
+          "T7": 1.6776714239911286,
+          "T6": -16.349540700487466,
+          "T5": -332.89600776439124,
+          "T2": -12.334347887696453,
+          "T4": -10.447129254432582
+        },
+        "total_tank_capacity_m3": 9501.455719800424,
+        "zone_unmet_demand_volume_m3": {
+          "2": 511.33559002079454,
+          "1": 846.0812999541777,
+          "4": 304.08515533769554,
+          "5": 274.6460905229681,
+          "3": 173.29118158902992
+        },
+        "zone_pressure_head_deficit_mh": {
+          "2": 12.008477687835693,
+          "1": 1492.9116379618645,
+          "4": 754.4275704622269,
+          "5": 0.0,
+          "3": 0.0
+        }
+      },
+      "excess_pressure_violation_junction_hours": 0.0,
+      "excess_unmet_demand_volume_m3": 0.0,
+      "excess_tank_storage_loss_m3": 0.0,
+      "impacted_dma_zones": [],
+      "impact_factors": {
+        "pressure_impact": 0.0,
+        "flow_impact": 0.0,
+        "service_disruption": 0.0,
+        "infrastructure_criticality": 0.0
+      },
+      "cpis_score": 0.0,
+      "cpis_severity": "Low",
+      "cpis_pressure_impact": 0.0,
+      "cpis_flow_impact": 0.0,
+      "cpis_service_disruption": 0.0,
+      "cpis_infrastructure_criticality": 0.0
+    }
+  ]
+}

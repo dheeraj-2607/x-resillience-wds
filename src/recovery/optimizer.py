@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import json
 import math
 import tempfile
 from collections.abc import Mapping, Sequence
@@ -487,3 +488,337 @@ def _score_simulation(
         "objective_score": round(float(objective_score), 4),
         "feasible": feasible,
     }
+
+
+def _snapshot_at_results(network: Any, results: Any, result_index: int, timestamp: pd.Timestamp) -> Any:
+    """Rebase a WNTR model to the hydraulic state at one simulated result row."""
+    snapshot = copy.deepcopy(network)
+    for tank_id in snapshot.tank_name_list:
+        tank = snapshot.get_node(tank_id)
+        level = float(results.node["head"][tank_id].iloc[result_index]) - float(tank.elevation)
+        tank.init_level = float(np.clip(level, tank.min_level, tank.max_level))
+    for link_id in snapshot.link_name_list:
+        status_value = float(results.link["status"][link_id].iloc[result_index])
+        snapshot.get_link(link_id).initial_status = (
+            wntr.network.LinkStatus.Open if status_value >= 0.5 else wntr.network.LinkStatus.Closed
+        )
+    snapshot.options.time.start_clocktime = float(timestamp.hour * 3600 + timestamp.minute * 60)
+    snapshot.options.time.pattern_start = float(
+        (timestamp.dayofweek * 24 + timestamp.hour) * 3600 + timestamp.minute * 60
+    )
+    return snapshot
+
+
+def _relative_reduction(baseline: float, candidate: float) -> float | None:
+    if baseline <= 1e-12:
+        return None
+    return 100.0 * (baseline - candidate) / baseline
+
+
+def _nearest_controllable_link(network: Any, node_id: str) -> str | None:
+    graph = nx.Graph()
+    graph.add_nodes_from(network.node_name_list)
+    for link_id in network.link_name_list:
+        link = network.get_link(link_id)
+        graph.add_edge(link.start_node_name, link.end_node_name)
+    controllable = sorted(set(network.pump_name_list) | set(network.valve_name_list))
+    ranked = []
+    for link_id in controllable:
+        link = network.get_link(link_id)
+        try:
+            distance = min(
+                nx.shortest_path_length(graph, node_id, endpoint)
+                for endpoint in (link.start_node_name, link.end_node_name)
+            )
+        except (nx.NetworkXNoPath, nx.NodeNotFound):
+            continue
+        ranked.append((distance, link_id))
+    return min(ranked)[1] if ranked else None
+
+
+def _attack_anchor_link(network: Any, attack: Any) -> str | None:
+    if attack.target_component in network.pump_name_list or attack.target_component in network.valve_name_list:
+        return str(attack.target_component)
+    for sensor in str(attack.affected_sensors).split(";"):
+        if sensor.startswith(("F_", "S_")):
+            link_id = sensor[2:]
+            if link_id in network.pump_name_list or link_id in network.valve_name_list:
+                return link_id
+    return _nearest_controllable_link(network, str(attack.target_component))
+
+
+def _scenario_report_metrics(
+    incident_model: Any,
+    actions: Sequence[Mapping[str, Any]],
+    config: Mapping[str, Any],
+    dma_zones: Mapping[str, int],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    from src.impact.cpis import _pda_physical_metrics
+
+    baseline_results = _simulate(copy.deepcopy(incident_model), config, "unmitigated")
+    baseline = _pda_physical_metrics(
+        incident_model, baseline_results, dma_zones, float(config["required_pressure_m"])
+    )
+    scenarios = {"baseline_0_no_action": baseline}
+    for name, operations in actions:
+        scenario = copy.deepcopy(incident_model)
+        _apply_operations(scenario, operations)
+        result = _simulate(scenario, config, name)
+        metrics = _pda_physical_metrics(scenario, result, dma_zones, float(config["required_pressure_m"]))
+        scenarios[name] = metrics
+    return baseline, scenarios
+
+
+def run_dynamic_recovery_benchmark(
+    root: str | Path,
+    recovery_config: Mapping[str, Any] | None = None,
+    random_seed: int = 42,
+) -> dict[str, Any]:
+    """Compare optimized actions and mandatory baselines from each attack's detected state."""
+    from src.evaluation.labels import sensor_component
+    from src.impact.cpis import _apply_observed_actuator_replay, _prepare_attack_network
+    from src.network.ctown_loader import load_ctown_network
+    from src.network.graph_builder import build_network_graph
+    from src.network.zoning import assign_zones
+
+    root = Path(root)
+    attacks = pd.read_csv(root / "data" / "ground_truth_attacks.csv")
+    detection_report = json.loads((root / "results" / "multiseed_detection_report.json").read_text(encoding="utf-8"))
+    localization_records = json.loads((root / "results" / "fair_localization_records.json").read_text(encoding="utf-8"))
+    configured = _merge_recovery_config(recovery_config)
+    rng = np.random.default_rng(random_seed)
+    data_files = {
+        "Dataset04": root / "data" / "raw" / "BATADAL_dataset04.csv",
+        "Test Dataset": root / "data" / "raw" / "BATADAL_test_dataset.csv",
+    }
+    data_frames = {}
+    for name, path in data_files.items():
+        frame = pd.read_csv(path)
+        frame["DATETIME"] = pd.to_datetime(frame["DATETIME"], dayfirst=True)
+        data_frames[name] = frame
+
+    metadata = load_ctown_network(root / "data" / "raw" / "CTOWN.INP")
+    graph = build_network_graph(metadata)
+    zones = assign_zones(graph, method="dma")
+    rows = []
+
+    for attack in attacks.itertuples(index=False):
+        dataset_name = str(attack.dataset)
+        available_delays = []
+        for run in detection_report["runs"]:
+            if run["adjacency"] != "A_CTOWN":
+                continue
+            delay = run["report"][dataset_name]["delay_hours"].get(str(attack.attack_id))
+            if delay is not None:
+                available_delays.append((float(delay), int(run["seed"])))
+        base_row = {
+            "attack_id": int(attack.attack_id),
+            "dataset": dataset_name,
+            "attack_type": str(attack.attack_type),
+            "target": f"{attack.component_type} {attack.target_component}",
+        }
+        if not available_delays:
+            rows.append({**base_row, "status": "NOT_DETECTED", "detection_timestamp": None,
+                         "baseline_0_no_action": None, "baseline_1_naive_isolation": None,
+                         "baseline_2_random_feasible": None, "optimizer_best": None})
+            continue
+
+        available_delays.sort()
+        delay_hours, detection_seed = available_delays[len(available_delays) // 2]
+        start_time = pd.Timestamp(attack.start_time)
+        end_time = pd.Timestamp(attack.end_time)
+        detection_time = start_time + pd.to_timedelta(delay_hours, unit="h")
+        elapsed_seconds = max(0.0, (detection_time - start_time).total_seconds())
+        frame = data_frames[dataset_name]
+        baseline_start, _, _ = _prepare_attack_network(
+            root / "data" / "raw" / "CTOWN.INP", attack, frame, start_time, end_time,
+            replay_actuators=False, timestep_minutes=int(configured["hydraulic_timestep_minutes"]),
+        )
+        incident_start, _, replayed_sensors = _prepare_attack_network(
+            root / "data" / "raw" / "CTOWN.INP", attack, frame, start_time, end_time,
+            replay_actuators=True, timestep_minutes=int(configured["hydraulic_timestep_minutes"]),
+        )
+
+        if elapsed_seconds > 0:
+            pre_config = {**configured, "simulation_duration_hours": max(1, int(math.ceil(delay_hours)))}
+            baseline_pre = _simulate(copy.deepcopy(baseline_start), pre_config, "baseline_to_detection")
+            incident_pre = _simulate(copy.deepcopy(incident_start), pre_config, "incident_to_detection")
+            baseline_index = int(np.argmin(np.abs(np.asarray(baseline_pre.node["pressure"].index) - elapsed_seconds)))
+            incident_index = int(np.argmin(np.abs(np.asarray(incident_pre.node["pressure"].index) - elapsed_seconds)))
+            baseline_state = _snapshot_at_results(baseline_start, baseline_pre, baseline_index, detection_time)
+            incident_state = _snapshot_at_results(incident_start, incident_pre, incident_index, detection_time)
+        else:
+            baseline_state = copy.deepcopy(baseline_start)
+            incident_state = copy.deepcopy(incident_start)
+
+        for control_name in list(incident_state.control_name_list):
+            if control_name.startswith("attack_replay_"):
+                incident_state.remove_control(control_name)
+        remaining_hours = max(1, int(math.ceil((end_time - detection_time).total_seconds() / 3600.0)))
+        sim_config = {
+            **configured,
+            "simulation_duration_hours": remaining_hours,
+            "hydraulic_timestep_minutes": 15,
+            "demand_model": "PDA",
+            "minimum_pressure_m": 0.0,
+            "required_pressure_m": 20.0,
+        }
+        _configure_network_time(baseline_state, detection_time, remaining_hours, 15)
+        _configure_network_time(incident_state, detection_time, remaining_hours, 15)
+        replayed_after_detection = _apply_observed_actuator_replay(
+            incident_state, attack, frame, detection_time, end_time
+        )
+        anchor_link = _attack_anchor_link(incident_state, attack)
+        if anchor_link is None:
+            rows.append({**base_row, "status": "NO_CONTROLLABLE_LINK", "detection_seed": detection_seed,
+                         "detection_delay_hours": delay_hours, "detection_timestamp": detection_time.isoformat(),
+                         "actuator_sensors_replayed": replayed_sensors,
+                         "baseline_0_no_action": None, "baseline_1_naive_isolation": None,
+                         "baseline_2_random_feasible": None, "optimizer_best": None})
+            continue
+
+        anchor_link_obj = incident_state.get_link(anchor_link)
+        affected_nodes = [anchor_link_obj.start_node_name, anchor_link_obj.end_node_name]
+        candidates = generate_recovery_candidates(
+            incident_state, anchor_link, dma_zones=zones, affected_nodes=affected_nodes,
+            recovery_config=configured,
+        )
+        detector_record = next((record for record in localization_records
+                                if record.get("attack_id") == int(attack.attack_id)
+                                and record.get("seed") == detection_seed
+                                and record.get("dataset") == dataset_name
+                                and record.get("timing") == "detector"), {})
+        top_shap_sensors = detector_record.get("shap_top5_sensors", [])
+        top_shap_sensor = top_shap_sensors[0] if top_shap_sensors else ""
+        shap_component = sensor_component(top_shap_sensor) if top_shap_sensor else None
+        if shap_component and shap_component.startswith(("Pump ", "Valve ")):
+            naive_link = shap_component.split(" ", maxsplit=1)[1]
+        elif top_shap_sensor.startswith(("L_", "P_")):
+            naive_link = _nearest_controllable_link(incident_state, top_shap_sensor[2:]) or anchor_link
+        else:
+            naive_link = anchor_link
+        if naive_link not in incident_state.link_name_list:
+            naive_link = anchor_link
+        naive_action = [{"operation": "set_link_status", "link_id": naive_link, "status": "Closed"}]
+
+        candidate_list = candidates or []
+        optimization = optimize_recovery_actions(
+            baseline_state,
+            incident_state,
+            candidate_list,
+            critical_nodes=[node for node, zone in zones.items() if zone == int(str(attack.dma_zone).replace("DMA", ""))],
+            recovery_config=sim_config,
+        )
+        feasible_ids = {
+            row["action_id"] for row in optimization.get("evaluations", [])
+            if row.get("status") == "SIMULATED" and row.get("feasible") is True
+        }
+        feasible_candidates = [candidate for candidate in candidates if candidate["action_id"] in feasible_ids]
+        random_action = (
+            feasible_candidates[int(rng.integers(0, len(feasible_candidates)))]
+            if feasible_candidates
+            else None
+        )
+        best_action = optimization.get("recommended_action") or optimization.get("best_available_action")
+        scenarios_to_run = [("baseline_1_naive_isolation", naive_action)]
+        if random_action:
+            scenarios_to_run.append(("baseline_2_random_feasible", random_action.get("operations", [])))
+        if best_action:
+            scenarios_to_run.append(("optimizer_best", best_action.get("operations", [])))
+        baseline_metrics, scenario_metrics = _scenario_report_metrics(
+            incident_state, scenarios_to_run, sim_config, zones
+        )
+
+        def report_scenario(name: str) -> dict[str, Any] | None:
+            metrics = scenario_metrics.get(name)
+            if metrics is None:
+                return None
+            return {
+                "unmet_demand_volume_m3": metrics["unmet_demand_volume_m3"],
+                "pressure_violation_junction_hours": metrics["pressure_violation_junction_hours"],
+                "unmet_demand_reduction_pct_vs_no_action": _relative_reduction(
+                    baseline_metrics["unmet_demand_volume_m3"], metrics["unmet_demand_volume_m3"]
+                ),
+                "pressure_violation_hours_reduction_pct_vs_no_action": _relative_reduction(
+                    baseline_metrics["pressure_violation_junction_hours"],
+                    metrics["pressure_violation_junction_hours"],
+                ),
+            }
+
+        rows.append({
+            **base_row,
+            "status": "EVALUATED",
+            "detection_seed": detection_seed,
+            "detection_delay_hours": delay_hours,
+            "detection_timestamp": detection_time.isoformat(),
+            "simulation_horizon_after_detection_hours": remaining_hours,
+            "actuator_sensors_replayed": sorted(set(replayed_sensors + replayed_after_detection)),
+            "shap_top5_sensors": top_shap_sensors,
+            "naive_isolation_sensor": top_shap_sensor or None,
+            "naive_isolated_link": naive_link,
+            "random_action_id": random_action.get("action_id") if random_action else None,
+            "random_feasible_action_status": "SELECTED" if random_action else "NO_FEASIBLE_ACTION_AVAILABLE",
+            "optimizer_status": optimization.get("status"),
+            "optimizer_best_action_id": best_action.get("action_id") if best_action else None,
+            "baseline_0_no_action": {
+                "unmet_demand_volume_m3": baseline_metrics["unmet_demand_volume_m3"],
+                "pressure_violation_junction_hours": baseline_metrics["pressure_violation_junction_hours"],
+                "pressure_head_deficit_mh": baseline_metrics["pressure_head_deficit_mh"],
+            },
+            "baseline_1_naive_isolation": report_scenario("baseline_1_naive_isolation"),
+            "baseline_2_random_feasible": report_scenario("baseline_2_random_feasible"),
+            "optimizer_best": report_scenario("optimizer_best"),
+        })
+
+    def mean_reduction(key: str, metric: str) -> float | None:
+        values = [row[key][metric] for row in rows if row.get(key) and row[key].get(metric) is not None]
+        return float(np.mean(values)) if values else None
+
+    return {
+        "simulation": {
+            "engine": "WNTR EpanetSimulator",
+            "demand_model": "PDA",
+            "minimum_pressure_m": 0.0,
+            "required_pressure_m": 20.0,
+            "detection_policy": "Median observed detection delay among C-Town 5-seed runs; state is snapshotted at that exact timestamp before response simulation.",
+            "unit_definitions": {"unmet_demand_volume_m3": "m^3", "pressure_violation_junction_hours": "junction-hours", "pressure_head_deficit_mh": "m*h"},
+        },
+        "baseline_definitions": {
+            "baseline_0_no_action": "Continue observed incident status replay after detection.",
+            "baseline_1_naive_isolation": "Close the highest-ranked SHAP controllable component; fall back to the incident anchor link if the top sensor has no isolatable link.",
+            "baseline_2_random_feasible": "One seeded random action from the optimizer's feasible candidate set.",
+        },
+        "summary": {
+            "attack_count": len(rows),
+            "evaluated_attack_count": sum(row["status"] == "EVALUATED" for row in rows),
+            "not_detected_attack_count": sum(row["status"] == "NOT_DETECTED" for row in rows),
+            "mean_optimizer_unmet_demand_reduction_pct": mean_reduction("optimizer_best", "unmet_demand_reduction_pct_vs_no_action"),
+            "mean_optimizer_pressure_violation_hours_reduction_pct": mean_reduction("optimizer_best", "pressure_violation_hours_reduction_pct_vs_no_action"),
+        },
+        "table_r6": rows,
+    }
+
+
+def _configure_network_time(network: Any, start_time: pd.Timestamp, duration_hours: int, timestep_minutes: int) -> None:
+    network.options.time.duration = int(duration_hours) * 3600
+    network.options.time.hydraulic_timestep = int(timestep_minutes) * 60
+    network.options.time.report_timestep = int(timestep_minutes) * 60
+    network.options.time.start_clocktime = float(start_time.hour * 3600 + start_time.minute * 60)
+    network.options.time.pattern_start = float(
+        (start_time.dayofweek * 24 + start_time.hour) * 3600 + start_time.minute * 60
+    )
+
+
+def main() -> None:
+    import yaml
+
+    root = Path(__file__).resolve().parents[2]
+    config = yaml.safe_load((root / "configs" / "config.yaml").read_text(encoding="utf-8"))
+    report = run_dynamic_recovery_benchmark(root, config.get("recovery", {}))
+    output = root / "results" / "recovery_benchmark_report.json"
+    output.write_text(json.dumps(report, indent=2, default=float) + "\n", encoding="utf-8")
+    print(f"Wrote Table R6 to {output} ({report['summary']['attack_count']} attacks)")
+
+
+if __name__ == "__main__":
+    main()

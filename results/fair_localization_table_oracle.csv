@@ -1,6 +1,7 @@
-method,top1,top3,lenient_top1,lenient_top3,top3_actuator,top3_concealment
-A_raw_residual,17.1 ± 3.9,31.4 ± 10.8,24.3 ± 6.4,58.6 ± 11.7,30.0,33.3
-B_shap_direct_no_graph,17.1 ± 6.4,28.6 ± 5.1,24.3 ± 6.4,42.9 ± 7.1,40.0,13.3
-C_ppr_only_graph,17.1 ± 6.4,28.6 ± 5.1,27.1 ± 9.3,47.1 ± 9.6,40.0,13.3
-D_proposed_ppr_plus_shap,17.1 ± 6.4,28.6 ± 5.1,24.3 ± 6.4,44.3 ± 6.0,40.0,13.3
-random_guess,4.5,13.6,9.7,27.1,,
+method,top1,top3,lenient_top1,lenient_top3,top1_actuator,top3_actuator,top1_concealment,top3_concealment
+A_raw_residual,17.1 ± 3.9,31.4 ± 10.8,24.3 ± 6.4,58.6 ± 11.7,25.0,30.0,6.7,33.3
+B_shap_direct_no_graph,17.1 ± 6.4,28.6 ± 5.1,24.3 ± 6.4,42.9 ± 7.1,27.5,40.0,3.3,13.3
+C_ppr_only_graph,17.1 ± 6.4,28.6 ± 5.1,27.1 ± 9.3,47.1 ± 9.6,27.5,40.0,3.3,13.3
+D_proposed_ppr_plus_shap,17.1 ± 6.4,28.6 ± 5.1,24.3 ± 6.4,44.3 ± 6.0,27.5,40.0,3.3,13.3
+E_hydraulic_signature,21.4 ± 5.1,41.4 ± 6.0,28.6 ± 5.1,57.1 ± 5.1,25.0,45.0,16.7,36.7
+random_guess,4.5,13.6,9.7,27.1,,,,

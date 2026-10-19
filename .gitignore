@@ -12,6 +12,8 @@ logs/
 *.log
 
 # Local/data files
+temp.*
+*.bin
 data/
 !data/
 data/*

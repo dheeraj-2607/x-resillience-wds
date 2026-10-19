@@ -68,3 +68,20 @@ def test_optimizer_simulates_actions_ranks_feasible_recovery_and_preserves_input
     assert any(row["action_id"] == "no_op" and row["feasible"] is False for row in result["evaluations"])
     assert reference.get_link("P1").initial_status == wntr.network.LinkStatus.Open
     assert incident.get_link("P1").initial_status == wntr.network.LinkStatus.Closed
+
+
+def test_pda_metrics_report_unmet_demand_as_physical_volume():
+    from src.impact.cpis import _configure_pda, _pda_physical_metrics
+
+    network = _single_supply_network()
+    network.get_link("P1").initial_status = wntr.network.LinkStatus.Closed
+    _configure_pda(network, duration_hours=1, timestep_minutes=60)
+    results = wntr.sim.EpanetSimulator(network).run_sim()
+
+    metrics = _pda_physical_metrics(network, results, {"J1": 1})
+
+    assert metrics["required_demand_volume_m3"] == 36.0
+    assert metrics["delivered_demand_volume_m3"] >= 0.0
+    assert metrics["unmet_demand_volume_m3"] > 0.0
+    assert metrics["pressure_violation_junction_hours"] >= 0.0
+    assert metrics["mean_pressure_head_deficit_m"] >= 0.0
