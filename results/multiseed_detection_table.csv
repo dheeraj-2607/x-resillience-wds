@@ -1,0 +1,6 @@
+adjacency,dataset,seeds,f1_score,recall,precision,roc_auc,pr_auc,false_positive_rate,attacks_detected
+A_CTOWN,Dataset04,5,0.480 ± 0.030,0.346 ± 0.034,0.790 ± 0.026,0.789 ± 0.009,0.545 ± 0.015,0.013 ± 0.003,6/6/6/6/6
+A_CTOWN,Test Dataset,5,0.315 ± 0.024,0.211 ± 0.020,0.626 ± 0.007,0.737 ± 0.006,0.493 ± 0.015,0.031 ± 0.002,6/5/5/4/5
+Identity,Dataset04,5,0.502 ± 0.009,0.369 ± 0.015,0.788 ± 0.034,0.805 ± 0.008,0.566 ± 0.007,0.014 ± 0.003,7/6/7/7/7
+Identity,Test Dataset,5,0.333 ± 0.015,0.222 ± 0.012,0.669 ± 0.023,0.759 ± 0.008,0.534 ± 0.013,0.027 ± 0.003,6/6/6/6/6
+SMOTE Random Forest,Dataset04 temporal holdout,single model,0.030,0.015,0.667,0.648,0.417,0.003,N/A

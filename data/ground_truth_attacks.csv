@@ -10,6 +10,6 @@ attack_id,dataset,start_time,end_time,target_component,component_type,attack_typ
 9,Test Dataset,2017-01-30 08:00,2017-02-02 00:00,T2,Tank,Sensor Spoofing/Concealment,DMA1,L_T2;F_V2;S_V2
 10,Test Dataset,2017-02-09 03:00,2017-02-10 09:00,PU3,Pump,Actuator Manipulation,DMA1,F_PU3;S_PU3
 11,Test Dataset,2017-02-12 01:00,2017-02-13 07:00,PU3,Pump,Actuator Manipulation,DMA1,F_PU3;S_PU3
-12,Test Dataset,2017-02-24 05:00,2017-02-28 05:00,T2,Tank,Sensor Spoofing/Concealment,DMA1,L_T2;F_V2;S_V2;P_J14;P_J422
+12,Test Dataset,2017-02-24 05:00,2017-02-28 08:00,T2,Tank,Sensor Spoofing/Concealment,DMA1,L_T2;F_V2;S_V2;P_J14;P_J422
 13,Test Dataset,2017-03-10 14:00,2017-03-13 21:00,T7,Tank,Actuator Manipulation,DMA4,L_T7;F_PU10;S_PU10;F_PU11;S_PU11;P_J14;P_J422
 14,Test Dataset,2017-03-25 20:00,2017-03-27 01:00,T4,Tank,Sensor Spoofing/Concealment,DMA2,L_T4;L_T6

@@ -1,0 +1,722 @@
+{
+  "harmonised_precision": true,
+  "seeds": [
+    42,
+    123,
+    2024,
+    3407,
+    9999
+  ],
+  "runs": [
+    {
+      "seed": 42,
+      "adjacency": "A_CTOWN",
+      "report": {
+        "threshold": 3.028633403573718,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.028633403573718,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.7531380753138075,
+            "recall": 0.36585365853658536,
+            "f1_score": 0.49247606019151846,
+            "roc_auc": 0.7959270779217896,
+            "pr_auc": 0.5531022786926052,
+            "false_positive_rate": 0.016111414527580557,
+            "confusion_matrix": {
+              "TN": 3603,
+              "FP": 59,
+              "FN": 312,
+              "TP": 180
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": null,
+            "3": 4.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 0.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.028633403573718,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.6312056737588653,
+            "recall": 0.21867321867321868,
+            "f1_score": 0.3248175182481752,
+            "roc_auc": 0.7382055736486115,
+            "pr_auc": 0.50134406432835,
+            "false_positive_rate": 0.03134418324291742,
+            "confusion_matrix": {
+              "TN": 1607,
+              "FP": 52,
+              "FN": 318,
+              "TP": 89
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": 21.0,
+            "9": 1.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 46.0,
+            "13": 26.0,
+            "14": null
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "adjacency": "Identity",
+      "report": {
+        "threshold": 3.0127991876699176,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.0127991876699176,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.8125,
+            "recall": 0.3699186991869919,
+            "f1_score": 0.5083798882681564,
+            "roc_auc": 0.8072147256153064,
+            "pr_auc": 0.5771794469872745,
+            "false_positive_rate": 0.011469142545057346,
+            "confusion_matrix": {
+              "TN": 3620,
+              "FP": 42,
+              "FN": 310,
+              "TP": 182
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 7,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": 17.0,
+            "3": 4.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 0.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.0127991876699176,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.6940298507462687,
+            "recall": 0.2285012285012285,
+            "f1_score": 0.3438077634011091,
+            "roc_auc": 0.7669076276671213,
+            "pr_auc": 0.5453106444444485,
+            "false_positive_rate": 0.02471368294153104,
+            "confusion_matrix": {
+              "TN": 1618,
+              "FP": 41,
+              "FN": 314,
+              "TP": 93
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": 21.0,
+            "9": 1.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 17.0,
+            "13": null,
+            "14": 21.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "adjacency": "A_CTOWN",
+      "report": {
+        "threshold": 2.7767303417149303,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.7767303417149303,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.7736625514403292,
+            "recall": 0.3821138211382114,
+            "f1_score": 0.5115646258503401,
+            "roc_auc": 0.7952005434855005,
+            "pr_auc": 0.5601891573724619,
+            "false_positive_rate": 0.015019115237575096,
+            "confusion_matrix": {
+              "TN": 3607,
+              "FP": 55,
+              "FN": 304,
+              "TP": 188
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": null,
+            "3": 4.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 0.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.7767303417149303,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.6312056737588653,
+            "recall": 0.21867321867321868,
+            "f1_score": 0.3248175182481752,
+            "roc_auc": 0.7465214680404554,
+            "pr_auc": 0.5079766775705319,
+            "false_positive_rate": 0.03134418324291742,
+            "confusion_matrix": {
+              "TN": 1607,
+              "FP": 52,
+              "FN": 318,
+              "TP": 89
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 5,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": 19.0,
+            "9": 1.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 31.0,
+            "13": null,
+            "14": null
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "adjacency": "Identity",
+      "report": {
+        "threshold": 2.975715337429752,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.975715337429752,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.7560975609756098,
+            "recall": 0.3780487804878049,
+            "f1_score": 0.5040650406504065,
+            "roc_auc": 0.8109317623760618,
+            "pr_auc": 0.5673864114630813,
+            "false_positive_rate": 0.016384489350081924,
+            "confusion_matrix": {
+              "TN": 3602,
+              "FP": 60,
+              "FN": 306,
+              "TP": 186
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": null,
+            "3": 4.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 0.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.975715337429752,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.6319444444444444,
+            "recall": 0.22358722358722358,
+            "f1_score": 0.33030852994555354,
+            "roc_auc": 0.7567508327001998,
+            "pr_auc": 0.5177045873784631,
+            "false_positive_rate": 0.031946955997588906,
+            "confusion_matrix": {
+              "TN": 1606,
+              "FP": 53,
+              "FN": 316,
+              "TP": 91
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": 21.0,
+            "9": 1.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 32.0,
+            "13": null,
+            "14": 21.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 2024,
+      "adjacency": "A_CTOWN",
+      "report": {
+        "threshold": 3.361976904238763,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.361976904238763,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.8195876288659794,
+            "recall": 0.3231707317073171,
+            "f1_score": 0.46355685131195334,
+            "roc_auc": 0.7857234040663726,
+            "pr_auc": 0.5349625777765351,
+            "false_positive_rate": 0.009557618787547788,
+            "confusion_matrix": {
+              "TN": 3627,
+              "FP": 35,
+              "FN": 333,
+              "TP": 159
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": null,
+            "3": 5.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 1.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.361976904238763,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.6287878787878788,
+            "recall": 0.20393120393120392,
+            "f1_score": 0.3079777365491651,
+            "roc_auc": 0.734584494078165,
+            "pr_auc": 0.46821488906306896,
+            "false_positive_rate": 0.029535864978902954,
+            "confusion_matrix": {
+              "TN": 1610,
+              "FP": 49,
+              "FN": 324,
+              "TP": 83
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 5,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": 21.0,
+            "9": 1.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 46.0,
+            "13": null,
+            "14": null
+          }
+        }
+      }
+    },
+    {
+      "seed": 2024,
+      "adjacency": "Identity",
+      "report": {
+        "threshold": 2.9685059926478394,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.9685059926478394,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.7569721115537849,
+            "recall": 0.3861788617886179,
+            "f1_score": 0.5114401076716016,
+            "roc_auc": 0.8067562707303753,
+            "pr_auc": 0.5623937168235472,
+            "false_positive_rate": 0.016657564172583288,
+            "confusion_matrix": {
+              "TN": 3601,
+              "FP": 61,
+              "FN": 302,
+              "TP": 190
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 7,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": 17.0,
+            "3": 4.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 0.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.9685059926478394,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.6808510638297872,
+            "recall": 0.23587223587223588,
+            "f1_score": 0.35036496350364965,
+            "roc_auc": 0.767455602898641,
+            "pr_auc": 0.5482369617809782,
+            "false_positive_rate": 0.027124773960216998,
+            "confusion_matrix": {
+              "TN": 1614,
+              "FP": 45,
+              "FN": 311,
+              "TP": 96
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": 21.0,
+            "9": 1.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 14.0,
+            "13": null,
+            "14": 27.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 3407,
+      "adjacency": "A_CTOWN",
+      "report": {
+        "threshold": 3.4444662189325395,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.4444662189325395,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.8032786885245902,
+            "recall": 0.29878048780487804,
+            "f1_score": 0.43555555555555553,
+            "roc_auc": 0.7739867370000844,
+            "pr_auc": 0.5232592960429088,
+            "false_positive_rate": 0.009830693610049153,
+            "confusion_matrix": {
+              "TN": 3626,
+              "FP": 36,
+              "FN": 345,
+              "TP": 147
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": null,
+            "3": 32.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 0.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.4444662189325395,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.6134453781512605,
+            "recall": 0.17936117936117937,
+            "f1_score": 0.27756653992395436,
+            "roc_auc": 0.7303280594419835,
+            "pr_auc": 0.49349988670404377,
+            "false_positive_rate": 0.027727546714888487,
+            "confusion_matrix": {
+              "TN": 1613,
+              "FP": 46,
+              "FN": 334,
+              "TP": 73
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 4,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": null,
+            "9": 9.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 32.0,
+            "13": null,
+            "14": null
+          }
+        }
+      }
+    },
+    {
+      "seed": 3407,
+      "adjacency": "Identity",
+      "report": {
+        "threshold": 3.1053229973593957,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.1053229973593957,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.8333333333333334,
+            "recall": 0.34552845528455284,
+            "f1_score": 0.4885057471264368,
+            "roc_auc": 0.7909356919893612,
+            "pr_auc": 0.5592695029533975,
+            "false_positive_rate": 0.009284543965046422,
+            "confusion_matrix": {
+              "TN": 3628,
+              "FP": 34,
+              "FN": 322,
+              "TP": 170
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 7,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": 17.0,
+            "3": 4.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 0.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 3.1053229973593957,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.664,
+            "recall": 0.20393120393120392,
+            "f1_score": 0.31203007518796994,
+            "roc_auc": 0.7548018180929572,
+            "pr_auc": 0.5301150527484028,
+            "false_positive_rate": 0.02531645569620253,
+            "confusion_matrix": {
+              "TN": 1617,
+              "FP": 42,
+              "FN": 324,
+              "TP": 83
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": 21.0,
+            "9": 1.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 45.0,
+            "13": null,
+            "14": 21.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 9999,
+      "adjacency": "A_CTOWN",
+      "report": {
+        "threshold": 2.9274698333175175,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.9274698333175175,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.7982062780269058,
+            "recall": 0.3617886178861789,
+            "f1_score": 0.4979020979020979,
+            "roc_auc": 0.7944917700132763,
+            "pr_auc": 0.5522886026460335,
+            "false_positive_rate": 0.012288367012561441,
+            "confusion_matrix": {
+              "TN": 3617,
+              "FP": 45,
+              "FN": 314,
+              "TP": 178
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": null,
+            "3": 4.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 0.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.9274698333175175,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.625,
+            "recall": 0.2334152334152334,
+            "f1_score": 0.33989266547406083,
+            "roc_auc": 0.7333863536395182,
+            "pr_auc": 0.49209371228092574,
+            "false_positive_rate": 0.034358047016274866,
+            "confusion_matrix": {
+              "TN": 1602,
+              "FP": 57,
+              "FN": 312,
+              "TP": 95
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 5,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": 21.0,
+            "9": 1.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 17.0,
+            "13": null,
+            "14": null
+          }
+        }
+      }
+    },
+    {
+      "seed": 9999,
+      "adjacency": "Identity",
+      "report": {
+        "threshold": 2.927400378481959,
+        "Dataset04": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.927400378481959,
+            "samples": 4154,
+            "attack_samples": 492,
+            "precision": 0.7792207792207793,
+            "recall": 0.36585365853658536,
+            "f1_score": 0.4979253112033195,
+            "roc_auc": 0.8115972434983771,
+            "pr_auc": 0.5653679621493687,
+            "false_positive_rate": 0.013926815947569634,
+            "confusion_matrix": {
+              "TN": 3611,
+              "FP": 51,
+              "FN": 312,
+              "TP": 180
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 7,
+          "attacks_total": 7,
+          "delay_hours": {
+            "1": 0.0,
+            "2": 23.0,
+            "3": 4.0,
+            "4": 19.0,
+            "5": 6.0,
+            "6": 11.0,
+            "7": 0.0
+          }
+        },
+        "Test Dataset": {
+          "metrics": {
+            "metric_category": "DETECTION_METRICS",
+            "threshold": 2.927400378481959,
+            "samples": 2066,
+            "attack_samples": 407,
+            "precision": 0.6717557251908397,
+            "recall": 0.21621621621621623,
+            "f1_score": 0.3271375464684015,
+            "roc_auc": 0.7488081538714451,
+            "pr_auc": 0.5272904479175397,
+            "false_positive_rate": 0.02591922845087402,
+            "confusion_matrix": {
+              "TN": 1616,
+              "FP": 43,
+              "FN": 319,
+              "TP": 88
+            },
+            "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+          },
+          "attacks_detected": 6,
+          "attacks_total": 7,
+          "delay_hours": {
+            "8": 21.0,
+            "9": 1.0,
+            "10": 0.0,
+            "11": 0.0,
+            "12": 17.0,
+            "13": null,
+            "14": 26.0
+          }
+        }
+      }
+    }
+  ]
+}
