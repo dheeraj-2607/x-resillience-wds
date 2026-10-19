@@ -16,7 +16,7 @@ def rank_upstream_components(
     shap_attributions: Mapping[str, float],
     dma_zones: Mapping[str, int] | None = None,
     alpha: float = 0.5,
-    direct_shap_weight: float = 0.5,
+    direct_shap_weight: float = 0.75,
 ) -> dict[str, Any]:
     """Rank upstream pumps, valves, and tanks using reversed-flow PPR."""
     if not graph.is_directed():
@@ -26,13 +26,46 @@ def rank_upstream_components(
     if not 0.0 <= direct_shap_weight <= 1.0:
         raise ValueError("direct_shap_weight must be between 0 and 1.")
 
-    personalization = {node: 0.0 for node in graph}
+    expanded_graph = nx.DiGraph()
+    expanded_graph.add_nodes_from((node, dict(data)) for node, data in graph.nodes(data=True))
+    asset_graph_nodes: dict[tuple[str, str], str] = {}
+    asset_endpoints: dict[tuple[str, str], tuple[str, str]] = {}
+    link_asset_nodes: dict[str, str] = {}
+    for source, destination, data in graph.edges(data=True):
+        component_type = str(data.get("type", "")).title()
+        component_id = str(data.get("id", f"{source}-{destination}"))
+        edge_data = dict(data)
+        if component_type in {"Pump", "Valve"}:
+            asset_node = f"__asset__:{component_type}:{component_id}"
+            expanded_graph.add_node(
+                asset_node,
+                type=component_type.lower(),
+                component_id=component_id,
+                virtual_asset_node=True,
+            )
+            asset_graph_nodes[(component_type, component_id)] = asset_node
+            asset_endpoints[(component_type, component_id)] = (source, destination)
+            link_asset_nodes[component_id] = asset_node
+            expanded_graph.add_edge(source, asset_node, **edge_data)
+            expanded_graph.add_edge(asset_node, destination, **edge_data)
+        else:
+            expanded_graph.add_edge(source, destination, **edge_data)
+
+    personalization = {node: 0.0 for node in expanded_graph}
     direct_asset_attributions: Counter[tuple[str, str]] = Counter()
+    evidence_nodes_by_sensor: dict[str, list[str]] = {}
     for sensor, attribution in shap_attributions.items():
         weight = abs(float(attribution))
         if not math.isfinite(weight):
             raise ValueError(f"SHAP attribution for {sensor!r} must be finite.")
         connected_nodes = [node for node in sensor_nodes.get(sensor, ()) if node in graph]
+        asset_id = None
+        if sensor.startswith(("F_PU", "S_PU", "F_V", "S_V")):
+            asset_id = sensor.split("_", 1)[1]
+        mapped_asset_node = link_asset_nodes.get(asset_id) if asset_id else None
+        if mapped_asset_node is not None:
+            connected_nodes = [mapped_asset_node]
+        evidence_nodes_by_sensor[sensor] = connected_nodes
         if weight and connected_nodes:
             share = weight / len(connected_nodes)
             for node in connected_nodes:
@@ -48,7 +81,7 @@ def rank_upstream_components(
     if total_mass <= 0.0:
         raise ValueError("At least one nonzero SHAP attribution must map to the hydraulic graph.")
     personalization = {node: value / total_mass for node, value in personalization.items()}
-    reversed_graph = graph.reverse(copy=True)
+    reversed_graph = expanded_graph.reverse(copy=True)
     pagerank = nx.pagerank(
         reversed_graph,
         alpha=alpha,
@@ -58,7 +91,7 @@ def rank_upstream_components(
     )
 
     candidates = []
-    for component, data in graph.nodes(data=True):
+    for component, data in expanded_graph.nodes(data=True):
         if data.get("type") == "tank":
             candidates.append(
                 {
@@ -66,21 +99,22 @@ def rank_upstream_components(
                     "component_type": "Tank",
                     "score": float(pagerank[component]),
                     "nodes": [component],
+                    "graph_node": component,
                 }
             )
-    for source, destination, data in graph.edges(data=True):
-        component_type = data.get("type")
-        if component_type in {"pump", "valve"}:
-            candidates.append(
-                {
-                    "component_id": str(data.get("id", f"{source}-{destination}")),
-                    "component_type": str(component_type).title(),
-                    "score": float(pagerank[source]),
-                    "nodes": [source, destination],
-                    "upstream_node": source,
-                    "downstream_node": destination,
-                }
-            )
+    for (component_type, component_id), graph_node in asset_graph_nodes.items():
+        source, destination = asset_endpoints[(component_type, component_id)]
+        candidates.append(
+            {
+                "component_id": component_id,
+                "component_type": component_type,
+                "score": float(pagerank[graph_node]),
+                "nodes": [source, destination],
+                "upstream_node": source,
+                "downstream_node": destination,
+                "graph_node": graph_node,
+            }
+        )
     if not candidates:
         raise ValueError("The directed hydraulic graph has no pump, valve, or tank candidates.")
     ppr_max = max(candidate["score"] for candidate in candidates)
@@ -111,7 +145,7 @@ def rank_upstream_components(
         key=lambda node: (-personalization[node], str(node)),
     )
     route_options = []
-    route_target = top_candidate.get("downstream_node", top_candidate["nodes"][0])
+    route_target = top_candidate["graph_node"]
     for evidence_node in evidence_nodes:
         if nx.has_path(reversed_graph, evidence_node, route_target):
             path = nx.shortest_path(reversed_graph, evidence_node, route_target)
@@ -119,11 +153,17 @@ def rank_upstream_components(
     route_options.sort(key=lambda option: (option[0], option[1], [str(node) for node in option[2]]))
     node_path = route_options[0][2] if route_options else []
     if node_path and "upstream_node" in top_candidate:
-        if node_path[-1] != top_candidate["upstream_node"]:
-            node_path = [*node_path, top_candidate["upstream_node"]]
+        node_path = [*node_path, top_candidate["upstream_node"]]
+    asset_node_to_name = {
+        graph_node: f"{component_type} {component_id}"
+        for (component_type, component_id), graph_node in asset_graph_nodes.items()
+    }
+    display_path = [asset_node_to_name.get(node, node) for node in node_path]
     link_path = []
     for source, destination in zip(node_path, node_path[1:]):
-        link_path.append(reversed_graph[source][destination].get("id"))
+        link_id = reversed_graph[source][destination].get("id")
+        if link_id and (not link_path or link_path[-1] != link_id):
+            link_path.append(link_id)
     if top_candidate["component_type"] in {"Pump", "Valve"}:
         if not link_path or link_path[-1] != top_candidate["component_id"]:
             link_path.append(top_candidate["component_id"])
@@ -140,7 +180,7 @@ def rank_upstream_components(
         "candidate_component_type": top_candidate["component_type"],
         "candidate_score": top_candidate["score"],
         "affected_dma_zone": affected_zone,
-        "propagation_path": {"nodes": node_path, "links": link_path},
+        "propagation_path": {"nodes": display_path, "links": link_path},
         "ranked_components": candidates,
         "pagerank": pagerank,
         "personalization": personalization,

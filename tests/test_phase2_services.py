@@ -152,7 +152,7 @@ def test_reversed_flow_pagerank_ranks_upstream_asset_and_path():
 
     assert result["candidate_component"] == "Pump PU1"
     assert result["affected_dma_zone"] == 1
-    assert result["propagation_path"]["nodes"] == ["J2", "J1"]
+    assert result["propagation_path"]["nodes"] == ["J2", "Pump PU1", "J1"]
     assert result["propagation_path"]["links"] == ["PU1"]
 
 

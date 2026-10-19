@@ -326,41 +326,13 @@ def run_localization_benchmark() -> dict[str, Any]:
                 seed=42 + int(attack.attack_id),
             )
             shap_sensors = peak_shap_frame["Sensor"].astype(str).tolist()
-            ranked_interval_indices = candidate_indices[
-                np.argsort(prediction_data["window_scores"][candidate_indices])[-3:]
-            ]
-            interval_shap_frames = [peak_shap_frame]
-            for interval_index in ranked_interval_indices:
-                if interval_index == peak_index:
-                    continue
-                interval_shap_frames.append(
-                    _shap_attributions(
-                        model,
-                        adjacency,
-                        variance,
-                        calibration_windows,
-                        prediction_data["windows"][interval_index : interval_index + 1],
-                        prediction_data["targets"][interval_index : interval_index + 1],
-                        sensor_columns,
-                        seed=42 + int(attack.attack_id) + int(interval_index),
-                    )
-                )
-            ppr_shap_values = np.max(
-                [
-                    frame.set_index("Sensor").reindex(sensor_columns)["SHAP Value"].abs().to_numpy()
-                    for frame in interval_shap_frames
-                ],
-                axis=0,
+            ppr_shap_attributions = dict(
+                zip(peak_shap_frame["Sensor"], peak_shap_frame["SHAP Value"], strict=True)
             )
-            ppr_shap_frame = pd.DataFrame(
-                {"Sensor": sensor_columns, "SHAP Value": ppr_shap_values}
-            )
-            ppr_shap_frame["Abs SHAP"] = ppr_shap_frame["SHAP Value"].abs()
-            ppr_shap_frame = ppr_shap_frame.sort_values("Abs SHAP", ascending=False).reset_index(drop=True)
             ppr_result = rank_upstream_components(
                 directed_graph,
                 sensor_nodes,
-                dict(zip(ppr_shap_frame["Sensor"], ppr_shap_frame["SHAP Value"], strict=True)),
+                ppr_shap_attributions,
                 dma_zones,
             )
             method_candidates = {
@@ -400,7 +372,7 @@ def run_localization_benchmark() -> dict[str, Any]:
                         "raw_deviation_top_sensor": raw_sensors[0],
                         "shap_top_sensor": shap_sensors[0],
                         "shap_top_sensors": shap_sensors[:5],
-                        "ppr_interval_shap_top_sensors": ppr_shap_frame["Sensor"].head(5).tolist(),
+                        "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
                         "predicted_components": candidates[:3],
                         "predicted_dma_zone": predicted_zone,
                         "topological_hop_distance": hop_distance,
@@ -440,14 +412,14 @@ def run_localization_benchmark() -> dict[str, Any]:
             "directed_edges": directed_graph.number_of_edges(),
             "orientation": "predominant nonzero signed flow; equipment orientation for zero-flow links",
             "ppr_alpha": 0.5,
-            "ppr_direct_shap_weight": 0.5,
+            "ppr_direct_shap_weight": 0.75,
             "candidate_score_normalization": "separate max normalization of PPR and direct component SHAP mass, then equal-weight fusion",
         },
         "evidence_selection": "Peak normalized-residual H=12 window whose target timestamp falls within each attack interval.",
         "methods": {
             "baseline_a_raw_deviation": "Rank sensors by final-horizon instrument-normalized squared residual; map to directly sensed components.",
             "baseline_b_top1_shap": "Rank sensors by real SHAP permutation attribution; map the top sensor directly to its component.",
-            "proposed_shap_reversed_flow_ppr": "Maximum absolute sensor SHAP magnitude over the three highest-score event windows, then personalize PageRank on the reversed simulated-flow graph.",
+            "proposed_shap_reversed_flow_ppr": "Use the same peak-window SHAP values as Baseline B to personalize PageRank on the reversed simulated-flow graph.",
         },
         "metrics": combined_metrics,
         "by_dataset": results_by_dataset,

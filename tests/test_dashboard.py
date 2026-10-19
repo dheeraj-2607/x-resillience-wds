@@ -249,6 +249,34 @@ class TestDemoModeIntegrity:
         assert len(v_stats) == 1
         assert np.isfinite(demo_pipe["calibrated_threshold"])
 
+    def test_demo_reloads_stale_graph_builder_module(self, monkeypatch):
+        import src.network.graph_builder as graph_builder
+        from dashboard.app import load_demo_pipeline
+
+        monkeypatch.delattr(graph_builder, "build_directed_hydraulic_graph")
+        load_demo_pipeline.clear()
+        demo_pipe = load_demo_pipeline()
+
+        assert demo_pipe["directed_graph"].is_directed()
+
+    def test_dashboard_reloads_stale_root_cause_assessment(self, monkeypatch):
+        import inspect
+        import src.root_cause.assessment as assessment_module
+        from dashboard.app import _get_root_cause_assessor
+
+        current_assessor = assessment_module.assess_explanation_root_cause
+        monkeypatch.setattr(
+            assessment_module,
+            "assess_explanation_root_cause",
+            lambda explanation_result, anomaly_score, threshold: None,
+        )
+
+        refreshed_assessor = _get_root_cause_assessor()
+
+        assert refreshed_assessor is assessment_module.assess_explanation_root_cause
+        assert "graph" in inspect.signature(refreshed_assessor).parameters
+        monkeypatch.setattr(assessment_module, "assess_explanation_root_cause", current_assessor)
+
     def test_demo_synthetic_injection_in_memory_only(self):
         """Verify synthetic anomaly injection modifies only in-memory objects."""
         from dashboard.app import load_demo_pipeline

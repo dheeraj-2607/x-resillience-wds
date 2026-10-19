@@ -7,14 +7,14 @@
     "directed_edges": 444,
     "orientation": "predominant nonzero signed flow; equipment orientation for zero-flow links",
     "ppr_alpha": 0.5,
-    "ppr_direct_shap_weight": 0.5,
+    "ppr_direct_shap_weight": 0.75,
     "candidate_score_normalization": "separate max normalization of PPR and direct component SHAP mass, then equal-weight fusion"
   },
   "evidence_selection": "Peak normalized-residual H=12 window whose target timestamp falls within each attack interval.",
   "methods": {
     "baseline_a_raw_deviation": "Rank sensors by final-horizon instrument-normalized squared residual; map to directly sensed components.",
     "baseline_b_top1_shap": "Rank sensors by real SHAP permutation attribution; map the top sensor directly to its component.",
-    "proposed_shap_reversed_flow_ppr": "Maximum absolute sensor SHAP magnitude over the three highest-score event windows, then personalize PageRank on the reversed simulated-flow graph."
+    "proposed_shap_reversed_flow_ppr": "Use the same peak-window SHAP values as Baseline B to personalize PageRank on the reversed simulated-flow graph."
   },
   "metrics": {
     "baseline_a_raw_deviation": {
@@ -60,20 +60,20 @@
     "proposed_shap_reversed_flow_ppr": {
       "method": "proposed_shap_reversed_flow_ppr",
       "attacks": 14,
-      "top1_component_accuracy_pct": 14.285714285714286,
-      "top3_component_accuracy_pct": 50.0,
+      "top1_component_accuracy_pct": 21.428571428571427,
+      "top3_component_accuracy_pct": 21.428571428571427,
       "dma_zone_accuracy_pct": 57.142857142857146,
-      "mean_topological_hop_distance": 21.428571428571427,
+      "mean_topological_hop_distance": 17.928571428571427,
       "by_attack_type": {
         "Actuator Manipulation": {
           "attacks": 8,
           "top1_component_accuracy_pct": 25.0,
-          "top3_component_accuracy_pct": 62.5
+          "top3_component_accuracy_pct": 25.0
         },
         "Sensor Spoofing/Concealment": {
           "attacks": 6,
-          "top1_component_accuracy_pct": 0.0,
-          "top3_component_accuracy_pct": 33.333333333333336
+          "top1_component_accuracy_pct": 16.666666666666668,
+          "top3_component_accuracy_pct": 16.666666666666668
         }
       }
     }
@@ -124,19 +124,19 @@
         "method": "proposed_shap_reversed_flow_ppr",
         "attacks": 7,
         "top1_component_accuracy_pct": 0.0,
-        "top3_component_accuracy_pct": 42.857142857142854,
+        "top3_component_accuracy_pct": 0.0,
         "dma_zone_accuracy_pct": 57.142857142857146,
-        "mean_topological_hop_distance": 24.857142857142858,
+        "mean_topological_hop_distance": 22.142857142857142,
         "by_attack_type": {
           "Actuator Manipulation": {
             "attacks": 5,
             "top1_component_accuracy_pct": 0.0,
-            "top3_component_accuracy_pct": 40.0
+            "top3_component_accuracy_pct": 0.0
           },
           "Sensor Spoofing/Concealment": {
             "attacks": 2,
             "top1_component_accuracy_pct": 0.0,
-            "top3_component_accuracy_pct": 50.0
+            "top3_component_accuracy_pct": 0.0
           }
         }
       },
@@ -159,13 +159,7 @@
             "F_PU10",
             "P_J14"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T3",
-            "L_T7",
-            "F_PU11",
-            "S_PU11",
-            "P_J317"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Pump",
@@ -215,20 +209,14 @@
             "F_PU10",
             "P_J14"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T3",
-            "L_T7",
-            "F_PU11",
-            "S_PU11",
-            "P_J317"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Valve",
               "component_id": "V2",
               "nodes": [
-                "J14",
-                "J422"
+                "J422",
+                "J14"
               ],
               "dma_zone": 1
             }
@@ -255,55 +243,61 @@
             "F_PU10",
             "P_J14"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T3",
-            "L_T7",
-            "F_PU11",
-            "S_PU11",
-            "P_J317"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
-              "component_id": "T3",
-              "component_type": "Tank",
+              "component_id": "V2",
+              "component_type": "Valve",
               "score": 1.0,
               "nodes": [
-                "T3"
+                "J14",
+                "J422"
               ],
+              "upstream_node": "J14",
+              "downstream_node": "J422",
+              "graph_node": "__asset__:Valve:V2",
               "ppr_score": 1.0,
-              "direct_shap_mass": 0.9863975568239027
+              "direct_shap_mass": 0.27636822632794633
             },
             {
-              "component_id": "PU11",
+              "component_id": "PU10",
               "component_type": "Pump",
-              "score": 0.8383176846333346,
+              "score": 0.32704463200176165,
               "nodes": [
-                "J309",
-                "J323"
+                "J307",
+                "J317"
               ],
-              "upstream_node": "J309",
-              "downstream_node": "J323",
-              "ppr_score": 0.7125690442295074,
-              "direct_shap_mass": 0.9509526676328548
+              "upstream_node": "J307",
+              "downstream_node": "J317",
+              "graph_node": "__asset__:Pump:PU10",
+              "ppr_score": 0.3132851589829764,
+              "direct_shap_mass": 0.09165230526087242
             },
             {
-              "component_id": "T7",
-              "component_type": "Tank",
-              "score": 0.7061260955120664,
+              "component_id": "PU7",
+              "component_type": "Pump",
+              "score": 0.24621591144758154,
               "nodes": [
-                "T7"
+                "J290",
+                "J291"
               ],
-              "ppr_score": 0.7058653093687343,
-              "direct_shap_mass": 0.6967782942373404
+              "upstream_node": "J290",
+              "downstream_node": "J291",
+              "graph_node": "__asset__:Pump:PU7",
+              "ppr_score": 0.293109426816371,
+              "direct_shap_mass": 0.06372629551756859
             }
           ],
-          "predicted_dma_zone": 3,
-          "topological_hop_distance": 38.0,
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 28.0,
           "ppr_propagation_path": {
             "nodes": [
-              "T3"
+              "Valve V2",
+              "J14"
             ],
-            "links": []
+            "links": [
+              "V2"
+            ]
           }
         },
         {
@@ -324,13 +318,7 @@
             "P_J317",
             "S_PU7"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T3",
-            "L_T7",
-            "P_J280",
-            "F_PU1",
-            "L_T4"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -379,13 +367,7 @@
             "P_J317",
             "S_PU7"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T3",
-            "L_T7",
-            "P_J280",
-            "F_PU1",
-            "L_T4"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Tank",
@@ -418,13 +400,7 @@
             "P_J317",
             "S_PU7"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T3",
-            "L_T7",
-            "P_J280",
-            "F_PU1",
-            "L_T4"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_id": "T3",
@@ -433,31 +409,34 @@
               "nodes": [
                 "T3"
               ],
+              "graph_node": "T3",
               "ppr_score": 1.0,
               "direct_shap_mass": 2.0105130669389166
             },
             {
-              "component_id": "T7",
-              "component_type": "Tank",
-              "score": 0.26485559098810757,
+              "component_id": "PU1",
+              "component_type": "Pump",
+              "score": 0.22902397858028656,
               "nodes": [
-                "T7"
+                "J285",
+                "J273"
               ],
-              "ppr_score": 0.26478983394588534,
-              "direct_shap_mass": 0.5326278319260505
+              "upstream_node": "J285",
+              "downstream_node": "J273",
+              "graph_node": "__asset__:Pump:PU1",
+              "ppr_score": 0.23608318580491006,
+              "direct_shap_mass": 0.4557248254555596
             },
             {
-              "component_id": "PU8",
-              "component_type": "Pump",
-              "score": 0.21813794000979603,
+              "component_id": "T4",
+              "component_type": "Tank",
+              "score": 0.20167148727546597,
               "nodes": [
-                "J301",
-                "J304"
+                "T4"
               ],
-              "upstream_node": "J301",
-              "downstream_node": "J304",
-              "ppr_score": 0.24755253604863348,
-              "direct_shap_mass": 0.37943074909002006
+              "graph_node": "T4",
+              "ppr_score": 0.20159650179662142,
+              "direct_shap_mass": 0.4055134134913456
             }
           ],
           "predicted_dma_zone": 3,
@@ -487,13 +466,7 @@
             "L_T3",
             "L_T6"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "L_T4",
-            "L_T6",
-            "L_T1",
-            "L_T7"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -507,8 +480,8 @@
               "component_type": "Pump",
               "component_id": "PU1",
               "nodes": [
-                "J285",
-                "J273"
+                "J273",
+                "J285"
               ],
               "dma_zone": 1
             },
@@ -543,13 +516,7 @@
             "L_T3",
             "L_T6"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "L_T4",
-            "L_T6",
-            "L_T1",
-            "L_T7"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -582,48 +549,45 @@
             "L_T3",
             "L_T6"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "L_T4",
-            "L_T6",
-            "L_T1",
-            "L_T7"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_id": "T4",
               "component_type": "Tank",
-              "score": 0.6725054071766758,
+              "score": 0.9730189043707907,
               "nodes": [
                 "T4"
               ],
-              "ppr_score": 0.34501081435335174,
+              "graph_node": "T4",
+              "ppr_score": 0.8920756174831631,
               "direct_shap_mass": 1.0413259216356163
             },
             {
-              "component_id": "V2",
-              "component_type": "Valve",
-              "score": 0.6192733114635489,
+              "component_id": "PU7",
+              "component_type": "Pump",
+              "score": 0.8931762724078014,
               "nodes": [
-                "J14",
-                "J422"
+                "J290",
+                "J291"
               ],
-              "upstream_node": "J14",
-              "downstream_node": "J422",
-              "ppr_score": 0.4589724320184659,
-              "direct_shap_mass": 0.811790812831271
+              "upstream_node": "J290",
+              "downstream_node": "J291",
+              "graph_node": "__asset__:Pump:PU7",
+              "ppr_score": 0.8930287344349468,
+              "direct_shap_mass": 0.9301388167533045
             },
             {
               "component_id": "PU10",
               "component_type": "Pump",
-              "score": 0.6006411425245277,
+              "score": 0.8764598991096284,
               "nodes": [
                 "J307",
                 "J317"
               ],
               "upstream_node": "J307",
               "downstream_node": "J317",
-              "ppr_score": 0.32876912711285133,
+              "graph_node": "__asset__:Pump:PU10",
+              "ppr_score": 0.8883001226299021,
               "direct_shap_mass": 0.9085705683271197
             }
           ],
@@ -654,13 +618,7 @@
             "P_J307",
             "L_T4"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "P_J302",
-            "L_T2",
-            "P_J307",
-            "L_T1"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -709,13 +667,7 @@
             "P_J307",
             "L_T4"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "P_J302",
-            "L_T2",
-            "P_J307",
-            "L_T1"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -748,57 +700,57 @@
             "P_J307",
             "L_T4"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "P_J302",
-            "L_T2",
-            "P_J307",
-            "L_T1"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
-              "component_id": "PU2",
-              "component_type": "Pump",
+              "component_id": "V2",
+              "component_type": "Valve",
               "score": 1.0,
               "nodes": [
-                "J280",
-                "J269"
+                "J14",
+                "J422"
               ],
-              "upstream_node": "J280",
-              "downstream_node": "J269",
+              "upstream_node": "J14",
+              "downstream_node": "J422",
+              "graph_node": "__asset__:Valve:V2",
               "ppr_score": 1.0,
-              "direct_shap_mass": 1.0722954504718007
+              "direct_shap_mass": 0.43699574861890333
             },
             {
-              "component_id": "T2",
-              "component_type": "Tank",
-              "score": 0.6826054568467266,
+              "component_id": "PU8",
+              "component_type": "Pump",
+              "score": 0.9126494021599201,
               "nodes": [
-                "T2"
+                "J301",
+                "J304"
               ],
-              "ppr_score": 0.39769569152789075,
-              "direct_shap_mass": 1.037462170990346
+              "upstream_node": "J301",
+              "downstream_node": "J304",
+              "graph_node": "__asset__:Pump:PU8",
+              "ppr_score": 0.897954247792309,
+              "direct_shap_mass": 0.4009644820514504
             },
             {
-              "component_id": "T1",
+              "component_id": "T6",
               "component_type": "Tank",
-              "score": 0.5548288965791753,
+              "score": 0.6443637631320034,
               "nodes": [
-                "T1"
+                "T6"
               ],
-              "ppr_score": 0.32326407888212866,
-              "direct_shap_mass": 0.8432464020980142
+              "graph_node": "T6",
+              "ppr_score": 0.5703385551695546,
+              "direct_shap_mass": 0.29236712544283705
             }
           ],
           "predicted_dma_zone": 1,
-          "topological_hop_distance": 25.0,
+          "topological_hop_distance": 16.0,
           "ppr_propagation_path": {
             "nodes": [
-              "J269",
-              "J280"
+              "Valve V2",
+              "J14"
             ],
             "links": [
-              "PU2"
+              "V2"
             ]
           }
         },
@@ -820,20 +772,14 @@
             "L_T2",
             "P_J302"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T3",
-            "S_PU6",
-            "L_T6",
-            "L_T1",
-            "L_T2"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Pump",
               "component_id": "PU6",
               "nodes": [
-                "J289",
-                "J415"
+                "J415",
+                "J289"
               ],
               "dma_zone": 1
             },
@@ -849,8 +795,8 @@
               "component_type": "Pump",
               "component_id": "PU4",
               "nodes": [
-                "J292",
-                "J299"
+                "J299",
+                "J292"
               ],
               "dma_zone": 3
             }
@@ -877,13 +823,7 @@
             "L_T2",
             "P_J302"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T3",
-            "S_PU6",
-            "L_T6",
-            "L_T1",
-            "L_T2"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Tank",
@@ -916,53 +856,50 @@
             "L_T2",
             "P_J302"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T3",
-            "S_PU6",
-            "L_T6",
-            "L_T1",
-            "L_T2"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_id": "PU6",
               "component_type": "Pump",
-              "score": 0.9346131367537034,
+              "score": 1.0,
               "nodes": [
                 "J289",
                 "J415"
               ],
               "upstream_node": "J289",
               "downstream_node": "J415",
-              "ppr_score": 0.8692262735074069,
-              "direct_shap_mass": 0.32547110685948866
+              "graph_node": "__asset__:Pump:PU6",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.27844897446678374
             },
             {
               "component_id": "T3",
               "component_type": "Tank",
-              "score": 0.8920454916436287,
+              "score": 0.9312600499122169,
               "nodes": [
                 "T3"
               ],
-              "ppr_score": 0.987651602445683,
+              "graph_node": "T3",
+              "ppr_score": 0.9322340060683422,
               "direct_shap_mass": 0.2592180068289931
             },
             {
               "component_id": "T6",
               "component_type": "Tank",
-              "score": 0.8283515522631886,
+              "score": 0.7323963767951572,
               "nodes": [
                 "T6"
               ],
-              "ppr_score": 0.9165582923009036,
-              "direct_shap_mass": 0.24089575127133322
+              "graph_node": "T6",
+              "ppr_score": 0.7323955762204126,
+              "direct_shap_mass": 0.20393509432820522
             }
           ],
           "predicted_dma_zone": 1,
           "topological_hop_distance": 1.0,
           "ppr_propagation_path": {
             "nodes": [
-              "J415",
+              "Pump PU6",
               "J289"
             ],
             "links": [
@@ -988,20 +925,14 @@
             "L_T7",
             "F_PU1"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "F_PU6",
-            "S_PU6",
-            "L_T1",
-            "L_T7",
-            "L_T4"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Pump",
               "component_id": "PU6",
               "nodes": [
-                "J289",
-                "J415"
+                "J415",
+                "J289"
               ],
               "dma_zone": 1
             },
@@ -1044,20 +975,14 @@
             "L_T7",
             "F_PU1"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "F_PU6",
-            "S_PU6",
-            "L_T1",
-            "L_T7",
-            "L_T4"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Pump",
               "component_id": "PU6",
               "nodes": [
-                "J289",
-                "J415"
+                "J415",
+                "J289"
               ],
               "dma_zone": 1
             }
@@ -1084,13 +1009,7 @@
             "L_T7",
             "F_PU1"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "F_PU6",
-            "S_PU6",
-            "L_T1",
-            "L_T7",
-            "L_T4"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_id": "PU6",
@@ -1102,27 +1021,30 @@
               ],
               "upstream_node": "J289",
               "downstream_node": "J415",
+              "graph_node": "__asset__:Pump:PU6",
               "ppr_score": 1.0,
               "direct_shap_mass": 7.0195695268409075
             },
             {
               "component_id": "T1",
               "component_type": "Tank",
-              "score": 0.5294995206912773,
+              "score": 0.40147457555789523,
               "nodes": [
                 "T1"
               ],
-              "ppr_score": 0.6575248184037719,
+              "graph_node": "T1",
+              "ppr_score": 0.4014756332952332,
               "direct_shap_mass": 2.818176221433994
             },
             {
               "component_id": "T7",
               "component_type": "Tank",
-              "score": 0.2598038639023557,
+              "score": 0.19698789564866337,
               "nodes": [
                 "T7"
               ],
-              "ppr_score": 0.3226198299634888,
+              "graph_node": "T7",
+              "ppr_score": 0.19698788907098558,
               "direct_shap_mass": 1.3827702448426962
             }
           ],
@@ -1130,7 +1052,7 @@
           "topological_hop_distance": 1.0,
           "ppr_propagation_path": {
             "nodes": [
-              "J415",
+              "Pump PU6",
               "J289"
             ],
             "links": [
@@ -1156,13 +1078,7 @@
             "S_PU2",
             "P_J269"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "L_T7",
-            "L_T1",
-            "F_PU1",
-            "F_PU2"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Pump",
@@ -1212,13 +1128,7 @@
             "S_PU2",
             "P_J269"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "L_T7",
-            "L_T1",
-            "F_PU1",
-            "F_PU2"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -1251,53 +1161,56 @@
             "S_PU2",
             "P_J269"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "L_T7",
-            "L_T1",
-            "F_PU1",
-            "F_PU2"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_id": "PU2",
               "component_type": "Pump",
-              "score": 0.9991613712984229,
+              "score": 1.0,
               "nodes": [
                 "J280",
                 "J269"
               ],
               "upstream_node": "J280",
               "downstream_node": "J269",
+              "graph_node": "__asset__:Pump:PU2",
               "ppr_score": 1.0,
               "direct_shap_mass": 0.755540508599811
             },
             {
-              "component_id": "T7",
-              "component_type": "Tank",
-              "score": 0.7097228153170243,
+              "component_id": "PU1",
+              "component_type": "Pump",
+              "score": 0.6110489309629216,
               "nodes": [
-                "T7"
+                "J285",
+                "J273"
               ],
-              "ppr_score": 0.4194456306340486,
-              "direct_shap_mass": 0.7568098735630249
+              "upstream_node": "J285",
+              "downstream_node": "J273",
+              "graph_node": "__asset__:Pump:PU1",
+              "ppr_score": 0.6028154218103401,
+              "direct_shap_mass": 0.4637458033099975
             },
             {
-              "component_id": "T1",
-              "component_type": "Tank",
-              "score": 0.5762990547594534,
+              "component_id": "PU10",
+              "component_type": "Pump",
+              "score": 0.2932541006154435,
               "nodes": [
-                "T1"
+                "J307",
+                "J317"
               ],
-              "ppr_score": 0.34059615942143107,
-              "direct_shap_mass": 0.6145310931862003
+              "upstream_node": "J307",
+              "downstream_node": "J317",
+              "graph_node": "__asset__:Pump:PU10",
+              "ppr_score": 0.3104187310256203,
+              "direct_shap_mass": 0.21724249446462807
             }
           ],
           "predicted_dma_zone": 1,
           "topological_hop_distance": 26.0,
           "ppr_propagation_path": {
             "nodes": [
-              "J269",
+              "Pump PU2",
               "J280"
             ],
             "links": [
@@ -1351,19 +1264,19 @@
       "proposed_shap_reversed_flow_ppr": {
         "method": "proposed_shap_reversed_flow_ppr",
         "attacks": 7,
-        "top1_component_accuracy_pct": 28.571428571428573,
-        "top3_component_accuracy_pct": 57.142857142857146,
+        "top1_component_accuracy_pct": 42.857142857142854,
+        "top3_component_accuracy_pct": 42.857142857142854,
         "dma_zone_accuracy_pct": 57.142857142857146,
-        "mean_topological_hop_distance": 18.0,
+        "mean_topological_hop_distance": 13.714285714285714,
         "by_attack_type": {
           "Actuator Manipulation": {
             "attacks": 3,
             "top1_component_accuracy_pct": 66.66666666666667,
-            "top3_component_accuracy_pct": 100.0
+            "top3_component_accuracy_pct": 66.66666666666667
           },
           "Sensor Spoofing/Concealment": {
             "attacks": 4,
-            "top1_component_accuracy_pct": 0.0,
+            "top1_component_accuracy_pct": 25.0,
             "top3_component_accuracy_pct": 25.0
           }
         }
@@ -1387,13 +1300,7 @@
             "L_T7",
             "P_J415"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "F_PU1",
-            "L_T4",
-            "L_T7",
-            "P_J256"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -1442,13 +1349,7 @@
             "L_T7",
             "P_J415"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "F_PU1",
-            "L_T4",
-            "L_T7",
-            "P_J256"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -1481,63 +1382,57 @@
             "L_T7",
             "P_J415"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "F_PU1",
-            "L_T4",
-            "L_T7",
-            "P_J256"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
-            {
-              "component_id": "V2",
-              "component_type": "Valve",
-              "score": 1.0,
-              "nodes": [
-                "J14",
-                "J422"
-              ],
-              "upstream_node": "J14",
-              "downstream_node": "J422",
-              "ppr_score": 1.0,
-              "direct_shap_mass": 0.5033663773988698
-            },
             {
               "component_id": "PU7",
               "component_type": "Pump",
-              "score": 0.6687973555559347,
+              "score": 1.0,
               "nodes": [
                 "J290",
                 "J291"
               ],
               "upstream_node": "J290",
               "downstream_node": "J291",
-              "ppr_score": 0.5639986149676688,
+              "graph_node": "__asset__:Pump:PU7",
+              "ppr_score": 1.0,
               "direct_shap_mass": 0.389402264486014
             },
             {
-              "component_id": "PU10",
+              "component_id": "PU1",
               "component_type": "Pump",
-              "score": 0.6277845851856365,
+              "score": 0.9282197040054984,
               "nodes": [
-                "J307",
-                "J317"
+                "J285",
+                "J273"
               ],
-              "upstream_node": "J307",
-              "downstream_node": "J317",
-              "ppr_score": 0.6521978896226873,
-              "direct_shap_mass": 0.303716815816932
+              "upstream_node": "J285",
+              "downstream_node": "J273",
+              "graph_node": "__asset__:Pump:PU1",
+              "ppr_score": 0.8495280207785361,
+              "direct_shap_mass": 0.37166509456187713
+            },
+            {
+              "component_id": "T4",
+              "component_type": "Tank",
+              "score": 0.845836051967696,
+              "nodes": [
+                "T4"
+              ],
+              "graph_node": "T4",
+              "ppr_score": 0.7462982626583605,
+              "direct_shap_mass": 0.3422905542064596
             }
           ],
           "predicted_dma_zone": 1,
           "topological_hop_distance": 9.0,
           "ppr_propagation_path": {
             "nodes": [
-              "J422",
-              "J14"
+              "Pump PU7",
+              "J290"
             ],
             "links": [
-              "V2"
+              "PU7"
             ]
           }
         },
@@ -1559,13 +1454,7 @@
             "L_T7",
             "L_T4"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "L_T4",
-            "L_T1",
-            "L_T3",
-            "L_T5"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -1614,13 +1503,7 @@
             "L_T7",
             "L_T4"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "L_T4",
-            "L_T1",
-            "L_T3",
-            "L_T5"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -1653,50 +1536,47 @@
             "L_T7",
             "L_T4"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "P_J280",
-            "L_T4",
-            "L_T1",
-            "L_T3",
-            "L_T5"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
-            {
-              "component_id": "T4",
-              "component_type": "Tank",
-              "score": 0.9432118969764387,
-              "nodes": [
-                "T4"
-              ],
-              "ppr_score": 0.8864237939528775,
-              "direct_shap_mass": 1.322367405001923
-            },
             {
               "component_id": "T1",
               "component_type": "Tank",
-              "score": 0.9309678240501446,
+              "score": 1.0,
               "nodes": [
                 "T1"
               ],
-              "ppr_score": 0.8749242628733358,
-              "direct_shap_mass": 1.3051916841899196
+              "graph_node": "T1",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 1.0750465229333388
             },
             {
-              "component_id": "T3",
+              "component_id": "T5",
               "component_type": "Tank",
-              "score": 0.8969853821322162,
+              "score": 0.9201680614230014,
               "nodes": [
-                "T3"
+                "T5"
               ],
-              "ppr_score": 0.8431963279635543,
-              "direct_shap_mass": 1.2572731240733586
+              "graph_node": "T5",
+              "ppr_score": 0.9201617257848416,
+              "direct_shap_mass": 0.9892257453157001
+            },
+            {
+              "component_id": "T7",
+              "component_type": "Tank",
+              "score": 0.4120373752311042,
+              "nodes": [
+                "T7"
+              ],
+              "graph_node": "T7",
+              "ppr_score": 0.41203453822792263,
+              "direct_shap_mass": 0.4429603641975799
             }
           ],
-          "predicted_dma_zone": 2,
-          "topological_hop_distance": 29.0,
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 20.0,
           "ppr_propagation_path": {
             "nodes": [
-              "T4"
+              "T1"
             ],
             "links": []
           }
@@ -1719,13 +1599,7 @@
             "L_T4",
             "S_PU3"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "F_PU3",
-            "F_PU2",
-            "S_PU2",
-            "L_T4",
-            "S_PU3"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Pump",
@@ -1775,13 +1649,7 @@
             "L_T4",
             "S_PU3"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "F_PU3",
-            "F_PU2",
-            "S_PU2",
-            "L_T4",
-            "S_PU3"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Pump",
@@ -1815,13 +1683,7 @@
             "L_T4",
             "S_PU3"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "F_PU3",
-            "F_PU2",
-            "S_PU2",
-            "L_T4",
-            "S_PU3"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_id": "PU3",
@@ -1833,38 +1695,41 @@
               ],
               "upstream_node": "J276",
               "downstream_node": "J274",
+              "graph_node": "__asset__:Pump:PU3",
               "ppr_score": 1.0,
               "direct_shap_mass": 400.2511726181719
             },
             {
               "component_id": "PU2",
               "component_type": "Pump",
-              "score": 0.05531211277953596,
+              "score": 0.05018769511739679,
               "nodes": [
                 "J280",
                 "J269"
               ],
               "upstream_node": "J280",
               "downstream_node": "J269",
-              "ppr_score": 0.06044334106445631,
+              "graph_node": "__asset__:Pump:PU2",
+              "ppr_score": 0.05020812698574035,
               "direct_shap_mass": 20.084957861986936
             },
             {
               "component_id": "T4",
               "component_type": "Tank",
-              "score": 0.017292515759347225,
+              "score": 0.010161987619310147,
               "nodes": [
                 "T4"
               ],
-              "ppr_score": 0.019851597857204237,
-              "direct_shap_mass": 5.897074099703502
+              "graph_node": "T4",
+              "ppr_score": 0.01016198761931015,
+              "direct_shap_mass": 4.067347460760232
             }
           ],
           "predicted_dma_zone": 1,
           "topological_hop_distance": 0.0,
           "ppr_propagation_path": {
             "nodes": [
-              "J274",
+              "Pump PU3",
               "J276"
             ],
             "links": [
@@ -1890,13 +1755,7 @@
             "P_J269",
             "L_T5"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "F_PU3",
-            "F_PU1",
-            "P_J14",
-            "P_J269",
-            "L_T5"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Pump",
@@ -1919,8 +1778,8 @@
               "component_type": "Pump",
               "component_id": "PU4",
               "nodes": [
-                "J292",
-                "J299"
+                "J299",
+                "J292"
               ],
               "dma_zone": 3
             }
@@ -1947,13 +1806,7 @@
             "P_J269",
             "L_T5"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "F_PU3",
-            "F_PU1",
-            "P_J14",
-            "P_J269",
-            "L_T5"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Pump",
@@ -1987,13 +1840,7 @@
             "P_J269",
             "L_T5"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "F_PU3",
-            "F_PU1",
-            "P_J14",
-            "P_J269",
-            "L_T5"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_id": "PU3",
@@ -2005,41 +1852,44 @@
               ],
               "upstream_node": "J276",
               "downstream_node": "J274",
+              "graph_node": "__asset__:Pump:PU3",
               "ppr_score": 1.0,
               "direct_shap_mass": 104.24905748453295
             },
             {
               "component_id": "V2",
               "component_type": "Valve",
-              "score": 0.05141096821144464,
+              "score": 0.034827469523548836,
               "nodes": [
                 "J14",
                 "J422"
               ],
               "upstream_node": "J14",
               "downstream_node": "J422",
-              "ppr_score": 0.06890337292714448,
+              "graph_node": "__asset__:Valve:V2",
+              "ppr_score": 0.03755418760696091,
               "direct_shap_mass": 3.535978275660682
             },
             {
-              "component_id": "PU2",
+              "component_id": "PU1",
               "component_type": "Pump",
-              "score": 0.03193253561449089,
+              "score": 0.0286333162044873,
               "nodes": [
-                "J280",
-                "J269"
+                "J285",
+                "J273"
               ],
-              "upstream_node": "J280",
-              "downstream_node": "J269",
-              "ppr_score": 0.05306061539246859,
-              "direct_shap_mass": 1.1263543375897598
+              "upstream_node": "J285",
+              "downstream_node": "J273",
+              "graph_node": "__asset__:Pump:PU1",
+              "ppr_score": 0.030492133802464353,
+              "direct_shap_mass": 2.9204028994328155
             }
           ],
           "predicted_dma_zone": 1,
           "topological_hop_distance": 0.0,
           "ppr_propagation_path": {
             "nodes": [
-              "J274",
+              "Pump PU3",
               "J276"
             ],
             "links": [
@@ -2065,13 +1915,7 @@
             "L_T7",
             "L_T6"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T1",
-            "L_T2",
-            "L_T7",
-            "P_J289",
-            "L_T6"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -2093,8 +1937,8 @@
               "component_type": "Pump",
               "component_id": "PU7",
               "nodes": [
-                "J291",
-                "J290"
+                "J290",
+                "J291"
               ],
               "dma_zone": 1
             }
@@ -2121,13 +1965,7 @@
             "L_T7",
             "L_T6"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T1",
-            "L_T2",
-            "L_T7",
-            "P_J289",
-            "L_T6"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Tank",
@@ -2160,53 +1998,47 @@
             "L_T7",
             "L_T6"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T1",
-            "L_T2",
-            "L_T7",
-            "P_J289",
-            "L_T6"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
-            {
-              "component_id": "T1",
-              "component_type": "Tank",
-              "score": 1.0,
-              "nodes": [
-                "T1"
-              ],
-              "ppr_score": 1.0,
-              "direct_shap_mass": 1.4934935412988901
-            },
             {
               "component_id": "T2",
               "component_type": "Tank",
-              "score": 0.8120806248629551,
+              "score": 1.0,
               "nodes": [
                 "T2"
               ],
-              "ppr_score": 0.8120749377390524,
+              "graph_node": "T2",
+              "ppr_score": 1.0,
               "direct_shap_mass": 1.2128456619296073
             },
             {
-              "component_id": "V2",
-              "component_type": "Valve",
-              "score": 0.7120751913007453,
+              "component_id": "T4",
+              "component_type": "Tank",
+              "score": 0.5574957960505343,
               "nodes": [
-                "J14",
-                "J422"
+                "T4"
               ],
-              "upstream_node": "J14",
-              "downstream_node": "J422",
-              "ppr_score": 0.9133439423449445,
-              "direct_shap_mass": 0.7628861193770289
+              "graph_node": "T4",
+              "ppr_score": 0.5574957960505342,
+              "direct_shap_mass": 0.6761563577838836
+            },
+            {
+              "component_id": "T3",
+              "component_type": "Tank",
+              "score": 0.5246617305584924,
+              "nodes": [
+                "T3"
+              ],
+              "graph_node": "T3",
+              "ppr_score": 0.5248121538574076,
+              "direct_shap_mass": 0.6362728904731672
             }
           ],
           "predicted_dma_zone": 1,
-          "topological_hop_distance": 20.0,
+          "topological_hop_distance": 0.0,
           "ppr_propagation_path": {
             "nodes": [
-              "T1"
+              "T2"
             ],
             "links": []
           }
@@ -2229,13 +2061,7 @@
             "P_J317",
             "F_PU10"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T6",
-            "P_J280",
-            "L_T7",
-            "L_T3",
-            "F_PU1"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -2284,13 +2110,7 @@
             "P_J317",
             "F_PU10"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T6",
-            "P_J280",
-            "L_T7",
-            "L_T3",
-            "F_PU1"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -2323,50 +2143,50 @@
             "P_J317",
             "F_PU10"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T6",
-            "P_J280",
-            "L_T7",
-            "L_T3",
-            "F_PU1"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
-            {
-              "component_id": "T6",
-              "component_type": "Tank",
-              "score": 1.0,
-              "nodes": [
-                "T6"
-              ],
-              "ppr_score": 1.0,
-              "direct_shap_mass": 1.4917098853976665
-            },
-            {
-              "component_id": "T7",
-              "component_type": "Tank",
-              "score": 0.37169881705793806,
-              "nodes": [
-                "T7"
-              ],
-              "ppr_score": 0.37169881705793806,
-              "direct_shap_mass": 0.5544667997959449
-            },
             {
               "component_id": "T3",
               "component_type": "Tank",
-              "score": 0.36388166830016466,
+              "score": 0.9488352561954841,
               "nodes": [
                 "T3"
               ],
-              "ppr_score": 0.36419748888454584,
-              "direct_shap_mass": 0.5423347690306167
+              "graph_node": "T3",
+              "ppr_score": 0.7953410247819366,
+              "direct_shap_mass": 0.18447889177855548
+            },
+            {
+              "component_id": "PU10",
+              "component_type": "Pump",
+              "score": 0.8772811870772503,
+              "nodes": [
+                "J307",
+                "J317"
+              ],
+              "upstream_node": "J307",
+              "downstream_node": "J317",
+              "graph_node": "__asset__:Pump:PU10",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.15429351763406385
+            },
+            {
+              "component_id": "T1",
+              "component_type": "Tank",
+              "score": 0.8614997581302662,
+              "nodes": [
+                "T1"
+              ],
+              "graph_node": "T1",
+              "ppr_score": 0.7217279049993359,
+              "direct_shap_mass": 0.16752350616984146
             }
           ],
-          "predicted_dma_zone": 4,
-          "topological_hop_distance": 11.0,
+          "predicted_dma_zone": 3,
+          "topological_hop_distance": 38.0,
           "ppr_propagation_path": {
             "nodes": [
-              "T6"
+              "T3"
             ],
             "links": []
           }
@@ -2389,20 +2209,14 @@
             "F_PU1",
             "L_T7"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T5",
-            "P_J280",
-            "L_T2",
-            "L_T3",
-            "F_PU1"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Valve",
               "component_id": "V2",
               "nodes": [
-                "J14",
-                "J422"
+                "J422",
+                "J14"
               ],
               "dma_zone": 1
             },
@@ -2445,13 +2259,7 @@
             "F_PU1",
             "L_T7"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T5",
-            "P_J280",
-            "L_T2",
-            "L_T3",
-            "F_PU1"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
               "component_type": "Junction",
@@ -2484,56 +2292,50 @@
             "F_PU1",
             "L_T7"
           ],
-          "ppr_interval_shap_top_sensors": [
-            "L_T5",
-            "P_J280",
-            "L_T2",
-            "L_T3",
-            "F_PU1"
-          ],
+          "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
           "predicted_components": [
             {
-              "component_id": "T5",
+              "component_id": "T2",
               "component_type": "Tank",
               "score": 1.0,
               "nodes": [
-                "T5"
+                "T2"
               ],
+              "graph_node": "T2",
               "ppr_score": 1.0,
-              "direct_shap_mass": 0.8082345026251098
+              "direct_shap_mass": 0.42280826002012273
             },
             {
-              "component_id": "PU10",
-              "component_type": "Pump",
-              "score": 0.6521034787621056,
+              "component_id": "T3",
+              "component_type": "Tank",
+              "score": 0.8189241535719581,
               "nodes": [
-                "J307",
-                "J317"
+                "T3"
               ],
-              "upstream_node": "J307",
-              "downstream_node": "J317",
-              "ppr_score": 0.6417237780846098,
-              "direct_shap_mass": 0.5354417630318675
+              "graph_node": "T3",
+              "ppr_score": 0.8202628963999722,
+              "direct_shap_mass": 0.3460592192849691
             },
             {
-              "component_id": "PU2",
+              "component_id": "PU1",
               "component_type": "Pump",
-              "score": 0.5266980404424358,
+              "score": 0.8061857169410851,
               "nodes": [
-                "J280",
-                "J269"
+                "J285",
+                "J273"
               ],
-              "upstream_node": "J280",
-              "downstream_node": "J269",
-              "ppr_score": 0.8899689324008706,
-              "direct_shap_mass": 0.13208746007040661
+              "upstream_node": "J285",
+              "downstream_node": "J273",
+              "graph_node": "__asset__:Pump:PU1",
+              "ppr_score": 0.8434888691893402,
+              "direct_shap_mass": 0.3356046199344852
             }
           ],
-          "predicted_dma_zone": 5,
-          "topological_hop_distance": 57.0,
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 29.0,
           "ppr_propagation_path": {
             "nodes": [
-              "T5"
+              "T2"
             ],
             "links": []
           }
@@ -2560,13 +2362,7 @@
         "F_PU10",
         "P_J14"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T3",
-        "L_T7",
-        "F_PU11",
-        "S_PU11",
-        "P_J317"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Pump",
@@ -2616,20 +2412,14 @@
         "F_PU10",
         "P_J14"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T3",
-        "L_T7",
-        "F_PU11",
-        "S_PU11",
-        "P_J317"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Valve",
           "component_id": "V2",
           "nodes": [
-            "J14",
-            "J422"
+            "J422",
+            "J14"
           ],
           "dma_zone": 1
         }
@@ -2656,55 +2446,61 @@
         "F_PU10",
         "P_J14"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T3",
-        "L_T7",
-        "F_PU11",
-        "S_PU11",
-        "P_J317"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
-          "component_id": "T3",
-          "component_type": "Tank",
+          "component_id": "V2",
+          "component_type": "Valve",
           "score": 1.0,
           "nodes": [
-            "T3"
+            "J14",
+            "J422"
           ],
+          "upstream_node": "J14",
+          "downstream_node": "J422",
+          "graph_node": "__asset__:Valve:V2",
           "ppr_score": 1.0,
-          "direct_shap_mass": 0.9863975568239027
+          "direct_shap_mass": 0.27636822632794633
         },
         {
-          "component_id": "PU11",
+          "component_id": "PU10",
           "component_type": "Pump",
-          "score": 0.8383176846333346,
+          "score": 0.32704463200176165,
           "nodes": [
-            "J309",
-            "J323"
+            "J307",
+            "J317"
           ],
-          "upstream_node": "J309",
-          "downstream_node": "J323",
-          "ppr_score": 0.7125690442295074,
-          "direct_shap_mass": 0.9509526676328548
+          "upstream_node": "J307",
+          "downstream_node": "J317",
+          "graph_node": "__asset__:Pump:PU10",
+          "ppr_score": 0.3132851589829764,
+          "direct_shap_mass": 0.09165230526087242
         },
         {
-          "component_id": "T7",
-          "component_type": "Tank",
-          "score": 0.7061260955120664,
+          "component_id": "PU7",
+          "component_type": "Pump",
+          "score": 0.24621591144758154,
           "nodes": [
-            "T7"
+            "J290",
+            "J291"
           ],
-          "ppr_score": 0.7058653093687343,
-          "direct_shap_mass": 0.6967782942373404
+          "upstream_node": "J290",
+          "downstream_node": "J291",
+          "graph_node": "__asset__:Pump:PU7",
+          "ppr_score": 0.293109426816371,
+          "direct_shap_mass": 0.06372629551756859
         }
       ],
-      "predicted_dma_zone": 3,
-      "topological_hop_distance": 38.0,
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 28.0,
       "ppr_propagation_path": {
         "nodes": [
-          "T3"
+          "Valve V2",
+          "J14"
         ],
-        "links": []
+        "links": [
+          "V2"
+        ]
       }
     },
     {
@@ -2725,13 +2521,7 @@
         "P_J317",
         "S_PU7"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T3",
-        "L_T7",
-        "P_J280",
-        "F_PU1",
-        "L_T4"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -2780,13 +2570,7 @@
         "P_J317",
         "S_PU7"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T3",
-        "L_T7",
-        "P_J280",
-        "F_PU1",
-        "L_T4"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Tank",
@@ -2819,13 +2603,7 @@
         "P_J317",
         "S_PU7"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T3",
-        "L_T7",
-        "P_J280",
-        "F_PU1",
-        "L_T4"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_id": "T3",
@@ -2834,31 +2612,34 @@
           "nodes": [
             "T3"
           ],
+          "graph_node": "T3",
           "ppr_score": 1.0,
           "direct_shap_mass": 2.0105130669389166
         },
         {
-          "component_id": "T7",
-          "component_type": "Tank",
-          "score": 0.26485559098810757,
+          "component_id": "PU1",
+          "component_type": "Pump",
+          "score": 0.22902397858028656,
           "nodes": [
-            "T7"
+            "J285",
+            "J273"
           ],
-          "ppr_score": 0.26478983394588534,
-          "direct_shap_mass": 0.5326278319260505
+          "upstream_node": "J285",
+          "downstream_node": "J273",
+          "graph_node": "__asset__:Pump:PU1",
+          "ppr_score": 0.23608318580491006,
+          "direct_shap_mass": 0.4557248254555596
         },
         {
-          "component_id": "PU8",
-          "component_type": "Pump",
-          "score": 0.21813794000979603,
+          "component_id": "T4",
+          "component_type": "Tank",
+          "score": 0.20167148727546597,
           "nodes": [
-            "J301",
-            "J304"
+            "T4"
           ],
-          "upstream_node": "J301",
-          "downstream_node": "J304",
-          "ppr_score": 0.24755253604863348,
-          "direct_shap_mass": 0.37943074909002006
+          "graph_node": "T4",
+          "ppr_score": 0.20159650179662142,
+          "direct_shap_mass": 0.4055134134913456
         }
       ],
       "predicted_dma_zone": 3,
@@ -2888,13 +2669,7 @@
         "L_T3",
         "L_T6"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "L_T4",
-        "L_T6",
-        "L_T1",
-        "L_T7"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -2908,8 +2683,8 @@
           "component_type": "Pump",
           "component_id": "PU1",
           "nodes": [
-            "J285",
-            "J273"
+            "J273",
+            "J285"
           ],
           "dma_zone": 1
         },
@@ -2944,13 +2719,7 @@
         "L_T3",
         "L_T6"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "L_T4",
-        "L_T6",
-        "L_T1",
-        "L_T7"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -2983,48 +2752,45 @@
         "L_T3",
         "L_T6"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "L_T4",
-        "L_T6",
-        "L_T1",
-        "L_T7"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_id": "T4",
           "component_type": "Tank",
-          "score": 0.6725054071766758,
+          "score": 0.9730189043707907,
           "nodes": [
             "T4"
           ],
-          "ppr_score": 0.34501081435335174,
+          "graph_node": "T4",
+          "ppr_score": 0.8920756174831631,
           "direct_shap_mass": 1.0413259216356163
         },
         {
-          "component_id": "V2",
-          "component_type": "Valve",
-          "score": 0.6192733114635489,
+          "component_id": "PU7",
+          "component_type": "Pump",
+          "score": 0.8931762724078014,
           "nodes": [
-            "J14",
-            "J422"
+            "J290",
+            "J291"
           ],
-          "upstream_node": "J14",
-          "downstream_node": "J422",
-          "ppr_score": 0.4589724320184659,
-          "direct_shap_mass": 0.811790812831271
+          "upstream_node": "J290",
+          "downstream_node": "J291",
+          "graph_node": "__asset__:Pump:PU7",
+          "ppr_score": 0.8930287344349468,
+          "direct_shap_mass": 0.9301388167533045
         },
         {
           "component_id": "PU10",
           "component_type": "Pump",
-          "score": 0.6006411425245277,
+          "score": 0.8764598991096284,
           "nodes": [
             "J307",
             "J317"
           ],
           "upstream_node": "J307",
           "downstream_node": "J317",
-          "ppr_score": 0.32876912711285133,
+          "graph_node": "__asset__:Pump:PU10",
+          "ppr_score": 0.8883001226299021,
           "direct_shap_mass": 0.9085705683271197
         }
       ],
@@ -3055,13 +2821,7 @@
         "P_J307",
         "L_T4"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "P_J302",
-        "L_T2",
-        "P_J307",
-        "L_T1"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -3110,13 +2870,7 @@
         "P_J307",
         "L_T4"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "P_J302",
-        "L_T2",
-        "P_J307",
-        "L_T1"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -3149,57 +2903,57 @@
         "P_J307",
         "L_T4"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "P_J302",
-        "L_T2",
-        "P_J307",
-        "L_T1"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
-          "component_id": "PU2",
-          "component_type": "Pump",
+          "component_id": "V2",
+          "component_type": "Valve",
           "score": 1.0,
           "nodes": [
-            "J280",
-            "J269"
+            "J14",
+            "J422"
           ],
-          "upstream_node": "J280",
-          "downstream_node": "J269",
+          "upstream_node": "J14",
+          "downstream_node": "J422",
+          "graph_node": "__asset__:Valve:V2",
           "ppr_score": 1.0,
-          "direct_shap_mass": 1.0722954504718007
+          "direct_shap_mass": 0.43699574861890333
         },
         {
-          "component_id": "T2",
-          "component_type": "Tank",
-          "score": 0.6826054568467266,
+          "component_id": "PU8",
+          "component_type": "Pump",
+          "score": 0.9126494021599201,
           "nodes": [
-            "T2"
+            "J301",
+            "J304"
           ],
-          "ppr_score": 0.39769569152789075,
-          "direct_shap_mass": 1.037462170990346
+          "upstream_node": "J301",
+          "downstream_node": "J304",
+          "graph_node": "__asset__:Pump:PU8",
+          "ppr_score": 0.897954247792309,
+          "direct_shap_mass": 0.4009644820514504
         },
         {
-          "component_id": "T1",
+          "component_id": "T6",
           "component_type": "Tank",
-          "score": 0.5548288965791753,
+          "score": 0.6443637631320034,
           "nodes": [
-            "T1"
+            "T6"
           ],
-          "ppr_score": 0.32326407888212866,
-          "direct_shap_mass": 0.8432464020980142
+          "graph_node": "T6",
+          "ppr_score": 0.5703385551695546,
+          "direct_shap_mass": 0.29236712544283705
         }
       ],
       "predicted_dma_zone": 1,
-      "topological_hop_distance": 25.0,
+      "topological_hop_distance": 16.0,
       "ppr_propagation_path": {
         "nodes": [
-          "J269",
-          "J280"
+          "Valve V2",
+          "J14"
         ],
         "links": [
-          "PU2"
+          "V2"
         ]
       }
     },
@@ -3221,20 +2975,14 @@
         "L_T2",
         "P_J302"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T3",
-        "S_PU6",
-        "L_T6",
-        "L_T1",
-        "L_T2"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Pump",
           "component_id": "PU6",
           "nodes": [
-            "J289",
-            "J415"
+            "J415",
+            "J289"
           ],
           "dma_zone": 1
         },
@@ -3250,8 +2998,8 @@
           "component_type": "Pump",
           "component_id": "PU4",
           "nodes": [
-            "J292",
-            "J299"
+            "J299",
+            "J292"
           ],
           "dma_zone": 3
         }
@@ -3278,13 +3026,7 @@
         "L_T2",
         "P_J302"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T3",
-        "S_PU6",
-        "L_T6",
-        "L_T1",
-        "L_T2"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Tank",
@@ -3317,53 +3059,50 @@
         "L_T2",
         "P_J302"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T3",
-        "S_PU6",
-        "L_T6",
-        "L_T1",
-        "L_T2"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_id": "PU6",
           "component_type": "Pump",
-          "score": 0.9346131367537034,
+          "score": 1.0,
           "nodes": [
             "J289",
             "J415"
           ],
           "upstream_node": "J289",
           "downstream_node": "J415",
-          "ppr_score": 0.8692262735074069,
-          "direct_shap_mass": 0.32547110685948866
+          "graph_node": "__asset__:Pump:PU6",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.27844897446678374
         },
         {
           "component_id": "T3",
           "component_type": "Tank",
-          "score": 0.8920454916436287,
+          "score": 0.9312600499122169,
           "nodes": [
             "T3"
           ],
-          "ppr_score": 0.987651602445683,
+          "graph_node": "T3",
+          "ppr_score": 0.9322340060683422,
           "direct_shap_mass": 0.2592180068289931
         },
         {
           "component_id": "T6",
           "component_type": "Tank",
-          "score": 0.8283515522631886,
+          "score": 0.7323963767951572,
           "nodes": [
             "T6"
           ],
-          "ppr_score": 0.9165582923009036,
-          "direct_shap_mass": 0.24089575127133322
+          "graph_node": "T6",
+          "ppr_score": 0.7323955762204126,
+          "direct_shap_mass": 0.20393509432820522
         }
       ],
       "predicted_dma_zone": 1,
       "topological_hop_distance": 1.0,
       "ppr_propagation_path": {
         "nodes": [
-          "J415",
+          "Pump PU6",
           "J289"
         ],
         "links": [
@@ -3389,20 +3128,14 @@
         "L_T7",
         "F_PU1"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "F_PU6",
-        "S_PU6",
-        "L_T1",
-        "L_T7",
-        "L_T4"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Pump",
           "component_id": "PU6",
           "nodes": [
-            "J289",
-            "J415"
+            "J415",
+            "J289"
           ],
           "dma_zone": 1
         },
@@ -3445,20 +3178,14 @@
         "L_T7",
         "F_PU1"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "F_PU6",
-        "S_PU6",
-        "L_T1",
-        "L_T7",
-        "L_T4"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Pump",
           "component_id": "PU6",
           "nodes": [
-            "J289",
-            "J415"
+            "J415",
+            "J289"
           ],
           "dma_zone": 1
         }
@@ -3485,13 +3212,7 @@
         "L_T7",
         "F_PU1"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "F_PU6",
-        "S_PU6",
-        "L_T1",
-        "L_T7",
-        "L_T4"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_id": "PU6",
@@ -3503,27 +3224,30 @@
           ],
           "upstream_node": "J289",
           "downstream_node": "J415",
+          "graph_node": "__asset__:Pump:PU6",
           "ppr_score": 1.0,
           "direct_shap_mass": 7.0195695268409075
         },
         {
           "component_id": "T1",
           "component_type": "Tank",
-          "score": 0.5294995206912773,
+          "score": 0.40147457555789523,
           "nodes": [
             "T1"
           ],
-          "ppr_score": 0.6575248184037719,
+          "graph_node": "T1",
+          "ppr_score": 0.4014756332952332,
           "direct_shap_mass": 2.818176221433994
         },
         {
           "component_id": "T7",
           "component_type": "Tank",
-          "score": 0.2598038639023557,
+          "score": 0.19698789564866337,
           "nodes": [
             "T7"
           ],
-          "ppr_score": 0.3226198299634888,
+          "graph_node": "T7",
+          "ppr_score": 0.19698788907098558,
           "direct_shap_mass": 1.3827702448426962
         }
       ],
@@ -3531,7 +3255,7 @@
       "topological_hop_distance": 1.0,
       "ppr_propagation_path": {
         "nodes": [
-          "J415",
+          "Pump PU6",
           "J289"
         ],
         "links": [
@@ -3557,13 +3281,7 @@
         "S_PU2",
         "P_J269"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "L_T7",
-        "L_T1",
-        "F_PU1",
-        "F_PU2"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Pump",
@@ -3613,13 +3331,7 @@
         "S_PU2",
         "P_J269"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "L_T7",
-        "L_T1",
-        "F_PU1",
-        "F_PU2"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -3652,53 +3364,56 @@
         "S_PU2",
         "P_J269"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "L_T7",
-        "L_T1",
-        "F_PU1",
-        "F_PU2"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_id": "PU2",
           "component_type": "Pump",
-          "score": 0.9991613712984229,
+          "score": 1.0,
           "nodes": [
             "J280",
             "J269"
           ],
           "upstream_node": "J280",
           "downstream_node": "J269",
+          "graph_node": "__asset__:Pump:PU2",
           "ppr_score": 1.0,
           "direct_shap_mass": 0.755540508599811
         },
         {
-          "component_id": "T7",
-          "component_type": "Tank",
-          "score": 0.7097228153170243,
+          "component_id": "PU1",
+          "component_type": "Pump",
+          "score": 0.6110489309629216,
           "nodes": [
-            "T7"
+            "J285",
+            "J273"
           ],
-          "ppr_score": 0.4194456306340486,
-          "direct_shap_mass": 0.7568098735630249
+          "upstream_node": "J285",
+          "downstream_node": "J273",
+          "graph_node": "__asset__:Pump:PU1",
+          "ppr_score": 0.6028154218103401,
+          "direct_shap_mass": 0.4637458033099975
         },
         {
-          "component_id": "T1",
-          "component_type": "Tank",
-          "score": 0.5762990547594534,
+          "component_id": "PU10",
+          "component_type": "Pump",
+          "score": 0.2932541006154435,
           "nodes": [
-            "T1"
+            "J307",
+            "J317"
           ],
-          "ppr_score": 0.34059615942143107,
-          "direct_shap_mass": 0.6145310931862003
+          "upstream_node": "J307",
+          "downstream_node": "J317",
+          "graph_node": "__asset__:Pump:PU10",
+          "ppr_score": 0.3104187310256203,
+          "direct_shap_mass": 0.21724249446462807
         }
       ],
       "predicted_dma_zone": 1,
       "topological_hop_distance": 26.0,
       "ppr_propagation_path": {
         "nodes": [
-          "J269",
+          "Pump PU2",
           "J280"
         ],
         "links": [
@@ -3724,13 +3439,7 @@
         "L_T7",
         "P_J415"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "F_PU1",
-        "L_T4",
-        "L_T7",
-        "P_J256"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -3779,13 +3488,7 @@
         "L_T7",
         "P_J415"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "F_PU1",
-        "L_T4",
-        "L_T7",
-        "P_J256"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -3818,63 +3521,57 @@
         "L_T7",
         "P_J415"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "F_PU1",
-        "L_T4",
-        "L_T7",
-        "P_J256"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
-        {
-          "component_id": "V2",
-          "component_type": "Valve",
-          "score": 1.0,
-          "nodes": [
-            "J14",
-            "J422"
-          ],
-          "upstream_node": "J14",
-          "downstream_node": "J422",
-          "ppr_score": 1.0,
-          "direct_shap_mass": 0.5033663773988698
-        },
         {
           "component_id": "PU7",
           "component_type": "Pump",
-          "score": 0.6687973555559347,
+          "score": 1.0,
           "nodes": [
             "J290",
             "J291"
           ],
           "upstream_node": "J290",
           "downstream_node": "J291",
-          "ppr_score": 0.5639986149676688,
+          "graph_node": "__asset__:Pump:PU7",
+          "ppr_score": 1.0,
           "direct_shap_mass": 0.389402264486014
         },
         {
-          "component_id": "PU10",
+          "component_id": "PU1",
           "component_type": "Pump",
-          "score": 0.6277845851856365,
+          "score": 0.9282197040054984,
           "nodes": [
-            "J307",
-            "J317"
+            "J285",
+            "J273"
           ],
-          "upstream_node": "J307",
-          "downstream_node": "J317",
-          "ppr_score": 0.6521978896226873,
-          "direct_shap_mass": 0.303716815816932
+          "upstream_node": "J285",
+          "downstream_node": "J273",
+          "graph_node": "__asset__:Pump:PU1",
+          "ppr_score": 0.8495280207785361,
+          "direct_shap_mass": 0.37166509456187713
+        },
+        {
+          "component_id": "T4",
+          "component_type": "Tank",
+          "score": 0.845836051967696,
+          "nodes": [
+            "T4"
+          ],
+          "graph_node": "T4",
+          "ppr_score": 0.7462982626583605,
+          "direct_shap_mass": 0.3422905542064596
         }
       ],
       "predicted_dma_zone": 1,
       "topological_hop_distance": 9.0,
       "ppr_propagation_path": {
         "nodes": [
-          "J422",
-          "J14"
+          "Pump PU7",
+          "J290"
         ],
         "links": [
-          "V2"
+          "PU7"
         ]
       }
     },
@@ -3896,13 +3593,7 @@
         "L_T7",
         "L_T4"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "L_T4",
-        "L_T1",
-        "L_T3",
-        "L_T5"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -3951,13 +3642,7 @@
         "L_T7",
         "L_T4"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "L_T4",
-        "L_T1",
-        "L_T3",
-        "L_T5"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -3990,50 +3675,47 @@
         "L_T7",
         "L_T4"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "P_J280",
-        "L_T4",
-        "L_T1",
-        "L_T3",
-        "L_T5"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
-        {
-          "component_id": "T4",
-          "component_type": "Tank",
-          "score": 0.9432118969764387,
-          "nodes": [
-            "T4"
-          ],
-          "ppr_score": 0.8864237939528775,
-          "direct_shap_mass": 1.322367405001923
-        },
         {
           "component_id": "T1",
           "component_type": "Tank",
-          "score": 0.9309678240501446,
+          "score": 1.0,
           "nodes": [
             "T1"
           ],
-          "ppr_score": 0.8749242628733358,
-          "direct_shap_mass": 1.3051916841899196
+          "graph_node": "T1",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 1.0750465229333388
         },
         {
-          "component_id": "T3",
+          "component_id": "T5",
           "component_type": "Tank",
-          "score": 0.8969853821322162,
+          "score": 0.9201680614230014,
           "nodes": [
-            "T3"
+            "T5"
           ],
-          "ppr_score": 0.8431963279635543,
-          "direct_shap_mass": 1.2572731240733586
+          "graph_node": "T5",
+          "ppr_score": 0.9201617257848416,
+          "direct_shap_mass": 0.9892257453157001
+        },
+        {
+          "component_id": "T7",
+          "component_type": "Tank",
+          "score": 0.4120373752311042,
+          "nodes": [
+            "T7"
+          ],
+          "graph_node": "T7",
+          "ppr_score": 0.41203453822792263,
+          "direct_shap_mass": 0.4429603641975799
         }
       ],
-      "predicted_dma_zone": 2,
-      "topological_hop_distance": 29.0,
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 20.0,
       "ppr_propagation_path": {
         "nodes": [
-          "T4"
+          "T1"
         ],
         "links": []
       }
@@ -4056,13 +3738,7 @@
         "L_T4",
         "S_PU3"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "F_PU3",
-        "F_PU2",
-        "S_PU2",
-        "L_T4",
-        "S_PU3"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Pump",
@@ -4112,13 +3788,7 @@
         "L_T4",
         "S_PU3"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "F_PU3",
-        "F_PU2",
-        "S_PU2",
-        "L_T4",
-        "S_PU3"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Pump",
@@ -4152,13 +3822,7 @@
         "L_T4",
         "S_PU3"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "F_PU3",
-        "F_PU2",
-        "S_PU2",
-        "L_T4",
-        "S_PU3"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_id": "PU3",
@@ -4170,38 +3834,41 @@
           ],
           "upstream_node": "J276",
           "downstream_node": "J274",
+          "graph_node": "__asset__:Pump:PU3",
           "ppr_score": 1.0,
           "direct_shap_mass": 400.2511726181719
         },
         {
           "component_id": "PU2",
           "component_type": "Pump",
-          "score": 0.05531211277953596,
+          "score": 0.05018769511739679,
           "nodes": [
             "J280",
             "J269"
           ],
           "upstream_node": "J280",
           "downstream_node": "J269",
-          "ppr_score": 0.06044334106445631,
+          "graph_node": "__asset__:Pump:PU2",
+          "ppr_score": 0.05020812698574035,
           "direct_shap_mass": 20.084957861986936
         },
         {
           "component_id": "T4",
           "component_type": "Tank",
-          "score": 0.017292515759347225,
+          "score": 0.010161987619310147,
           "nodes": [
             "T4"
           ],
-          "ppr_score": 0.019851597857204237,
-          "direct_shap_mass": 5.897074099703502
+          "graph_node": "T4",
+          "ppr_score": 0.01016198761931015,
+          "direct_shap_mass": 4.067347460760232
         }
       ],
       "predicted_dma_zone": 1,
       "topological_hop_distance": 0.0,
       "ppr_propagation_path": {
         "nodes": [
-          "J274",
+          "Pump PU3",
           "J276"
         ],
         "links": [
@@ -4227,13 +3894,7 @@
         "P_J269",
         "L_T5"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "F_PU3",
-        "F_PU1",
-        "P_J14",
-        "P_J269",
-        "L_T5"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Pump",
@@ -4256,8 +3917,8 @@
           "component_type": "Pump",
           "component_id": "PU4",
           "nodes": [
-            "J292",
-            "J299"
+            "J299",
+            "J292"
           ],
           "dma_zone": 3
         }
@@ -4284,13 +3945,7 @@
         "P_J269",
         "L_T5"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "F_PU3",
-        "F_PU1",
-        "P_J14",
-        "P_J269",
-        "L_T5"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Pump",
@@ -4324,13 +3979,7 @@
         "P_J269",
         "L_T5"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "F_PU3",
-        "F_PU1",
-        "P_J14",
-        "P_J269",
-        "L_T5"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_id": "PU3",
@@ -4342,41 +3991,44 @@
           ],
           "upstream_node": "J276",
           "downstream_node": "J274",
+          "graph_node": "__asset__:Pump:PU3",
           "ppr_score": 1.0,
           "direct_shap_mass": 104.24905748453295
         },
         {
           "component_id": "V2",
           "component_type": "Valve",
-          "score": 0.05141096821144464,
+          "score": 0.034827469523548836,
           "nodes": [
             "J14",
             "J422"
           ],
           "upstream_node": "J14",
           "downstream_node": "J422",
-          "ppr_score": 0.06890337292714448,
+          "graph_node": "__asset__:Valve:V2",
+          "ppr_score": 0.03755418760696091,
           "direct_shap_mass": 3.535978275660682
         },
         {
-          "component_id": "PU2",
+          "component_id": "PU1",
           "component_type": "Pump",
-          "score": 0.03193253561449089,
+          "score": 0.0286333162044873,
           "nodes": [
-            "J280",
-            "J269"
+            "J285",
+            "J273"
           ],
-          "upstream_node": "J280",
-          "downstream_node": "J269",
-          "ppr_score": 0.05306061539246859,
-          "direct_shap_mass": 1.1263543375897598
+          "upstream_node": "J285",
+          "downstream_node": "J273",
+          "graph_node": "__asset__:Pump:PU1",
+          "ppr_score": 0.030492133802464353,
+          "direct_shap_mass": 2.9204028994328155
         }
       ],
       "predicted_dma_zone": 1,
       "topological_hop_distance": 0.0,
       "ppr_propagation_path": {
         "nodes": [
-          "J274",
+          "Pump PU3",
           "J276"
         ],
         "links": [
@@ -4402,13 +4054,7 @@
         "L_T7",
         "L_T6"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T1",
-        "L_T2",
-        "L_T7",
-        "P_J289",
-        "L_T6"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -4430,8 +4076,8 @@
           "component_type": "Pump",
           "component_id": "PU7",
           "nodes": [
-            "J291",
-            "J290"
+            "J290",
+            "J291"
           ],
           "dma_zone": 1
         }
@@ -4458,13 +4104,7 @@
         "L_T7",
         "L_T6"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T1",
-        "L_T2",
-        "L_T7",
-        "P_J289",
-        "L_T6"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Tank",
@@ -4497,53 +4137,47 @@
         "L_T7",
         "L_T6"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T1",
-        "L_T2",
-        "L_T7",
-        "P_J289",
-        "L_T6"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
-        {
-          "component_id": "T1",
-          "component_type": "Tank",
-          "score": 1.0,
-          "nodes": [
-            "T1"
-          ],
-          "ppr_score": 1.0,
-          "direct_shap_mass": 1.4934935412988901
-        },
         {
           "component_id": "T2",
           "component_type": "Tank",
-          "score": 0.8120806248629551,
+          "score": 1.0,
           "nodes": [
             "T2"
           ],
-          "ppr_score": 0.8120749377390524,
+          "graph_node": "T2",
+          "ppr_score": 1.0,
           "direct_shap_mass": 1.2128456619296073
         },
         {
-          "component_id": "V2",
-          "component_type": "Valve",
-          "score": 0.7120751913007453,
+          "component_id": "T4",
+          "component_type": "Tank",
+          "score": 0.5574957960505343,
           "nodes": [
-            "J14",
-            "J422"
+            "T4"
           ],
-          "upstream_node": "J14",
-          "downstream_node": "J422",
-          "ppr_score": 0.9133439423449445,
-          "direct_shap_mass": 0.7628861193770289
+          "graph_node": "T4",
+          "ppr_score": 0.5574957960505342,
+          "direct_shap_mass": 0.6761563577838836
+        },
+        {
+          "component_id": "T3",
+          "component_type": "Tank",
+          "score": 0.5246617305584924,
+          "nodes": [
+            "T3"
+          ],
+          "graph_node": "T3",
+          "ppr_score": 0.5248121538574076,
+          "direct_shap_mass": 0.6362728904731672
         }
       ],
       "predicted_dma_zone": 1,
-      "topological_hop_distance": 20.0,
+      "topological_hop_distance": 0.0,
       "ppr_propagation_path": {
         "nodes": [
-          "T1"
+          "T2"
         ],
         "links": []
       }
@@ -4566,13 +4200,7 @@
         "P_J317",
         "F_PU10"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T6",
-        "P_J280",
-        "L_T7",
-        "L_T3",
-        "F_PU1"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -4621,13 +4249,7 @@
         "P_J317",
         "F_PU10"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T6",
-        "P_J280",
-        "L_T7",
-        "L_T3",
-        "F_PU1"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -4660,50 +4282,50 @@
         "P_J317",
         "F_PU10"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T6",
-        "P_J280",
-        "L_T7",
-        "L_T3",
-        "F_PU1"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
-        {
-          "component_id": "T6",
-          "component_type": "Tank",
-          "score": 1.0,
-          "nodes": [
-            "T6"
-          ],
-          "ppr_score": 1.0,
-          "direct_shap_mass": 1.4917098853976665
-        },
-        {
-          "component_id": "T7",
-          "component_type": "Tank",
-          "score": 0.37169881705793806,
-          "nodes": [
-            "T7"
-          ],
-          "ppr_score": 0.37169881705793806,
-          "direct_shap_mass": 0.5544667997959449
-        },
         {
           "component_id": "T3",
           "component_type": "Tank",
-          "score": 0.36388166830016466,
+          "score": 0.9488352561954841,
           "nodes": [
             "T3"
           ],
-          "ppr_score": 0.36419748888454584,
-          "direct_shap_mass": 0.5423347690306167
+          "graph_node": "T3",
+          "ppr_score": 0.7953410247819366,
+          "direct_shap_mass": 0.18447889177855548
+        },
+        {
+          "component_id": "PU10",
+          "component_type": "Pump",
+          "score": 0.8772811870772503,
+          "nodes": [
+            "J307",
+            "J317"
+          ],
+          "upstream_node": "J307",
+          "downstream_node": "J317",
+          "graph_node": "__asset__:Pump:PU10",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.15429351763406385
+        },
+        {
+          "component_id": "T1",
+          "component_type": "Tank",
+          "score": 0.8614997581302662,
+          "nodes": [
+            "T1"
+          ],
+          "graph_node": "T1",
+          "ppr_score": 0.7217279049993359,
+          "direct_shap_mass": 0.16752350616984146
         }
       ],
-      "predicted_dma_zone": 4,
-      "topological_hop_distance": 11.0,
+      "predicted_dma_zone": 3,
+      "topological_hop_distance": 38.0,
       "ppr_propagation_path": {
         "nodes": [
-          "T6"
+          "T3"
         ],
         "links": []
       }
@@ -4726,20 +4348,14 @@
         "F_PU1",
         "L_T7"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T5",
-        "P_J280",
-        "L_T2",
-        "L_T3",
-        "F_PU1"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Valve",
           "component_id": "V2",
           "nodes": [
-            "J14",
-            "J422"
+            "J422",
+            "J14"
           ],
           "dma_zone": 1
         },
@@ -4782,13 +4398,7 @@
         "F_PU1",
         "L_T7"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T5",
-        "P_J280",
-        "L_T2",
-        "L_T3",
-        "F_PU1"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
           "component_type": "Junction",
@@ -4821,56 +4431,50 @@
         "F_PU1",
         "L_T7"
       ],
-      "ppr_interval_shap_top_sensors": [
-        "L_T5",
-        "P_J280",
-        "L_T2",
-        "L_T3",
-        "F_PU1"
-      ],
+      "ppr_shap_window": "peak-score window, same SHAP values as Baseline B",
       "predicted_components": [
         {
-          "component_id": "T5",
+          "component_id": "T2",
           "component_type": "Tank",
           "score": 1.0,
           "nodes": [
-            "T5"
+            "T2"
           ],
+          "graph_node": "T2",
           "ppr_score": 1.0,
-          "direct_shap_mass": 0.8082345026251098
+          "direct_shap_mass": 0.42280826002012273
         },
         {
-          "component_id": "PU10",
-          "component_type": "Pump",
-          "score": 0.6521034787621056,
+          "component_id": "T3",
+          "component_type": "Tank",
+          "score": 0.8189241535719581,
           "nodes": [
-            "J307",
-            "J317"
+            "T3"
           ],
-          "upstream_node": "J307",
-          "downstream_node": "J317",
-          "ppr_score": 0.6417237780846098,
-          "direct_shap_mass": 0.5354417630318675
+          "graph_node": "T3",
+          "ppr_score": 0.8202628963999722,
+          "direct_shap_mass": 0.3460592192849691
         },
         {
-          "component_id": "PU2",
+          "component_id": "PU1",
           "component_type": "Pump",
-          "score": 0.5266980404424358,
+          "score": 0.8061857169410851,
           "nodes": [
-            "J280",
-            "J269"
+            "J285",
+            "J273"
           ],
-          "upstream_node": "J280",
-          "downstream_node": "J269",
-          "ppr_score": 0.8899689324008706,
-          "direct_shap_mass": 0.13208746007040661
+          "upstream_node": "J285",
+          "downstream_node": "J273",
+          "graph_node": "__asset__:Pump:PU1",
+          "ppr_score": 0.8434888691893402,
+          "direct_shap_mass": 0.3356046199344852
         }
       ],
-      "predicted_dma_zone": 5,
-      "topological_hop_distance": 57.0,
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 29.0,
       "ppr_propagation_path": {
         "nodes": [
-          "T5"
+          "T2"
         ],
         "links": []
       }

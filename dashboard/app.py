@@ -8,6 +8,8 @@ Usage:
 from __future__ import annotations
 
 import json
+import importlib
+import inspect
 from pathlib import Path
 from typing import Tuple
 
@@ -22,7 +24,7 @@ from src.impact.cpis import calculate_cpis, derive_episode_impact_factors, parse
 from src.impact.topology import analyze_topology_and_impact
 from src.localization import compute_zone_embeddings, resolve_sensor_component
 from src.recovery import get_operational_mitigation, get_scenario_name, optimize_component_outage
-from src.root_cause import assess_explanation_root_cause
+import src.root_cause.assessment as root_cause_assessment_module
 
 # Root path configuration
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -50,6 +52,15 @@ THRESHOLD_TAU = (
     if _threshold_report.exists()
     else 3.013382
 )
+
+
+def _get_root_cause_assessor():
+    """Refresh the assessment API when a live Streamlit process has an older module cached."""
+    assessor = root_cause_assessment_module.assess_explanation_root_cause
+    if "graph" not in inspect.signature(assessor).parameters:
+        importlib.reload(root_cause_assessment_module)
+        assessor = root_cause_assessment_module.assess_explanation_root_cause
+    return assessor
 
 
 @st.cache_data
@@ -747,7 +758,7 @@ def main():
                             component_map,
                             demo_pipe["dma_zones"],
                         )
-                        root_cause_assessment = assess_explanation_root_cause(
+                        root_cause_assessment = _get_root_cause_assessor()(
                             xai_res,
                             score_dist,
                             demo_threshold,
@@ -1157,8 +1168,15 @@ def load_demo_pipeline():
     from src.detection.preprocessing import DataPreprocessor
     from src.detection.scoring import calibrated_sensor_variance
     from src.network.ctown_loader import load_ctown_network
-    from src.network.graph_builder import build_directed_hydraulic_graph, build_network_graph
+    from src.network import graph_builder
     from src.network.zoning import assign_zones
+
+    if not hasattr(graph_builder, "build_directed_hydraulic_graph"):
+        from importlib import reload
+
+        graph_builder = reload(graph_builder)
+    build_network_graph = graph_builder.build_network_graph
+    build_directed_hydraulic_graph = graph_builder.build_directed_hydraulic_graph
 
     config_path = ROOT_DIR / "configs" / "config.yaml"
     with open(config_path, "r") as f:
