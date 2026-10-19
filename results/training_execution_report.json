@@ -9,128 +9,128 @@
   "num_trainable_parameters": 95236,
   "mapped_sensors_count": 43,
   "adjacency_nonzero_count": 345,
-  "training_time_seconds": 22.81,
+  "training_time_seconds": 28.71,
   "epochs": 20,
   "checkpoint_path": "models\\detection_gnn.pt",
-  "calibrated_threshold": 3.2949929237365723,
+  "calibrated_threshold": 3.7669191360473633,
   "epoch_losses": [
     {
       "epoch": 1,
-      "train_mse_loss": 0.639213,
-      "calib_mse_loss": 0.435489
+      "train_mse_loss": 0.624869,
+      "calib_mse_loss": 0.425753
     },
     {
       "epoch": 2,
-      "train_mse_loss": 0.504998,
-      "calib_mse_loss": 0.391242
+      "train_mse_loss": 0.498531,
+      "calib_mse_loss": 0.382189
     },
     {
       "epoch": 3,
-      "train_mse_loss": 0.474589,
-      "calib_mse_loss": 0.370916
+      "train_mse_loss": 0.469347,
+      "calib_mse_loss": 0.362269
     },
     {
       "epoch": 4,
-      "train_mse_loss": 0.460518,
-      "calib_mse_loss": 0.363462
+      "train_mse_loss": 0.457334,
+      "calib_mse_loss": 0.354087
     },
     {
       "epoch": 5,
-      "train_mse_loss": 0.452051,
-      "calib_mse_loss": 0.358565
+      "train_mse_loss": 0.449248,
+      "calib_mse_loss": 0.349084
     },
     {
       "epoch": 6,
-      "train_mse_loss": 0.445826,
-      "calib_mse_loss": 0.35565
+      "train_mse_loss": 0.445827,
+      "calib_mse_loss": 0.347647
     },
     {
       "epoch": 7,
-      "train_mse_loss": 0.442659,
-      "calib_mse_loss": 0.351881
+      "train_mse_loss": 0.43941,
+      "calib_mse_loss": 0.345236
     },
     {
       "epoch": 8,
-      "train_mse_loss": 0.43807,
-      "calib_mse_loss": 0.349626
+      "train_mse_loss": 0.435648,
+      "calib_mse_loss": 0.342421
     },
     {
       "epoch": 9,
-      "train_mse_loss": 0.434046,
-      "calib_mse_loss": 0.348246
+      "train_mse_loss": 0.430691,
+      "calib_mse_loss": 0.340323
     },
     {
       "epoch": 10,
-      "train_mse_loss": 0.431681,
-      "calib_mse_loss": 0.345039
+      "train_mse_loss": 0.428481,
+      "calib_mse_loss": 0.342011
     },
     {
       "epoch": 11,
-      "train_mse_loss": 0.428486,
-      "calib_mse_loss": 0.342077
+      "train_mse_loss": 0.426293,
+      "calib_mse_loss": 0.337163
     },
     {
       "epoch": 12,
-      "train_mse_loss": 0.426395,
-      "calib_mse_loss": 0.34381
+      "train_mse_loss": 0.423075,
+      "calib_mse_loss": 0.339433
     },
     {
       "epoch": 13,
-      "train_mse_loss": 0.423394,
-      "calib_mse_loss": 0.338887
+      "train_mse_loss": 0.421353,
+      "calib_mse_loss": 0.33651
     },
     {
       "epoch": 14,
-      "train_mse_loss": 0.421042,
-      "calib_mse_loss": 0.339593
+      "train_mse_loss": 0.420261,
+      "calib_mse_loss": 0.332411
     },
     {
       "epoch": 15,
-      "train_mse_loss": 0.418836,
-      "calib_mse_loss": 0.338898
+      "train_mse_loss": 0.4175,
+      "calib_mse_loss": 0.331324
     },
     {
       "epoch": 16,
-      "train_mse_loss": 0.417091,
-      "calib_mse_loss": 0.340044
+      "train_mse_loss": 0.415375,
+      "calib_mse_loss": 0.33673
     },
     {
       "epoch": 17,
-      "train_mse_loss": 0.413031,
-      "calib_mse_loss": 0.337397
+      "train_mse_loss": 0.412487,
+      "calib_mse_loss": 0.329909
     },
     {
       "epoch": 18,
-      "train_mse_loss": 0.413183,
-      "calib_mse_loss": 0.337465
+      "train_mse_loss": 0.413046,
+      "calib_mse_loss": 0.32956
     },
     {
       "epoch": 19,
-      "train_mse_loss": 0.411976,
-      "calib_mse_loss": 0.341551
+      "train_mse_loss": 0.410578,
+      "calib_mse_loss": 0.331381
     },
     {
       "epoch": 20,
-      "train_mse_loss": 0.409107,
-      "calib_mse_loss": 0.334778
+      "train_mse_loss": 0.409137,
+      "calib_mse_loss": 0.329718
     }
   ],
   "validation_metrics": {
     "metric_category": "DETECTION_METRICS",
-    "threshold": 3.2949929237365723,
-    "samples": 1292,
-    "attack_samples": 0,
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1_score": 0.0,
+    "threshold": 3.7669191360473633,
+    "samples": 219,
+    "attack_samples": 219,
+    "precision": 1.0,
+    "recall": 0.5570776255707762,
+    "f1_score": 0.7155425219941349,
     "roc_auc": null,
     "pr_auc": null,
     "false_positive_rate": 0.0,
     "confusion_matrix": {
-      "TN": 1292,
+      "TN": 0,
       "FP": 0,
-      "FN": 0,
-      "TP": 0
+      "FN": 97,
+      "TP": 122
     },
     "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
   }

@@ -371,8 +371,8 @@ def main():
             "precision": round(val_metrics["precision"], 4),
             "recall": round(val_metrics["recall"], 4),
             "f1_score": round(val_metrics["f1_score"], 4),
-            "roc_auc": round(val_metrics["roc_auc"], 4) if val_metrics["roc_auc"] else None,
-            "pr_auc": round(val_metrics["pr_auc"], 4) if val_metrics["pr_auc"] else None,
+            "roc_auc": round(val_metrics["roc_auc"], 4) if val_metrics["roc_auc"] is not None else None,
+            "pr_auc": round(val_metrics["pr_auc"], 4) if val_metrics["pr_auc"] is not None else None,
             "false_positive_rate": round(val_metrics["false_positive_rate"], 4),
             "confusion_matrix": {"TN": int(tn), "FP": int(fp), "FN": int(fn), "TP": int(tp)},
         },
@@ -391,8 +391,10 @@ def main():
     print(f" Precision           : {val_metrics['precision']:.4f}")
     print(f" Recall              : {val_metrics['recall']:.4f}")
     print(f" F1 Score            : {val_metrics['f1_score']:.4f}")
-    print(f" ROC-AUC             : {val_metrics['roc_auc']:.4f}")
-    print(f" PR-AUC              : {val_metrics['pr_auc']:.4f}")
+    roc_auc = f"{val_metrics['roc_auc']:.4f}" if val_metrics["roc_auc"] is not None else "N/A (requires both classes)"
+    pr_auc = f"{val_metrics['pr_auc']:.4f}" if val_metrics["pr_auc"] is not None else "N/A (requires both classes)"
+    print(f" ROC-AUC             : {roc_auc}")
+    print(f" PR-AUC              : {pr_auc}")
     print(f" False Positive Rate : {val_metrics['false_positive_rate']:.4f} ({val_metrics['false_positive_rate']*100:.2f}%)")
     print(f" Confusion Matrix    : TN={tn}, FP={fp}, FN={fn}, TP={tp}\n")
 

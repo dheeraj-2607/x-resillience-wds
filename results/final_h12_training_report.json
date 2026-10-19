@@ -124,12 +124,12 @@
   "final_calib_loss": 0.32942819595336914,
   "calibration_statistics": {
     "locked_percentile": 99.8,
-    "derived_threshold": 10.346286,
+    "derived_threshold": 2.943899,
     "num_calibration_windows": 1730,
-    "mean_calibration_score": 0.9731363654136658,
-    "std_calibration_score": 1.4369797706604004,
-    "max_calibration_score": 38.61945343017578,
-    "p95_calibration_score": 1.9789938926696777,
-    "p99_calibration_score": 2.6004204750061035
+    "mean_calibration_score": 0.7473891875978573,
+    "std_calibration_score": 0.8398125206338711,
+    "max_calibration_score": 21.51760167724727,
+    "p95_calibration_score": 1.7233036172583496,
+    "p99_calibration_score": 2.3055590435832247
   }
 }

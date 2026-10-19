@@ -1,19 +1,19 @@
 {
   "metric_category": "DETECTION_METRICS",
-  "threshold": 3.131366014480591,
-  "samples": 2,
-  "attack_samples": 2,
+  "threshold": 3.7669191360473633,
+  "samples": 219,
+  "attack_samples": 219,
   "precision": 1.0,
-  "recall": 1.0,
-  "f1_score": 1.0,
+  "recall": 0.5570776255707762,
+  "f1_score": 0.7155425219941349,
   "roc_auc": null,
   "pr_auc": null,
   "false_positive_rate": 0.0,
   "confusion_matrix": {
     "TN": 0,
     "FP": 0,
-    "FN": 0,
-    "TP": 2
+    "FN": 97,
+    "TP": 122
   },
   "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
 }

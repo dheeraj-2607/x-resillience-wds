@@ -31,6 +31,7 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 CORRECTED_DIR = ROOT_DIR / "results" / "test_inference" / "corrected"
 PROCESSED_DIR = ROOT_DIR / "data" / "processed"
 SUMMARY_FILE = ROOT_DIR / "results" / "final_results_summary.json"
+TRAINING_METRICS_FILE = ROOT_DIR / "results" / "detection_metrics.json"
 CONFIG_FILE = ROOT_DIR / "configs" / "config.yaml"
 
 st.set_page_config(
@@ -63,6 +64,24 @@ def _get_root_cause_assessor():
     return assessor
 
 
+def _format_validation_metric(value: float | None) -> str:
+    """Format measured metrics without turning unavailable values into zeroes."""
+    if value is None or not np.isfinite(float(value)):
+        return "N/A"
+    return f"{float(value):.4f}"
+
+
+def _calculate_validation_accuracy(metrics: dict) -> float | None:
+    """Calculate accuracy from the measured confusion matrix when samples exist."""
+    confusion = metrics.get("confusion_matrix", {})
+    true_negative = int(confusion.get("TN", 0))
+    false_positive = int(confusion.get("FP", 0))
+    false_negative = int(confusion.get("FN", 0))
+    true_positive = int(confusion.get("TP", 0))
+    sample_count = true_negative + false_positive + false_negative + true_positive
+    return (true_negative + true_positive) / sample_count if sample_count else None
+
+
 @st.cache_data
 def load_dashboard_data() -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict, dict]:
     """Load all corrected test inference and validation artifacts cleanly."""
@@ -81,6 +100,11 @@ def load_dashboard_data() -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dic
     if SUMMARY_FILE.exists():
         with open(SUMMARY_FILE, "r") as f:
             summary_data = json.load(f)
+    summary_data["training_validation_metrics"] = (
+        json.loads(TRAINING_METRICS_FILE.read_text(encoding="utf-8"))
+        if TRAINING_METRICS_FILE.is_file()
+        else {}
+    )
 
     # Load component map
     component_map = {}
@@ -252,22 +276,37 @@ def main():
             f"τ={THRESHOLD_TAU:.6f} calibrated on floored Dataset03 normal scores."
         )
 
-        st.subheader("Dataset04 Ground-Truth Validation Summary")
-        val_metrics = summary_data.get("final_h12_validation_metrics", {})
-        val_p = val_metrics.get("precision", 0.5635)
-        val_r = val_metrics.get("recall", 0.7900)
-        val_f1 = val_metrics.get("f1_score", 0.6578)
-        val_auc = val_metrics.get("roc_auc", 0.9685)
-        val_pr = val_metrics.get("pr_auc", 0.6769)
-        val_fpr = val_metrics.get("fpr", 0.0341)
+        st.subheader("Dataset04 Training-Run Validation Metrics")
+        val_metrics = summary_data.get("training_validation_metrics", {})
+        confusion = val_metrics.get("confusion_matrix", {})
+        val_accuracy = _calculate_validation_accuracy(val_metrics)
+        has_labeled_normals = (confusion.get("TN", 0) + confusion.get("FP", 0)) > 0
+        val_fpr = val_metrics.get("false_positive_rate") if has_labeled_normals else None
 
-        vcol1, vcol2, vcol3, vcol4, vcol5, vcol6 = st.columns(6)
-        vcol1.metric("Precision", f"{val_p:.4f}")
-        vcol2.metric("Recall", f"{val_r:.4f}")
-        vcol3.metric("F1 Score", f"{val_f1:.4f}")
-        vcol4.metric("ROC-AUC", f"{val_auc:.4f}")
-        vcol5.metric("PR-AUC", f"{val_pr:.4f}")
-        vcol6.metric("False Positive Rate", f"{val_fpr:.4f}")
+        vcol1, vcol2, vcol3, vcol4, vcol5, vcol6, vcol7 = st.columns(7)
+        vcol1.metric("Precision", _format_validation_metric(val_metrics.get("precision")))
+        vcol2.metric("Recall", _format_validation_metric(val_metrics.get("recall")))
+        vcol3.metric("F1 Score", _format_validation_metric(val_metrics.get("f1_score")))
+        vcol4.metric("Accuracy", _format_validation_metric(val_accuracy))
+        vcol5.metric(
+            "ROC-AUC",
+            _format_validation_metric(val_metrics.get("roc_auc")),
+            help="N/A when the labeled evaluation subset contains only one class.",
+        )
+        vcol6.metric(
+            "PR-AUC",
+            _format_validation_metric(val_metrics.get("pr_auc")),
+            help="N/A when the labeled evaluation subset contains only one class.",
+        )
+        vcol7.metric(
+            "False Positive Rate",
+            _format_validation_metric(val_fpr),
+            help="N/A when there are no labeled normal windows.",
+        )
+        st.caption(
+            f"Source: latest training run on Dataset04; {val_metrics.get('samples', 0)} labeled windows, "
+            f"{val_metrics.get('attack_samples', 0)} attacks. Unlabelled -999 rows are excluded."
+        )
 
     # TAB 2: ANOMALY TIMELINE
     with tab_timeline:
@@ -481,23 +520,180 @@ def main():
     with tab_val:
         st.subheader("Dataset04 Ground-Truth Validation Benchmarking")
 
+        training_metrics = summary_data.get("training_validation_metrics", {})
+        training_confusion = training_metrics.get("confusion_matrix", {})
+        training_has_labeled_normals = (
+            training_confusion.get("TN", 0) + training_confusion.get("FP", 0)
+        ) > 0
+        training_fpr = (
+            training_metrics.get("false_positive_rate")
+            if training_has_labeled_normals
+            else None
+        )
         st.markdown(
-            "Supervised performance evaluation was conducted **strictly on Dataset04 labeled validation data** "
-            "($4,177$ hourly timesteps, $3,801$ normal windows, $173$ anomaly windows). "
-            "No test set labels were accessed or inferred."
+            "Validation scores below come from the **latest training run** on Dataset04. "
+            f"They use {training_metrics.get('samples', 0)} labeled windows, including "
+            f"{training_metrics.get('attack_samples', 0)} attacks. Unlabelled -999 hours are excluded; "
+            "no test-set labels were accessed or inferred."
         )
 
-        val_df = pd.DataFrame(
-            [
-                {"Metric": "Precision", "Score": 0.5635, "Description": "True Positive / (True Positive + False Positive)"},
-                {"Metric": "Recall", "Score": 0.7900, "Description": "True Positive / (True Positive + False Negative)"},
-                {"Metric": "F1 Score", "Score": 0.6578, "Description": "Harmonic Mean of Precision and Recall"},
-                {"Metric": "ROC-AUC", "Score": 0.9685, "Description": "Area Under Receiver Operating Characteristic Curve"},
-                {"Metric": "PR-AUC", "Score": 0.6769, "Description": "Area Under Precision-Recall Curve"},
-                {"Metric": "False Positive Rate (FPR)", "Score": 0.0341, "Description": "False Positive / Normal Windows"},
-            ]
+        localization_path = ROOT_DIR / "results" / "localization_benchmark_report.json"
+        localization_report = (
+            json.loads(localization_path.read_text(encoding="utf-8"))
+            if localization_path.is_file()
+            else {}
         )
+        dataset04_localization = localization_report.get("by_dataset", {}).get("Dataset04", {})
+        method_labels = {
+            "baseline_a_raw_deviation": "Baseline A: Raw Sensor Deviation",
+            "baseline_b_top1_shap": "Baseline B: Top-1 SHAP Sensor",
+            "proposed_shap_reversed_flow_ppr": "Proposed: SHAP + Reversed-Flow PPR",
+        }
+        validation_rows = [
+            {
+                "Metric": "Accuracy",
+                "Score": _format_validation_metric(val_accuracy),
+                "Description": "(True Positive + True Negative) / All labeled windows",
+            },
+            {
+                "Metric": "Precision",
+                "Score": _format_validation_metric(training_metrics.get("precision")),
+                "Description": "True Positive / (True Positive + False Positive)",
+            },
+            {
+                "Metric": "Recall",
+                "Score": _format_validation_metric(training_metrics.get("recall")),
+                "Description": "True Positive / (True Positive + False Negative)",
+            },
+            {
+                "Metric": "F1 Score",
+                "Score": _format_validation_metric(training_metrics.get("f1_score")),
+                "Description": "Harmonic Mean of Precision and Recall",
+            },
+            {
+                "Metric": "ROC-AUC",
+                "Score": _format_validation_metric(training_metrics.get("roc_auc")),
+                "Description": "N/A unless both labeled classes are present",
+            },
+            {
+                "Metric": "PR-AUC",
+                "Score": _format_validation_metric(training_metrics.get("pr_auc")),
+                "Description": "N/A unless both labeled classes are present",
+            },
+            {
+                "Metric": "False Positive Rate (FPR)",
+                "Score": _format_validation_metric(training_fpr),
+                "Description": "N/A when no labeled normal windows are available",
+            },
+        ]
+        for method, label in method_labels.items():
+            metrics = dataset04_localization.get(method)
+            if metrics is None:
+                continue
+            for metric_key, metric_label, description in (
+                (
+                    "top1_component_accuracy_pct",
+                    "Top-1 Component Accuracy",
+                    "Exact target component ranked first across the 7 Dataset04 attacks.",
+                ),
+                (
+                    "top3_component_accuracy_pct",
+                    "Top-3 Component Accuracy",
+                    "Exact target component appears in the top three across the 7 Dataset04 attacks.",
+                ),
+                (
+                    "dma_zone_accuracy_pct",
+                    "DMA Zone Accuracy",
+                    "Predicted DMA matches the target DMA across the 7 Dataset04 attacks.",
+                ),
+            ):
+                validation_rows.append(
+                    {
+                        "Metric": f"{label} — {metric_label}",
+                        "Score": f"{metrics[metric_key]:.1f}%",
+                        "Description": description,
+                    }
+                )
+        val_df = pd.DataFrame(validation_rows)
         st.table(val_df)
+
+        st.markdown("---")
+        if localization_path.is_file():
+            localization_metrics = localization_report.get("metrics", {})
+
+            st.subheader("Dataset04 Component Localization (7 Attacks)")
+            dataset04_rows = []
+            for method, label in method_labels.items():
+                metrics = dataset04_localization.get(method)
+                if metrics is None:
+                    continue
+                dataset04_rows.append(
+                    {
+                        "Method": label,
+                        "Top-1 Component Accuracy": f"{metrics['top1_component_accuracy_pct']:.1f}%",
+                        "Top-3 Component Accuracy": f"{metrics['top3_component_accuracy_pct']:.1f}%",
+                        "DMA Zone Accuracy": f"{metrics['dma_zone_accuracy_pct']:.1f}%",
+                        "Mean Hop Distance": f"{metrics['mean_topological_hop_distance']:.2f}",
+                        "Attacks": metrics["attacks"],
+                    }
+                )
+            st.dataframe(pd.DataFrame(dataset04_rows), use_container_width=True, hide_index=True)
+
+            st.subheader("Combined 14-Attack Component Localization")
+            localization_rows = []
+            for method, label in method_labels.items():
+                metrics = localization_metrics.get(method)
+                if metrics is None:
+                    continue
+                localization_rows.append(
+                    {
+                        "Method": label,
+                        "Top-1 Component Accuracy": f"{metrics['top1_component_accuracy_pct']:.1f}%",
+                        "Top-3 Component Accuracy": f"{metrics['top3_component_accuracy_pct']:.1f}%",
+                        "DMA Zone Accuracy": f"{metrics['dma_zone_accuracy_pct']:.1f}%",
+                        "Mean Hop Distance": f"{metrics['mean_topological_hop_distance']:.2f}",
+                        "Attacks": metrics["attacks"],
+                    }
+                )
+            st.dataframe(pd.DataFrame(localization_rows), use_container_width=True, hide_index=True)
+
+            proposed = localization_metrics.get("proposed_shap_reversed_flow_ppr", {})
+            baselines = [
+                localization_metrics.get("baseline_a_raw_deviation", {}),
+                localization_metrics.get("baseline_b_top1_shap", {}),
+            ]
+            exit_passed = bool(baselines) and all(
+                proposed.get("top1_component_accuracy_pct", 0)
+                > baseline.get("top1_component_accuracy_pct", float("inf"))
+                and proposed.get("top3_component_accuracy_pct", 0)
+                > baseline.get("top3_component_accuracy_pct", float("inf"))
+                for baseline in baselines
+            )
+            if exit_passed:
+                st.success("Phase 1 localization exit check: PASSED")
+            else:
+                st.warning(
+                    "Phase 1 localization exit check: NOT PASSED. Combined 14-attack accuracy must exceed both "
+                    "baselines on Top-1 and Top-3 component accuracy."
+                )
+
+            attack_type_rows = []
+            for method, label in method_labels.items():
+                method_metrics = localization_metrics.get(method, {})
+                for attack_type, metrics in method_metrics.get("by_attack_type", {}).items():
+                    attack_type_rows.append(
+                        {
+                            "Method": label,
+                            "Attack Type": attack_type,
+                            "Top-1 Accuracy": f"{metrics['top1_component_accuracy_pct']:.1f}%",
+                            "Top-3 Accuracy": f"{metrics['top3_component_accuracy_pct']:.1f}%",
+                            "Attacks": metrics["attacks"],
+                        }
+                    )
+            st.caption("Localization accuracy by attack mechanism")
+            st.dataframe(pd.DataFrame(attack_type_rows), use_container_width=True, hide_index=True)
+        else:
+            st.info("Localization results are not available. Run `python -m src.root_cause.evaluate_localization` to generate them.")
 
     # TAB 7: LIVE DEMONSTRATION / WHAT-IF SIMULATION
     with tab_demo:

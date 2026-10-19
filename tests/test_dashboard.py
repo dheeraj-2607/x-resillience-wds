@@ -89,6 +89,36 @@ def test_config_keeps_batadal_training_validation_and_test_files_separate():
     }
 
 
+def test_localization_accuracy_report_is_available_to_validation_dashboard():
+    report_path = ROOT_DIR / "results" / "localization_benchmark_report.json"
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    proposed = report["metrics"]["proposed_shap_reversed_flow_ppr"]
+    app_source = (ROOT_DIR / "dashboard" / "app.py").read_text(encoding="utf-8")
+
+    assert proposed["attacks"] == 14
+    assert 0.0 <= proposed["top1_component_accuracy_pct"] <= 100.0
+    assert 0.0 <= proposed["top3_component_accuracy_pct"] <= 100.0
+    assert "Dataset04 Component Localization (7 Attacks)" in app_source
+    assert "Combined 14-Attack Component Localization" in app_source
+
+
+def test_dashboard_uses_latest_training_metrics_and_formats_unavailable_auc():
+    from dashboard.app import (
+        _calculate_validation_accuracy,
+        _format_validation_metric,
+        load_dashboard_data,
+    )
+
+    expected = json.loads((ROOT_DIR / "results" / "detection_metrics.json").read_text(encoding="utf-8"))
+    _, _, _, summary, _ = load_dashboard_data()
+
+    assert summary["training_validation_metrics"] == expected
+    assert _format_validation_metric(expected["precision"]) == f"{expected['precision']:.4f}"
+    assert _format_validation_metric(expected["roc_auc"]) == "N/A"
+    assert _format_validation_metric(expected["pr_auc"]) == "N/A"
+    assert _calculate_validation_accuracy(expected) == pytest.approx(122 / 219)
+
+
 class TestDashboardDataIntegrity:
     def test_forecast_horizon_config_is_h12(self):
         """Regression test ensuring the project config matches the H=12 production architecture."""
@@ -122,14 +152,14 @@ class TestDashboardDataIntegrity:
         assert df_scores["timestamp"].is_monotonic_increasing
         assert df_scores["timestamp"].iloc[0] == pd.Timestamp("2017-01-04 12:00:00")
         assert df_scores["timestamp"].iloc[-1] == pd.Timestamp("2017-03-31 13:00:00")
-        assert df_scores["anomaly_flag"].sum() == 156
+        assert df_scores["anomaly_flag"].sum() == 147
 
     def test_episodes_severity_calculations(self):
         """Verify log-scaled operational severity formula vs raw severity."""
         df_ep = pd.read_csv(CORRECTED_DIR / "test_anomaly_episodes.csv")
         assert len(df_ep) >= 17
 
-        tau = 3.013382
+        tau = 2.943899
         for _, row in df_ep.iterrows():
             mean_s = row["mean_anomaly_score"] if "mean_anomaly_score" in row else row["mean_score"]
             peak_s = row["max_anomaly_score"] if "max_anomaly_score" in row else row["peak_score"]
@@ -159,14 +189,14 @@ class TestDashboardDataIntegrity:
 
         assert len(df_episodes) == 17
         assert len(df_scores) == 2066
-        assert df_scores["anomaly_flag"].sum() == 156
+        assert df_scores["anomaly_flag"].sum() == 147
         assert df_episodes["cpis_score"].between(0.0, 1.0).all()
         assert df_episodes["cpis_severity"].isin(["Low", "Moderate", "High", "Critical"]).all()
-        assert df_episodes["cpis_evidence_basis"].str.contains("top-five", case=False).all()
+        assert df_episodes["cpis_evidence_basis"].str.contains("all per-sensor", case=False).all()
 
         # Verify key episodes exist
         ep_ids = df_episodes["episode_id"].tolist()
-        for required_id in ["EP-12", "EP-11", "EP-20", "EP-06"]:
+        for required_id in ["EP-09", "EP-08", "EP-14", "EP-06"]:
             assert required_id in ep_ids
 
     def test_episode_explorer_formatting_no_value_error(self):

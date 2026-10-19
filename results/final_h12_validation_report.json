@@ -2,21 +2,21 @@
   "evaluator_configuration": {
     "model_checkpoint": "models\\detection_gnn_h12_candidate.pt",
     "validation_dataset": "BATADAL_dataset04.csv",
-    "threshold": 10.346285820007324,
+    "threshold": 2.943899177138039,
     "threshold_rule": "Dataset03 Normal Calib 99.8th percentile"
   },
   "performance_metrics": {
-    "precision": 0.7287,
-    "recall": 0.4292,
-    "f1_score": 0.5402,
-    "roc_auc": 0.9691,
-    "pr_auc": 0.6743,
-    "false_positive_rate": 0.0089,
+    "precision": 1.0,
+    "recall": 0.7489,
+    "f1_score": 0.8564,
+    "roc_auc": null,
+    "pr_auc": null,
+    "false_positive_rate": 0.0,
     "confusion_matrix": {
-      "TN": 3900,
-      "FP": 35,
-      "FN": 125,
-      "TP": 94
+      "TN": 0,
+      "FP": 0,
+      "FN": 55,
+      "TP": 164
     }
   },
   "sequence_analysis": [
@@ -26,8 +26,8 @@
       "raw_end_index": 1772,
       "length_steps": 42,
       "window_count": 42,
-      "detected_windows": 26,
-      "recall": 0.619,
+      "detected_windows": 35,
+      "recall": 0.8333,
       "detection_delay_steps": 0,
       "detection_delay_hours": 0.0,
       "first_detection_timestamp": "2016-09-14 03:00"
@@ -38,11 +38,11 @@
       "raw_end_index": 2396,
       "length_steps": 60,
       "window_count": 60,
-      "detected_windows": 4,
-      "recall": 0.0667,
-      "detection_delay_steps": 40,
-      "detection_delay_hours": 40.0,
-      "first_detection_timestamp": "2016-10-11 01:00"
+      "detected_windows": 40,
+      "recall": 0.6667,
+      "detection_delay_steps": 0,
+      "detection_delay_hours": 0.0,
+      "first_detection_timestamp": "2016-10-09 09:00"
     },
     {
       "sequence_id": 3,
@@ -50,11 +50,11 @@
       "raw_end_index": 2887,
       "length_steps": 37,
       "window_count": 37,
-      "detected_windows": 1,
-      "recall": 0.027,
-      "detection_delay_steps": 31,
-      "detection_delay_hours": 31.0,
-      "first_detection_timestamp": "2016-11-01 02:00"
+      "detected_windows": 18,
+      "recall": 0.4865,
+      "detection_delay_steps": 4,
+      "detection_delay_hours": 4.0,
+      "first_detection_timestamp": "2016-10-30 23:00"
     },
     {
       "sequence_id": 4,
@@ -74,8 +74,8 @@
       "raw_end_index": 3813,
       "length_steps": 73,
       "window_count": 73,
-      "detected_windows": 57,
-      "recall": 0.7808,
+      "detected_windows": 65,
+      "recall": 0.8904,
       "detection_delay_steps": 0,
       "detection_delay_hours": 0.0,
       "first_detection_timestamp": "2016-12-06 21:00"
@@ -83,26 +83,6 @@
   ],
   "sensor_attribution_summary": {
     "top_10_sensors_overall": [
-      {
-        "sensor": "F_PU11",
-        "type": "Link Flow",
-        "calib_mean_residual": 0.008466,
-        "attack_mean_residual": 228.184662,
-        "seq3_mean_residual": 0.010293,
-        "relative_ratio_overall": 26952.8154,
-        "relative_ratio_seq3": 1.2158,
-        "abs_increase_overall": 228.176196
-      },
-      {
-        "sensor": "S_PU11",
-        "type": "Link Status",
-        "calib_mean_residual": 0.008558,
-        "attack_mean_residual": 191.610016,
-        "seq3_mean_residual": 0.009751,
-        "relative_ratio_overall": 22388.3717,
-        "relative_ratio_seq3": 1.1393,
-        "abs_increase_overall": 191.601457
-      },
       {
         "sensor": "F_PU6",
         "type": "Link Flow",
@@ -114,34 +94,24 @@
         "abs_increase_overall": 238.526936
       },
       {
+        "sensor": "F_PU11",
+        "type": "Link Flow",
+        "calib_mean_residual": 0.866994,
+        "attack_mean_residual": 228.184662,
+        "seq3_mean_residual": 0.010293,
+        "relative_ratio_overall": 263.1906,
+        "relative_ratio_seq3": 0.0119,
+        "abs_increase_overall": 227.317668
+      },
+      {
         "sensor": "S_PU6",
         "type": "Link Status",
-        "calib_mean_residual": 0.587835,
+        "calib_mean_residual": 5.015734,
         "attack_mean_residual": 133.402634,
         "seq3_mean_residual": 0.067282,
-        "relative_ratio_overall": 226.9388,
-        "relative_ratio_seq3": 0.1145,
-        "abs_increase_overall": 132.814798
-      },
-      {
-        "sensor": "F_PU9",
-        "type": "Link Flow",
-        "calib_mean_residual": 0.0,
-        "attack_mean_residual": 1e-06,
-        "seq3_mean_residual": 0.0,
-        "relative_ratio_overall": 119.4196,
-        "relative_ratio_seq3": 0.0273,
-        "abs_increase_overall": 1e-06
-      },
-      {
-        "sensor": "F_PU3",
-        "type": "Link Flow",
-        "calib_mean_residual": 0.0,
-        "attack_mean_residual": 2e-06,
-        "seq3_mean_residual": 0.0,
-        "relative_ratio_overall": 31.5934,
-        "relative_ratio_seq3": 1.5809,
-        "abs_increase_overall": 2e-06
+        "relative_ratio_overall": 26.5968,
+        "relative_ratio_seq3": 0.0134,
+        "abs_increase_overall": 128.386899
       },
       {
         "sensor": "F_PU1",
@@ -182,6 +152,36 @@
         "relative_ratio_overall": 12.0031,
         "relative_ratio_seq3": 6.8067,
         "abs_increase_overall": 2.699448
+      },
+      {
+        "sensor": "S_PU11",
+        "type": "Link Status",
+        "calib_mean_residual": 17.530006,
+        "attack_mean_residual": 191.610016,
+        "seq3_mean_residual": 0.009751,
+        "relative_ratio_overall": 10.9304,
+        "relative_ratio_seq3": 0.0006,
+        "abs_increase_overall": 174.08001
+      },
+      {
+        "sensor": "S_PU2",
+        "type": "Link Status",
+        "calib_mean_residual": 0.274511,
+        "attack_mean_residual": 2.952441,
+        "seq3_mean_residual": 2.293925,
+        "relative_ratio_overall": 10.7553,
+        "relative_ratio_seq3": 8.3564,
+        "abs_increase_overall": 2.677929
+      },
+      {
+        "sensor": "F_PU2",
+        "type": "Link Flow",
+        "calib_mean_residual": 0.26913,
+        "attack_mean_residual": 2.778558,
+        "seq3_mean_residual": 2.237052,
+        "relative_ratio_overall": 10.3242,
+        "relative_ratio_seq3": 8.3122,
+        "abs_increase_overall": 2.509428
       }
     ],
     "top_10_sensors_seq3": [
@@ -236,16 +236,6 @@
         "abs_increase_overall": 3.822442
       },
       {
-        "sensor": "P_J280",
-        "type": "Junction Pressure",
-        "calib_mean_residual": 0.265275,
-        "attack_mean_residual": 2.12041,
-        "seq3_mean_residual": 2.295254,
-        "relative_ratio_overall": 7.9932,
-        "relative_ratio_seq3": 8.6524,
-        "abs_increase_overall": 1.855135
-      },
-      {
         "sensor": "S_PU2",
         "type": "Link Status",
         "calib_mean_residual": 0.274511,
@@ -284,23 +274,33 @@
         "relative_ratio_overall": 12.0031,
         "relative_ratio_seq3": 6.8067,
         "abs_increase_overall": 2.699448
+      },
+      {
+        "sensor": "S_V2",
+        "type": "Link Status",
+        "calib_mean_residual": 0.400049,
+        "attack_mean_residual": 0.99889,
+        "seq3_mean_residual": 1.695737,
+        "relative_ratio_overall": 2.4969,
+        "relative_ratio_seq3": 4.2388,
+        "abs_increase_overall": 0.598841
       }
     ],
     "mean_ratio_by_sensor_type": [
       {
         "type": "Junction Pressure",
-        "relative_ratio_overall": 5.6560500000000005,
-        "relative_ratio_seq3": 8.190933333333334
+        "relative_ratio_overall": 4.992891666666667,
+        "relative_ratio_seq3": 7.473083333333334
       },
       {
         "type": "Link Flow",
-        "relative_ratio_overall": 2296.327208333333,
-        "relative_ratio_seq3": 2.599791666666667
+        "relative_ratio_overall": 59.248425,
+        "relative_ratio_seq3": 2.2383
       },
       {
         "type": "Link Status",
-        "relative_ratio_overall": 1888.324025,
-        "relative_ratio_seq3": 2.0654833333333333
+        "relative_ratio_overall": 4.99,
+        "relative_ratio_seq3": 1.488716666666667
       },
       {
         "type": "Tank Level",
