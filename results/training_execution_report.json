@@ -9,7 +9,7 @@
   "num_trainable_parameters": 95236,
   "mapped_sensors_count": 43,
   "adjacency_nonzero_count": 345,
-  "training_time_seconds": 28.71,
+  "training_time_seconds": 22.04,
   "epochs": 20,
   "checkpoint_path": "models\\detection_gnn.pt",
   "calibrated_threshold": 3.7669191360473633,

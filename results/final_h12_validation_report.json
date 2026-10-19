@@ -314,7 +314,7 @@
     "config_unchanged": true,
     "raw_data_unchanged": true,
     "test_dataset_unaccessed": true,
-    "production_checkpoint_hash": "1dd6033a311110606644981e29267e1e681edf16bb90b084e1657c6652ac60ba",
+    "production_checkpoint_hash": "5fc9bd840807d617f231a131038308b3085554a84f3808c10f49be9bcd9d2b2f",
     "candidate_checkpoint_hash": "86f2136b9685b65d3efde3f8b5296d245423aa7104b23b56fcb0d7e3ab9849d4"
   }
 }
