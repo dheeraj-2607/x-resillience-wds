@@ -66,15 +66,40 @@ impact:
     moderate: 0.5
     high: 0.75
     # >= high -> critical
+  asset_criticality:           # provisional sensor-class criticality priors
+    pressure: 0.55
+    tank: 0.75
+    flow: 0.85
+    status: 0.9
 
 recovery:
-  # provisional weighted-scoring weights - NOT calibrated
+  # Provisional WNTR scenario-optimization settings; calibrate against operational evidence.
   weights:
     service_continuity: 0.3
     hydraulic_stability: 0.25
-    recovery_time: 0.2        # penalty (w3)
-    operational_cost: 0.1     # penalty (w4)
+    recovery_time: 0.2
+    operational_cost: 0.1
     criticality_protection: 0.15
+  simulation_duration_hours: 24
+  hydraulic_timestep_minutes: 60
+  demand_model: "PDA"
+  minimum_pressure_m: 0.0
+  required_pressure_m: 20.0
+  hydraulic_stability_pressure_scale_m: 10.0
+  service_continuity_target: 0.95
+  hydraulic_stability_target: 0.9
+  recovery_persistence_steps: 2
+  maximum_operational_cost: 1.0
+  pump_speed_increase: 0.1
+  max_pump_speed: 1.2
+  max_candidate_actions: 8
+  action_costs:
+    restore_component: 0.1
+    valve_isolation: 0.5
+    pump_switching: 0.4
+    flow_rerouting: 0.3
+    zone_containment: 0.7
+    emergency_adjustment: 0.8
   candidate_actions:
     - valve_isolation
     - pump_switching

@@ -1,0 +1,116 @@
+{
+  "experiment": "H=12 C-Town spatial adjacency versus identity adjacency",
+  "architecture": {
+    "model": "SpatioTemporalGNN",
+    "input_features": 43,
+    "window_size": 12,
+    "forecast_horizon": 12,
+    "hidden_dim": 64,
+    "dropout": 0.2,
+    "epochs": 50,
+    "random_seed": 42
+  },
+  "calibration": {
+    "dataset": "Dataset03 chronological final 20% normal calibration partition",
+    "variance_floor": "sensor-specific instrument precision floors",
+    "threshold_percentile": 99.8
+  },
+  "evaluation": {
+    "dataset": "Dataset04",
+    "ground_truth_source": "data/ground_truth_attacks.csv",
+    "label_rule": "positive within published attack intervals; normal outside those intervals",
+    "raw_partial_ATT_FLAG_used_for_metrics": false,
+    "labels_aligned_to_horizon": 12,
+    "attack_intervals": 7
+  },
+  "comparison_table": [
+    {
+      "adjacency": "A_CTOWN",
+      "F1": 0.5145888594164456,
+      "PR_AUC": 0.5659245741521637,
+      "detection_delay_hours": 6.666666666666667,
+      "detected_attacks": 6,
+      "total_attacks": 7
+    },
+    {
+      "adjacency": "Identity",
+      "F1": 0.49014084507042255,
+      "PR_AUC": 0.575377137681558,
+      "detection_delay_hours": 6.666666666666667,
+      "detected_attacks": 6,
+      "total_attacks": 7
+    }
+  ],
+  "runs": [
+    {
+      "adjacency": "A_CTOWN",
+      "threshold": 2.943899177138039,
+      "metrics": {
+        "metric_category": "DETECTION_METRICS",
+        "threshold": 2.943899177138039,
+        "samples": 4154,
+        "attack_samples": 492,
+        "precision": 0.7404580152671756,
+        "recall": 0.3943089430894309,
+        "f1_score": 0.5145888594164456,
+        "roc_auc": 0.79874829605751,
+        "pr_auc": 0.5659245741521637,
+        "false_positive_rate": 0.018569087930092845,
+        "confusion_matrix": {
+          "TN": 3594,
+          "FP": 68,
+          "FN": 298,
+          "TP": 194
+        },
+        "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+      },
+      "detected_attack_count": 6,
+      "total_attack_count": 7,
+      "mean_detection_delay_hours": 6.666666666666667,
+      "attack_detection_delay_hours": {
+        "attack_1": 0.0,
+        "attack_2": null,
+        "attack_3": 4.0,
+        "attack_4": 19.0,
+        "attack_5": 6.0,
+        "attack_6": 11.0,
+        "attack_7": 0.0
+      }
+    },
+    {
+      "adjacency": "Identity",
+      "threshold": 3.272677377172535,
+      "metrics": {
+        "metric_category": "DETECTION_METRICS",
+        "threshold": 3.272677377172535,
+        "samples": 4154,
+        "attack_samples": 492,
+        "precision": 0.7981651376146789,
+        "recall": 0.35365853658536583,
+        "f1_score": 0.49014084507042255,
+        "roc_auc": 0.8167556934990431,
+        "pr_auc": 0.575377137681558,
+        "false_positive_rate": 0.012015292190060076,
+        "confusion_matrix": {
+          "TN": 3618,
+          "FP": 44,
+          "FN": 318,
+          "TP": 174
+        },
+        "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+      },
+      "detected_attack_count": 6,
+      "total_attack_count": 7,
+      "mean_detection_delay_hours": 6.666666666666667,
+      "attack_detection_delay_hours": {
+        "attack_1": 0.0,
+        "attack_2": null,
+        "attack_3": 4.0,
+        "attack_4": 19.0,
+        "attack_5": 6.0,
+        "attack_6": 11.0,
+        "attack_7": 0.0
+      }
+    }
+  ]
+}

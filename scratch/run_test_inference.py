@@ -9,7 +9,7 @@ STRICT INTEGRITY RULES:
 - Config configs/config.yaml is unchanged.
 - Raw CSV files under data/raw/ are read-only.
 - BATADAL_test_dataset.csv is evaluated strictly without label access or inference.
-- Operational threshold is fixed at tau_99.8 = 3.013382.
+- Operational threshold is derived from the 99.8th percentile of instrument-floored Dataset03 scores.
 - All output artifacts are saved strictly under results/test_inference/.
 """
 
@@ -34,6 +34,7 @@ sys.path.insert(0, ".")
 from src.detection.dataset_loader import BATADALDatasetLoader
 from src.detection.graph_model import SpatioTemporalGNN, build_adjacency_matrix_from_graph, resolve_sensor_locations
 from src.detection.preprocessing import DataPreprocessor
+from src.detection.scoring import calibrated_sensor_variance
 from src.network.ctown_loader import load_ctown_network
 from src.network.graph_builder import build_network_graph
 
@@ -94,7 +95,6 @@ def main():
         config = yaml.safe_load(f)
 
     H = 12
-    tau_locked = 3.013382
     out_dir = Path("results/test_inference")
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -168,11 +168,13 @@ def main():
     E_cal = (c_preds - Y_cal) ** 2
     E_test = (test_preds - Y_test) ** 2
 
-    mu_sq_h = np.mean(E_cal, axis=0) + 1e-8
+    mu_sq_h = calibrated_sensor_variance(E_cal, sensor_cols, preprocessor.scaler)
     Z_cal = E_cal / mu_sq_h
     Z_test = E_test / mu_sq_h
 
     # Final Horizon Score: step H (index H-1)
+    S_cal_final = np.mean(Z_cal[:, H - 1, :], axis=1)
+    tau_locked = float(np.percentile(S_cal_final, 99.8))
     S_test_final = np.mean(Z_test[:, H - 1, :], axis=1)
     anomaly_flags = (S_test_final >= tau_locked).astype(int)
 

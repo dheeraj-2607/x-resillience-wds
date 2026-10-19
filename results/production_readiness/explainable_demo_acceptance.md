@@ -13,7 +13,7 @@ The live Streamlit operational dashboard (`dashboard/app.py`) has been upgraded 
 The upgrade transforms simple anomaly threshold reporting into a comprehensive, multi-phase explainable cybersecurity & operational resilience workflow:
 1. **Simulated Scenario Classification**: Clear scientific terminology ("Simulated Attack Scenario", "Simulated Operational Disturbance").
 2. **Incident Interpretation**: Detailed summary of affected component, sensor, disturbance magnitude, duration, baseline vs simulated score, operational threshold, and plain-language interpretation.
-3. **Root-Cause Analysis**: Tripartite distinction between (A) Injected Cause, (B) Observed Model Evidence, and (C) Evidence-Supported Root-Cause Hypothesis.
+3. **Root-Cause Candidate Analysis**: The selected demo injection is displayed separately as context and is excluded from inference. The candidate is selected from ranked SHAP output, with LIME agreement and anomaly-threshold status reported as supporting evidence; this is not a confirmed physical cause.
 4. **Topology-Based Impact Path**: Tracing from sensor $\rightarrow$ physical EPANET component $\rightarrow$ graph neighbors $\rightarrow$ monitored sensors $\rightarrow$ DMA / Region.
 5. **Defensive Operational Mitigation**: Category-tailored operational response procedures (Pumps, Valves, Junctions, Tanks).
 6. **Potential Operational Rerouting**: Automatic graph-theoretic derivation of alternative supply routes around isolated components using NetworkX on the C-Town network.

@@ -30,6 +30,8 @@ The dashboard loads pre-computed, verified test inference artifacts from the rep
 - `results/final_results_summary.json`: Ground-truth Dataset04 validation metrics.
 - `data/processed/component_sensor_map.json`: EPANET node/link component mapping for C-Town topology.
 
+In the synthetic demonstration, zone localization ranks C-Town DMAs using sensor SHAP/LIME attribution pooled into topology-aware zone vectors. Link sensors are fractionally assigned to the DMAs at their endpoints. These are project-generated attribution embeddings, not pretrained LightEdge-IDS embeddings or calibrated probabilities; the repository contains no LightEdge-IDS embedding model or zone-level attack labels.
+
 ---
 
 ## Ground-Truth Validation vs. Unlabeled Test Data Distinction
@@ -57,11 +59,11 @@ The dashboard uses **Operational Display Severity** for ranking episodes by defa
 
 ---
 
-## Known PU3 Near-Zero Variance Limitation
+## Instrument-Calibrated Variance Floors
 
-Pump `PU3` (`F_PU3`, `S_PU3`) was inactive throughout the Dataset03 normal calibration partition (mean flow $\approx 0$, variance $\sigma^2 \approx 2.91 \times 10^{-8}$). 
+Calibration residual variances are bounded below by sensor-class instrument precision, transformed into the fitted scaler's feature space.
 
-When pump `PU3` turns ON during test episodes (e.g. EP-11 and EP-12), the sensor-normalized residual $\frac{|y_i - \hat{y}_i|}{\sigma_i + \epsilon}$ produces extremely large z-scores ($\sim 1.13 \times 10^{10}$). This behavior represents **valid mathematical state-transition amplification** caused by near-zero normal baseline variance, rather than corrupted data or a confirmed cyberattack.
+The flow floor prevents inactive pump `PU3` from producing unbounded normalized residuals when its operational state changes. Held-out inference recalibrates its threshold from the same floored Dataset03 scores.
 
 ---
 

@@ -23,6 +23,7 @@ from src.detection.dataset_loader import BATADALDatasetLoader
 from src.detection.evaluate import DetectionEvaluator
 from src.detection.graph_model import SpatioTemporalGNN, build_adjacency_matrix_from_graph, resolve_sensor_locations
 from src.detection.preprocessing import DataPreprocessor
+from src.detection.scoring import calibrated_sensor_variance
 from src.network.ctown_loader import load_ctown_network
 from src.network.graph_builder import build_network_graph
 
@@ -194,7 +195,7 @@ def main():
 
     # 7. Compare Global vs Localized Descriptive Scores
     # Sensor normalization baseline mean per sensor
-    calib_means_vector = np.array([s["calib_mean"] for s in sensor_stats]) + 1e-8
+    calib_means_vector = calibrated_sensor_variance(E_calib, sensor_cols, preprocessor.scaler)
     Z_calib = E_calib / calib_means_vector
     Z_seq3 = E_val[seq3_indices] / calib_means_vector
 

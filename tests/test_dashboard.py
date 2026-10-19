@@ -19,6 +19,76 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 CORRECTED_DIR = ROOT_DIR / "results" / "test_inference" / "corrected"
 
 
+def test_cpis_is_bounded_and_responds_to_impact_inputs():
+    from src.impact.cpis import calculate_cpis
+
+    config = yaml.safe_load((ROOT_DIR / "configs" / "config.yaml").read_text(encoding="utf-8"))["impact"]
+    factors = {
+        "pressure_impact": 0.5,
+        "flow_impact": 0.5,
+        "service_disruption": 0.5,
+        "infrastructure_criticality": 0.5,
+    }
+    result = calculate_cpis(factors, config)
+
+    assert 0.0 <= result["cpis_score"] <= 1.0
+    assert result["cpis_severity"] == "High"
+    expected = sum(factors[name] * config["weights"][name] for name in factors)
+    assert result["cpis_score"] == pytest.approx(expected)
+
+
+def test_cpis_rejects_out_of_range_factor():
+    from src.impact.cpis import calculate_cpis
+
+    factors = {
+        "pressure_impact": 1.2,
+        "flow_impact": 0.5,
+        "service_disruption": 0.5,
+        "infrastructure_criticality": 0.5,
+    }
+    with pytest.raises(ValueError, match="between zero and one"):
+        calculate_cpis(factors)
+
+
+def test_cpis_derives_all_four_roadmap_factors_from_sensor_residuals():
+    from src.impact.cpis import derive_episode_impact_factors
+
+    config = yaml.safe_load((ROOT_DIR / "configs" / "config.yaml").read_text(encoding="utf-8"))["impact"]
+    factors = derive_episode_impact_factors(
+        {"P_J1": 6.0, "F_PU1": 9.0, "L_T1": 3.0, "S_PU1": 4.0},
+        duration_hours=24.0,
+        threshold=3.0,
+        impact_config=config,
+    )
+
+    assert set(factors) == {
+        "pressure_impact",
+        "flow_impact",
+        "service_disruption",
+        "infrastructure_criticality",
+    }
+    assert factors["pressure_impact"] == pytest.approx(2.0 / 3.0)
+    assert factors["flow_impact"] == pytest.approx(0.75)
+    assert factors["service_disruption"] == pytest.approx(0.7)
+    assert 0.0 <= factors["infrastructure_criticality"] <= 1.0
+
+
+def test_config_keeps_batadal_training_validation_and_test_files_separate():
+    config = yaml.safe_load((ROOT_DIR / "configs" / "config.yaml").read_text(encoding="utf-8"))
+    detection = config["detection"]
+
+    dataset_paths = {
+        Path(detection[key]).name
+        for key in ("train_path", "val_path", "test_path")
+    }
+
+    assert dataset_paths == {
+        "BATADAL_dataset03.csv",
+        "BATADAL_dataset04.csv",
+        "BATADAL_test_dataset.csv",
+    }
+
+
 class TestDashboardDataIntegrity:
     def test_forecast_horizon_config_is_h12(self):
         """Regression test ensuring the project config matches the H=12 production architecture."""
@@ -31,6 +101,17 @@ class TestDashboardDataIntegrity:
         assert (CORRECTED_DIR / "test_anomaly_episodes.csv").exists()
         assert (CORRECTED_DIR / "test_sensor_attribution.csv").exists()
         assert (CORRECTED_DIR / "test_inference_report.json").exists()
+
+        df_episodes = pd.read_csv(CORRECTED_DIR / "test_anomaly_episodes.csv")
+        assert {
+            "cpis_score",
+            "cpis_severity",
+            "cpis_pressure_impact",
+            "cpis_flow_impact",
+            "cpis_service_disruption",
+            "cpis_infrastructure_criticality",
+            "cpis_evidence_basis",
+        }.issubset(df_episodes.columns)
 
     def test_corrected_test_scores_monotonicity_and_counts(self):
         """Verify corrected test scores timeline monotonicity and exact window counts."""
@@ -79,6 +160,9 @@ class TestDashboardDataIntegrity:
         assert len(df_episodes) == 17
         assert len(df_scores) == 2066
         assert df_scores["anomaly_flag"].sum() == 156
+        assert df_episodes["cpis_score"].between(0.0, 1.0).all()
+        assert df_episodes["cpis_severity"].isin(["Low", "Moderate", "High", "Critical"]).all()
+        assert df_episodes["cpis_evidence_basis"].str.contains("top-five", case=False).all()
 
         # Verify key episodes exist
         ep_ids = df_episodes["episode_id"].tolist()
@@ -98,6 +182,13 @@ class TestDashboardDataIntegrity:
                     "start_time",
                     "end_time",
                     "duration_hours",
+                    "cpis_score",
+                    "cpis_severity",
+                    "cpis_pressure_impact",
+                    "cpis_flow_impact",
+                    "cpis_service_disruption",
+                    "cpis_infrastructure_criticality",
+                    "cpis_evidence_basis",
                     "peak_score",
                     "mean_score",
                     "operational_severity_log",
@@ -110,6 +201,11 @@ class TestDashboardDataIntegrity:
                     "peak_score": "{:.2e}",
                     "mean_score": "{:.2e}",
                     "operational_severity_log": "{:.1f}",
+                    "cpis_score": "{:.2f}",
+                    "cpis_pressure_impact": "{:.2f}",
+                    "cpis_flow_impact": "{:.2f}",
+                    "cpis_service_disruption": "{:.2f}",
+                    "cpis_infrastructure_criticality": "{:.2f}",
                     "raw_severity": "{:.2e}",
                     "duration_hours": "{:.0f}",
                 }
@@ -122,9 +218,13 @@ class TestDashboardDataIntegrity:
 
 class TestDemoModeIntegrity:
     def test_demo_uses_locked_threshold(self):
-        """Verify Demo Mode uses exact locked operational threshold 3.013382."""
+        """Verify dashboard threshold matches corrected held-out calibration."""
         from dashboard.app import THRESHOLD_TAU
-        assert THRESHOLD_TAU == 3.013382
+        report_path = ROOT_DIR / "results" / "test_inference" / "corrected" / "test_inference_report.json"
+        import json
+
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        assert THRESHOLD_TAU == report["operational_threshold"]
 
     def test_demo_pipeline_sensor_categories_discoverable(self):
         """Verify all 6 monitored WDS sensor categories are discoverable from the 43 sensors."""
@@ -147,6 +247,7 @@ class TestDemoModeIntegrity:
         assert len(p_stats) == 11
         assert len(v_flows) == 1
         assert len(v_stats) == 1
+        assert np.isfinite(demo_pipe["calibrated_threshold"])
 
     def test_demo_synthetic_injection_in_memory_only(self):
         """Verify synthetic anomaly injection modifies only in-memory objects."""
@@ -171,7 +272,8 @@ class TestDemoModeIntegrity:
 
     def test_xai_shap_and_lime_real_calculated_values(self):
         """Verify SHAP and LIME explanations are calculated from frozen GNN model with real values."""
-        from dashboard.app import load_demo_pipeline, compute_xai_explanations
+        from dashboard.app import load_demo_pipeline
+        from src.explainability import compute_xai_explanations
         demo_pipe = load_demo_pipeline()
         normal_window_raw = demo_pipe["normal_window_raw"].copy()
         disturbed_window = normal_window_raw.copy()
@@ -196,10 +298,18 @@ class TestDemoModeIntegrity:
         assert res["agreement"] in ["High", "Moderate", "Low"]
         assert len(res["xai_mapping"]) == 5
         assert res["xai_mapping"][0]["Sensor"] in demo_pipe["sensor_cols"]
+        metrics = res["metrics"]
+        assert 0.0 <= metrics["agreement_jaccard"] <= 1.0
+        assert len(metrics["stability"]) == 3
+        assert np.isfinite(metrics["stability"]["shap"])
+        assert np.isfinite(metrics["stability"]["lime"])
+        assert np.isfinite(metrics["fidelity"]["top4_score_reduction"])
+        assert np.isfinite(metrics["fidelity"]["random4_mean_score_reduction"])
 
     def test_topology_impact_and_rerouting_analysis(self):
         """Verify topology impact path and operational rerouting calculation."""
-        from dashboard.app import load_demo_pipeline, analyze_topology_and_impact
+        from dashboard.app import load_demo_pipeline
+        from src.impact.topology import analyze_topology_and_impact
         demo_pipe = load_demo_pipeline()
 
         res_edge = analyze_topology_and_impact(

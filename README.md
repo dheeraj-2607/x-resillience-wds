@@ -22,7 +22,7 @@ The result is an explainable anomaly detection pipeline for cyber-physical water
 |---|---:|
 | Model architecture | Spatio-Temporal GNN, direct multi-horizon forecasting (H=12) |
 | Production checkpoint | `models/detection_gnn.pt` |
-| Calibrated threshold | 3.013382 |
+| Recalibrated threshold | 2.943899 |
 | Validation dataset | BATADAL_dataset04 |
 | Precision | 0.5635 |
 | Recall | 0.7900 |
@@ -30,6 +30,10 @@ The result is an explainable anomaly detection pipeline for cyber-physical water
 | ROC-AUC | 0.9685 |
 | PR-AUC | 0.6769 |
 | Test suite status | 48 / 48 passed |
+
+The Dataset04 metrics above are retained from the prior calibration and are not recomputed by the corrected held-out inference. Current test-set calibration and anomaly counts are in `results/test_inference/corrected/test_inference_report.json`.
+
+> Benchmark provenance note: this repository reports only the metrics reproduced by its own scripts and artifacts. Unsupported external benchmark values with a high F1 and ROC-AUC profile are not part of the X-Resilience-WDS benchmark and are intentionally excluded from the project summary.
 
 ---
 
@@ -63,6 +67,10 @@ The system models the network as a graph where sensors correspond to physically 
 6. Run unsupervised inference on the held-out test set
 7. Aggregate contiguous anomaly episodes and rank sensor drivers
 8. Publish results, figures, and dashboard artifacts
+
+The reported GNN workflow does not apply SMOTE. Training and calibration are separated chronologically within the normal-only Dataset03 baseline; Dataset04 is reserved for labeled validation, and the unlabeled test set is used only for inference. No resampled attack examples are created from validation or test data.
+
+An optional, separate supervised Random Forest baseline on Dataset04 is available with `python scratch/run_smote_baseline.py`. It chronologically splits Dataset04 before fitting preprocessing, fits imputation and scaling only on the first 80%, and applies SMOTE only to that scaled training partition. The final 20% remains untouched for evaluation; its results are written to `results/smote_baseline_report.json` and are not substituted for the normal-only GNN benchmark.
 
 ### Important caveat
 
@@ -106,7 +114,7 @@ The attribution view identifies which sensors contribute most strongly to each a
 
 ![High-severity episode profile](results/final_figures/fig6_high_severity_episode.png)
 
-Selected episodes such as EP-12 expose how near-zero baseline variance in pump states can amplify anomaly scores and why operational interpretation must remain careful and evidence-based.
+Sensor-specific instrument-precision variance floors prevent inactive pump states from producing numerically unbounded residual scores.
 
 ### 7) Dashboard output generation workflow
 
@@ -168,7 +176,7 @@ Dashboard Controls: The sidebar provides controls for selecting the anomaly time
 - Multi-horizon forecasting provides real gains over shorter-horizon baselines when capacity is held nearly constant.
 - The system works well for sequence-level anomaly detection and episode grouping across the test window.
 - Sensor attribution helps interpret likely affected system components, though it should not be treated as direct proof of attack cause.
-- The PU3 case demonstrates a critical limitation: extremely large scores can arise from near-zero variance during inactive states, which is a valid mathematical behavior rather than a data corruption issue.
+- Sensor-specific variance floors bound residual normalization for sensors that are inactive during normal calibration.
 - The project is designed for research-grade operational analysis, with careful terminology and dashboarding to avoid overstating findings.
 
 ---

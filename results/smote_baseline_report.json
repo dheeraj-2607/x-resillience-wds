@@ -1,0 +1,116 @@
+{
+  "feature_count": 260,
+  "split_index": 3341,
+  "split_policy": "chronological; split before imputation, scaling, and resampling",
+  "models": {
+    "random_forest": {
+      "method": "Random Forest with training-only SMOTE",
+      "split_policy": "chronological; split before imputation, scaling, and resampling",
+      "test_rows_resampled": 0,
+      "preprocessing_fit_rows": 3341,
+      "smote_fit_rows": 3341,
+      "train_rows_before_smote": 3341,
+      "train_rows_after_smote": 6226,
+      "test_rows": 836,
+      "train_class_counts_before_smote": {
+        "0": 3113,
+        "1": 228
+      },
+      "train_class_counts_after_smote": {
+        "0": 3113,
+        "1": 3113
+      },
+      "test_class_counts_untouched": {
+        "0": 572,
+        "1": 264
+      },
+      "metrics": {
+        "metric_category": "DETECTION_METRICS",
+        "threshold": 0.5,
+        "samples": 836,
+        "attack_samples": 264,
+        "precision": 0.6666666666666666,
+        "recall": 0.015151515151515152,
+        "f1_score": 0.02962962962962963,
+        "roc_auc": 0.6475286077558805,
+        "pr_auc": 0.4172821004243587,
+        "false_positive_rate": 0.0034965034965034965,
+        "confusion_matrix": {
+          "TN": 570,
+          "FP": 2,
+          "FN": 260,
+          "TP": 4
+        },
+        "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+      }
+    },
+    "xgboost": {
+      "method": "Xgboost with training-only SMOTE",
+      "split_policy": "chronological; split before imputation, scaling, and resampling",
+      "test_rows_resampled": 0,
+      "preprocessing_fit_rows": 3341,
+      "smote_fit_rows": 3341,
+      "train_rows_before_smote": 3341,
+      "train_rows_after_smote": 6226,
+      "test_rows": 836,
+      "train_class_counts_before_smote": {
+        "0": 3113,
+        "1": 228
+      },
+      "train_class_counts_after_smote": {
+        "0": 3113,
+        "1": 3113
+      },
+      "test_class_counts_untouched": {
+        "0": 572,
+        "1": 264
+      },
+      "metrics": {
+        "metric_category": "DETECTION_METRICS",
+        "threshold": 0.5,
+        "samples": 836,
+        "attack_samples": 264,
+        "precision": 0.3333333333333333,
+        "recall": 0.007575757575757576,
+        "f1_score": 0.014814814814814815,
+        "roc_auc": 0.5870351239669421,
+        "pr_auc": 0.39382221333103595,
+        "false_positive_rate": 0.006993006993006993,
+        "confusion_matrix": {
+          "TN": 568,
+          "FP": 4,
+          "FN": 262,
+          "TP": 2
+        },
+        "localization_note": "These metrics evaluate window-level binary attack detection. Component-level localization precision/recall is a separate metric category evaluated in Phase 3 (Multi-level Localization)."
+      }
+    }
+  },
+  "datasets": {
+    "supervised_source": "data\\raw\\BATADAL_dataset04.csv",
+    "ground_truth_source": "data/ground_truth_attacks.csv"
+  },
+  "input_sensor_count": 43,
+  "total_rows": 4177,
+  "train_end_timestamp": "2016-11-20 04:00:00",
+  "test_start_timestamp": "2016-11-20 05:00:00",
+  "source_partial_labels": {
+    "unlabelled_ATT_FLAG_rows": 3958,
+    "metric_labels_from": "complete published Dataset04 attack intervals; outside intervals is normal"
+  },
+  "feature_engineering": [
+    "raw sensor values",
+    "one-hour backward differences",
+    "3-hour and 12-hour trailing rolling means and population standard deviations",
+    "hour-of-day sine and cosine encoding"
+  ],
+  "source_partition_rows": {
+    "dataset04_train": 3341,
+    "dataset04_test": 836,
+    "train_normal_intervals": 3113,
+    "train_attack_intervals": 228,
+    "test_normal_intervals": 572,
+    "test_attack_intervals": 264
+  },
+  "note": "This is a separate supervised tree baseline on Dataset04. The authoritative table supplies all seven attack intervals; timestamps within them are positive and timestamps outside are normal. The partial ATT_FLAG sentinel is not treated as a class label. Dataset04 is split chronologically before fitting imputation, scaling, or SMOTE. It does not alter or replace the normal-only SpatioTemporalGNN results."
+}

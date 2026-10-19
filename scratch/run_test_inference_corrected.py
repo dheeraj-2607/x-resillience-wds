@@ -14,7 +14,7 @@ STRICT INTEGRITY RULES:
 - Config configs/config.yaml is unchanged.
 - Raw CSV files under data/raw/ are read-only.
 - BATADAL_test_dataset.csv is evaluated strictly without label access or inference.
-- Operational threshold is fixed at tau_99.8 = 3.013382.
+- Operational threshold is recalibrated at the 99.8th percentile using instrument-floored Dataset03 scores.
 """
 
 from __future__ import annotations
@@ -38,6 +38,8 @@ sys.path.insert(0, ".")
 from src.detection.dataset_loader import BATADALDatasetLoader
 from src.detection.graph_model import SpatioTemporalGNN, build_adjacency_matrix_from_graph, resolve_sensor_locations
 from src.detection.preprocessing import DataPreprocessor
+from src.detection.scoring import calibrated_sensor_variance
+from src.impact.cpis import calculate_cpis, derive_episode_impact_factors
 from src.network.ctown_loader import load_ctown_network
 from src.network.graph_builder import build_network_graph
 
@@ -95,7 +97,6 @@ def main():
         config = yaml.safe_load(f)
 
     H = 12
-    tau_locked = 3.013382
     out_dir = Path("results/test_inference/corrected")
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -162,10 +163,12 @@ def main():
     E_cal = (c_preds - Y_cal) ** 2
     E_test = (test_preds - Y_test) ** 2
 
-    mu_sq_h = np.mean(E_cal, axis=0) + 1e-8
+    mu_sq_h = calibrated_sensor_variance(E_cal, sensor_cols, preprocessor.scaler)
     Z_cal = E_cal / mu_sq_h
     Z_test = E_test / mu_sq_h
 
+    S_cal_final = np.mean(Z_cal[:, H - 1, :], axis=1)
+    tau_locked = float(np.percentile(S_cal_final, 99.8))
     S_test_final = np.mean(Z_test[:, H - 1, :], axis=1)
     anomaly_flags = (S_test_final >= tau_locked).astype(int)
 
@@ -240,6 +243,13 @@ def main():
                 mapped_nodes_ep.update(sensor_nodes_map.get(s_name, []))
 
             sev_score = calculate_severity_score(mean_score, duration_hours, max_score, tau_locked)
+            impact_factors = derive_episode_impact_factors(
+                dict(zip(sensor_cols, ep_sensor_means)),
+                duration_hours,
+                tau_locked,
+                config.get("impact", {}),
+            )
+            cpis = calculate_cpis(impact_factors, config.get("impact", {}))
 
             episodes.append({
                 "episode_id": f"EP-{ep_idx:02d}",
@@ -251,6 +261,8 @@ def main():
                 "max_anomaly_score": round(max_score, 4),
                 "mean_anomaly_score": round(mean_score, 4),
                 "severity_score": round(sev_score, 4),
+                **cpis,
+                "cpis_evidence_basis": "All per-sensor episode-average normalized residuals",
                 "dominant_sensors_summary": dom_sensors_str,
                 "sensor_type_distribution": type_dist_str,
                 "spatial_topology_nodes": sorted(list(mapped_nodes_ep)),
@@ -318,6 +330,7 @@ def main():
         "production_checkpoint": str(prod_ckpt_path),
         "test_dataset": str(test_csv_path),
         "operational_threshold": tau_locked,
+        "calibration_variance_floor": "sensor-specific physical instrument precision floors in scaler space",
         "summary_statistics": {
             "total_test_rows": total_test_rows,
             "total_test_windows": total_test_windows,
@@ -331,6 +344,15 @@ def main():
             "Parsed BATADAL timestamps with dayfirst=True ('DD/MM/YY HH:MM'), resolving 6 backwards date jumps.",
             "Extracted 17 true contiguous episodes on chronological timeline (eliminating pseudo-splits)."
         ],
+        "cpis_methodology": {
+            "scale": "0-1",
+            "formula": "weighted sum of pressure impact, flow impact, service disruption, infrastructure criticality",
+            "weights": config.get("impact", {}).get("weights", {}),
+            "severity_thresholds": config.get("impact", {}).get("severity_thresholds", {}),
+            "asset_criticality_priors": config.get("impact", {}).get("asset_criticality", {}),
+            "evidence_basis": "All per-sensor episode-average normalized residuals",
+            "caveat": "Asset criticality priors and severity thresholds are provisional; CPIS is not calibrated against service-outage ground truth.",
+        },
         "episodes_ranked_by_severity": df_episodes.to_dict(orient="records") if not df_episodes.empty else [],
     }
 
@@ -352,12 +374,19 @@ Execution of corrected held-out test inference on `BATADAL_test_dataset.csv` sav
 
 ## Corrected Anomaly Episodes (Ranked by Severity)
 
-| Rank | Episode ID | Start Timestamp | End Timestamp | Duration (h) | Max Score | Mean Score | Severity Score |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+CPIS is the configured weighted score of pressure impact, flow impact, service disruption, and infrastructure criticality. Categories use the configured Low/Moderate/High/Critical cutoffs. Values are prioritization aids, not probabilities; this run derives factors from all per-sensor episode-average residuals.
+
+| Rank | Episode ID | Duration (h) | CPIS | Severity | Pressure | Flow | Service | Infrastructure |
+| :---: | :--- | ---: | ---: | :--- | ---: | ---: | ---: | ---: |
 """
     if not df_episodes.empty:
         for _, ep in df_episodes.iterrows():
-            md_summary += f"| {ep['severity_rank']} | `{ep['episode_id']}` | `{ep['start_timestamp']}` | `{ep['end_timestamp']}` | {ep['duration_hours']:.1f}h | {ep['max_anomaly_score']:.2f} | {ep['mean_anomaly_score']:.2f} | **{ep['severity_score']:.2f}** |\n"
+            md_summary += (
+                f"| {ep['severity_rank']} | `{ep['episode_id']}` | {ep['duration_hours']:.1f}h "
+                f"| **{ep['cpis_score']:.3f}** | {ep['cpis_severity']} "
+                f"| {ep['cpis_pressure_impact']:.3f} | {ep['cpis_flow_impact']:.3f} "
+                f"| {ep['cpis_service_disruption']:.3f} | {ep['cpis_infrastructure_criticality']:.3f} |\n"
+            )
 
     with open(out_dir / "test_inference_summary.md", "w") as f:
         f.write(md_summary)

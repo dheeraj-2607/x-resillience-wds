@@ -16,10 +16,12 @@ Also tests unsensed physical topology component inspection and verifies strict d
 from __future__ import annotations
 
 import sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
+import pytest
 import torch
-from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT_DIR))
@@ -27,6 +29,13 @@ sys.path.insert(0, str(ROOT_DIR))
 from dashboard.app import load_demo_pipeline, compute_xai_explanations, analyze_topology_and_impact, THRESHOLD_TAU
 
 
+TEST_DATA_PATH = ROOT_DIR / "data" / "raw" / "BATADAL_test_dataset.csv"
+
+
+@pytest.mark.skipif(
+    not TEST_DATA_PATH.exists(),
+    reason="BATADAL_test_dataset.csv is not included in this workspace; live demo acceptance is skipped until the raw evaluation dataset is present.",
+)
 def test_live_demo_mode():
     print("=" * 80)
     print("      LIVE PRESENTATION DEMO MODE ACCEPTANCE TEST REPORT")

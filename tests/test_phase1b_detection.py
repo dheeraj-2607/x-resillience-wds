@@ -2,7 +2,7 @@
 Unit tests for Phase 1b: Detection Architecture & Data Interfaces.
 
 Verifies dataset loading validation, BATADAL schema handling (ATT_FLAG, header whitespace,
--999 label normalization, unlabeled test sets), preprocessing, sliding-window generation,
+-999 unlabelled values, unlabeled test sets), preprocessing, sliding-window generation,
 scaler leakage prevention, feature extraction, spatio-temporal GNN model shape,
 strict training gating (refusal without real dataset), and evaluation metrics.
 
@@ -27,6 +27,7 @@ from src.detection.evaluate import DetectionEvaluator
 from src.detection.features import FeatureExtractor
 from src.detection.graph_model import SpatioTemporalGNN, build_adjacency_matrix_from_graph
 from src.detection.preprocessing import DataPreprocessor
+from src.detection.scoring import calibrated_sensor_variance, sensor_variance_floor
 from src.detection.train import train_model
 
 
@@ -79,8 +80,8 @@ class TestDatasetLoader:
         with pytest.raises(ValueError, match="Specified sensor columns not found"):
             loader.load_csv(synthetic_csv_path)
 
-    def test_att_flag_and_whitespace_and_minus999_normalization(self, tmp_path: Path):
-        """Test ATT_FLAG column detection, whitespace-stripped headers, and -999 -> 0 label normalization."""
+    def test_att_flag_and_whitespace_and_minus999_preservation(self, tmp_path: Path):
+        """Test ATT_FLAG detection, whitespace stripping, and -999 as unlabelled."""
         batadal_style_csv = tmp_path / "batadal_style.csv"
         df_raw = pd.DataFrame(
             {
@@ -99,8 +100,8 @@ class TestDatasetLoader:
         assert "L_T1" in sensor_cols
         assert "P_J280" in sensor_cols
         assert " L_T1" not in df.columns  # Header whitespace stripped
-        # Normalized labels: -999 -> 0, 0 -> 0, 1 -> 1
-        assert list(df["ATT_FLAG"]) == [0, 0, 1]
+        assert np.isnan(df["ATT_FLAG"].iloc[0])
+        assert list(df["ATT_FLAG"].iloc[1:]) == [0, 1]
 
     def test_unlabeled_test_set_handling(self, tmp_path: Path):
         """Test dataset loading when no label column is present (e.g. BATADAL_test_dataset.csv)."""
@@ -140,8 +141,8 @@ class TestDatasetLoader:
             df04, sensors04, label04 = loader.load_csv(ds04_path)
             assert len(df04) == 4177
             assert label04 == "ATT_FLAG"
-            # -999 mapped to 0 -> unique labels are {0, 1}
-            assert set(df04["ATT_FLAG"].unique()) == {0, 1}
+            assert set(df04["ATT_FLAG"].dropna().unique()) == {1}
+            assert df04["ATT_FLAG"].isna().any()
             assert "L_T1" in sensors04  # Whitespace stripped
 
         # 3. Test test_dataset (unlabeled evaluation)
@@ -379,4 +380,20 @@ class TestEvaluationMetrics:
         assert "false_positive_rate" in results
         assert results["confusion_matrix"]["TP"] == 3
         assert results["confusion_matrix"]["FP"] == 1
+
+
+def test_sensor_variance_floors_use_physical_precision_in_standardized_space():
+    scaler = DataPreprocessor().scaler
+    scaler.mean_ = np.zeros(4)
+    scaler.scale_ = np.array([2.0, 0.5, 10.0, 1.0])
+    scaler.var_ = np.square(scaler.scale_)
+    scaler.n_features_in_ = 4
+    sensors = ["P_J280", "L_T1", "F_PU3", "S_PU3"]
+
+    floors = sensor_variance_floor(sensors, scaler)
+    variances = calibrated_sensor_variance(np.zeros((3, 4)), sensors, scaler)
+
+    np.testing.assert_allclose(floors, [0.05**2 / 2**2, 0.01**2 / 0.5**2, 0.50**2 / 10**2, 0.01])
+    np.testing.assert_allclose(variances, floors)
+    assert np.isfinite(variances).all()
 

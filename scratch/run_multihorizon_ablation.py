@@ -35,6 +35,7 @@ from src.detection.dataset_loader import BATADALDatasetLoader
 from src.detection.evaluate import DetectionEvaluator
 from src.detection.graph_model import SpatioTemporalGNN, build_adjacency_matrix_from_graph
 from src.detection.preprocessing import DataPreprocessor
+from src.detection.scoring import calibrated_sensor_variance
 from src.network.ctown_loader import load_ctown_network
 from src.network.graph_builder import build_network_graph
 
@@ -220,7 +221,7 @@ def main():
         E_val = (v_preds - Y_val) ** 2
 
         # Per-horizon step, per-sensor normal calibration mean squared error: shape (H, F)
-        mu_sq_h = np.mean(E_cal, axis=0) + 1e-8
+        mu_sq_h = calibrated_sensor_variance(E_cal, sensor_cols, preprocessor.scaler)
 
         # Normalized residuals Z: shape (N, H, F)
         Z_cal = E_cal / mu_sq_h

@@ -1,5 +1,8 @@
 # X-Resilience-WDS: Final Project Results & Model Staging Summary
 
+> [!NOTE]
+> This summary contains legacy Dataset04 and held-out metrics from before sensor-specific variance floors. Current corrected held-out calibration and anomaly counts are in `results/test_inference/corrected/test_inference_report.json`.
+
 This document presents the complete, integrated findings for the **topology-aware SpatioTemporalGNN architecture ($H=12$)** applied to the BATADAL C-Town Water Distribution System benchmark.
 
 ---
@@ -19,7 +22,7 @@ This document presents the complete, integrated findings for the **topology-awar
 ## 1. Pipeline & Architecture Specifications
 
 ### A. Network Topology & Sensors
-- **Water Distribution System**: C-Town Network ($43$ sensor channels: $31$ Junction Pressures `P_J*`, $7$ Tank Levels `L_T*`, $4$ Link Flows `F_PU*`/`F_V*`, $1$ Link Status `S_PU*`).
+- **Water Distribution System**: C-Town Network ($43$ sensor channels: $12$ Junction Pressures `P_J*`, $7$ Tank Levels `L_T*`, $12$ Link Flows `F_*`, $12$ Actuator Statuses `S_*`).
 - **Graph Structure**: 3-hop shortest-path spatial adjacency matrix derived directly from EPANET file `CTOWN.INP`.
 
 ### B. Preprocessing & Feature Normalization
@@ -28,7 +31,10 @@ This document presents the complete, integrated findings for the **topology-awar
 
 ### C. SpatioTemporalGNN Architecture
 - **Input Dimensions**: $(B, W=12, F=43)$
-- **Layers**: 1D Temporal Convolution $ightarrow$ Topology Graph Convolution (Spatial Message Passing over C-Town Graph) $ightarrow$ Dropout ($0.2$) $ightarrow$ Multi-step Forecasting Linear Output Header $(B, H=12, F=43)$.
+- **Layers**: 1D Temporal Convolution $
+ightarrow$ Topology Graph Convolution (Spatial Message Passing over C-Town Graph) $
+ightarrow$ Dropout ($0.2$) $
+ightarrow$ Multi-step Forecasting Linear Output Header $(B, H=12, F=43)$.
 - **Total Trainable Parameters**: $95,236$
 
 ### D. Operational Threshold Calibration Rule
@@ -36,7 +42,7 @@ This document presents the complete, integrated findings for the **topology-awar
 
 ---
 
-## 2. PART A — VALIDATED RESULTS (Supervised Performance)
+## 2. PART A ï¿½ VALIDATED RESULTS (Supervised Performance)
 
 > [!NOTE]
 > All metrics in Part A are evaluated on ground-truth labeled validation data (`BATADAL_dataset04.csv`, $N=4,154$ windows, $219$ attack windows across 5 attack sequences).
@@ -51,7 +57,7 @@ This document presents the complete, integrated findings for the **topology-awar
 | **ROC-AUC** | **$0.9685$** | $0.9482$ |
 | **PR-AUC** | **$0.6769$** | $0.5932$ |
 | **False Positive Rate (FPR)** | **$0.0341$ ($3.41\%$)** | $0.0244$ |
-| **Confusion Matrix** | $\mathbf{\text{TN}=3801, \text{FP}=134, \text{FN}=46, \text{TP}=173}$ | — |
+| **Confusion Matrix** | $\mathbf{\text{TN}=3801, \text{FP}=134, \text{FN}=46, \text{TP}=173}$ | ï¿½ |
 
 ### B. Per-Sequence Recalls & Detection Delays (Dataset04)
 
@@ -77,7 +83,7 @@ To rule out parameter count as a confounding variable, $H=1$ was scaled up to $\
 
 ---
 
-## 3. PART B — UNSUPERVISED TEST OBSERVATIONS (`BATADAL_test_dataset.csv`)
+## 3. PART B ï¿½ UNSUPERVISED TEST OBSERVATIONS (`BATADAL_test_dataset.csv`)
 
 > [!IMPORTANT]
 > Ground-truth labels for `BATADAL_test_dataset.csv` are unavailable. Therefore, supervised performance metrics (F1, Precision, Recall, ROC-AUC) CANNOT be calculated for the test set. Findings in Part B represent model-detected abnormal behavior.
@@ -115,6 +121,9 @@ $$\text{Severity Score} = \text{Mean Anomaly Score} \times \sqrt{\text{Duration 
 ---
 
 ## 4. Key Limitations & Numerical Analysis
+
+> [!NOTE]
+> The numerical values in this legacy summary predate the sensor-specific physical variance floors. Recalibrated held-out inference is recorded in `results/test_inference/corrected/test_inference_report.json`.
 
 1. **Pump `PU3` Baseline Inactivity & Score Amplification**:
    - In normal baseline training (`BATADAL_dataset03.csv`), pump `PU3` is **OFF continuously** (`F_PU3 = 0.0`), producing near-zero normal calibration error variance $\mu_{	ext{sq, h}}[11] pprox 2.9 	imes 10^{-8}$.

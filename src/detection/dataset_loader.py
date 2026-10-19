@@ -4,7 +4,7 @@ dataset_loader.py
 Data loading interface for BATADAL-style time-series sensor datasets.
 Validates file presence, timestamp parsing, whitespace-stripped headers,
 sensor feature columns, label column detection ('ATT_FLAG', 'ATTACK'),
-label normalization (-999 -> 0, 1 -> 1), and unlabeled test-set handling.
+preserves unlabelled -999 labels as missing values, and supports unlabeled test sets.
 """
 
 from __future__ import annotations
@@ -107,10 +107,11 @@ class BATADALDatasetLoader:
                 found_label_col = cand
                 break
 
-        # REQUIREMENT 3: Normalize BATADAL labels (-999 -> 0, 0 -> 0, 1 -> 1)
+        # Preserve BATADAL's -999 unlabelled sentinel instead of treating it as normal.
         if found_label_col is not None:
-            # Map -999 / -999.0 to 0, ensure binary 0/1 integers
-            df[found_label_col] = df[found_label_col].replace({-999: 0, -999.0: 0}).astype(int)
+            df[found_label_col] = pd.to_numeric(df[found_label_col], errors="raise").replace(
+                -999, float("nan")
+            )
             logger.info(
                 "Normalized label column '%s' in %s (Value counts: %s)",
                 found_label_col,

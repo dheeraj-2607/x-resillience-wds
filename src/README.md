@@ -16,14 +16,14 @@
 - **Model Checkpoint SHA-256**: `8e85de2b871ff49bb0894f2eb97e3d9fd6087151e8f0ba7ee35006f890a93667`
 - **Rollback Backup Checkpoint**: `models/backups/detection_gnn_pre_h12_promotion_20260914_192026.pt`
 - **Rollback Checkpoint SHA-256**: `056284e983baf988d962e4d56d7ea7528c4638173f081c418ec9f6ce907d9e64`
-- **Calibrated Operational Threshold ($\tau_{99.8}$)**: `3.013382`
+- **Recalibrated Held-Out Threshold ($\tau_{99.8}$)**: `2.943899` (floored Dataset03 scores)
 - **Test Suite Status**: **48 / 48 PASSED** ($100\%$ pass rate)
 
 ---
 
 ## 2. Dataset Description & Simulation Caveat
 
-The system is evaluated on the **BATADAL (Battle of the Attack Detection Algorithms)** benchmark dataset, derived from EPANET hydraulic simulations of the C-Town WDS network ($43$ telemetry sensors: $12$ tank levels, $26$ junction pressures, $5$ pump/valve flows/statuses).
+The system is evaluated on the **BATADAL (Battle of the Attack Detection Algorithms)** benchmark dataset, derived from EPANET hydraulic simulations of the C-Town WDS network ($43$ telemetry sensors: $12$ junction pressures, $7$ tank levels, $12$ link flows, and $12$ actuator statuses).
 
 > [!IMPORTANT]
 > **SIMULATION DATA CAVEAT**: All BATADAL datasets are computer simulation-generated using EPANET hydraulic engines. They represent synthetic operational scenarios and benchmark cyber-physical attack simulations, **NOT** physical municipal water utility field measurements.
@@ -32,6 +32,8 @@ The system is evaluated on the **BATADAL (Battle of the Attack Detection Algorit
 1. **`BATADAL_dataset03.csv` ($8,761$ hourly rows)**: Normal operational baseline. Chronologically split into $80\%$ Training ($7,008$ timesteps) and $20\%$ Normal Calibration ($1,753$ timesteps, $7,957$ sliding $H=12$ windows). Standard scalers ($\mu, \sigma$) and threshold $\tau_{99.8} = 3.013382$ were fit **strictly** on Dataset03. Zero attack labels were present or used.
 2. **`BATADAL_dataset04.csv` ($4,177$ hourly rows)**: Supervised benchmark validation dataset containing $173$ labeled attack windows. Used exclusively for post-hoc threshold validation and metric benchmarking.
 3. **`BATADAL_test_dataset.csv` ($2,089$ raw hourly rows, $2,066$ evaluated $H=12$ windows)**: Held-out unlabeled test evaluation dataset. Evaluated completely unsupervised with zero test set labels accessed or inferred.
+
+> **Resampling and leakage policy:** The reported GNN pipeline does not use SMOTE or any other oversampler. Its 80/20 split is performed chronologically within the normal Dataset03 training baseline, before scaler fitting and window generation. Dataset04 remains a separate labeled validation set; the test dataset is only used for unlabeled inference. The 4,177 Dataset04 rows are never oversampled, combined with training rows, or split into train/test partitions.
 
 ---
 
@@ -127,14 +129,11 @@ Evaluation on `BATADAL_test_dataset.csv` ($2,089$ raw timesteps, $2,066$ evaluat
 
 ---
 
-## 7. Known Limitation: PU3 Near-Zero Baseline Variance
+> **Provenance note:** Dataset04 metrics and training threshold values below are legacy outputs produced before the sensor-specific variance-floor correction. Corrected held-out results use recalibrated scores and threshold.
 
-During Dataset03 normal calibration, pump `PU3` (`F_PU3`, `S_PU3`) was completely inactive ($\text{mean} \approx 0.0, \sigma^2 \approx 2.91 \times 10^{-8}$). 
+## 7. Instrument-Calibrated Variance Floors
 
-When pump `PU3` activates during test episodes EP-11 and EP-12 ($\text{flow} \approx 25\text{--}30 \text{ m}^3/\text{h}$), the sensor-normalized residual $e_i = \frac{|y_i - \hat{y}_i|}{\sigma_i + \epsilon}$ produces extremely large z-scores ($\sim 1.13 \times 10^{10}$).
-
-> [!WARNING]
-> **MATHEMATICAL STATE-TRANSITION AMPLIFICATION**: The extreme scores in EP-11 and EP-12 reflect valid mathematical z-score amplification caused by near-zero normal baseline variance. They represent **Operational State Transitions**, NOT corrupted data or confirmed cyberattacks.
+Per-sensor calibration residual variance is floored by physical instrument precision for pressure, tank level, flow, and binary status sensors, converted to the fitted scaler's feature space. This bounds normalized residuals for pump `PU3` when it transitions from an inactive calibration state. Corrected held-out inference recalibrates its threshold from the same floored Dataset03 scores.
 
 ---
 
@@ -164,7 +163,7 @@ The repository includes an interactive research and operational dashboard (`dash
 1. **Executive Overview**: Model architecture specs, evaluated window counts, anomaly window rates, and Dataset04 ground-truth metrics card.
 2. **Interactive Timeline**: Plotly line chart displaying $2,066$ test windows with threshold line and toggle between Log-Scaled Display Score ($\log_{10}(1 + \text{RawScore})$) and Raw Statistical Anomaly Score.
 3. **Episode Explorer**: Table of $17$ contiguous anomaly episodes sorted by Operational Display Severity.
-4. **Sensor Attribution & PU3 Warning**: Per-episode top-sensor breakdown with an automated red **EXTREME SCORE & NEAR-ZERO VARIANCE WARNING** alert box for PU3.
+4. **Sensor Attribution & Calibration Floors**: Per-episode top-sensor breakdown with sensor-specific instrument variance-floor diagnostics.
 5. **Topology & Region Mapping**: Mapped sensor locations to C-Town topological nodes and DMAs under the header `"Topology-Associated Region"`.
 6. **Ground-Truth Validation**: Dedicated tab isolating Dataset04 supervised benchmark results.
 
@@ -188,7 +187,17 @@ The repository includes an interactive research and operational dashboard (`dash
 
 ---
 
-## 11. Reproducibility Guide & Directory Structure
+## 11. Phase 2 Service Modules and Evaluation Scope
+
+- `src/explainability/xai.py`: computes sensor-level two-player SHAP attribution and a local Ridge/LIME surrogate for the synthetic dashboard demonstration; tested against the frozen GNN.
+- `src/localization/sensor_mapping.py` and `src/localization/zone_embeddings.py`: map sensors to C-Town components and pool sensor SHAP/LIME vectors into ranked DMA-level zone embeddings, splitting link-sensor contribution across endpoint zones. This is a project-local LightEdge-style implementation, not an imported/pretrained LightEdge-IDS embedding, which is not present in the repository.
+- `src/root_cause/assessment.py`: selects the leading cause candidate from ranked SHAP output, checks LIME support and threshold status, and never accepts the injected sensor as an input. It does not infer a confirmed cause for the unlabeled test set.
+- `src/impact/topology.py` and `src/impact/cpis.py`: derive graph footprint, nearby sensors, DMA, alternate paths, and the project-specific CPIS; topology behavior is covered with synthetic graphs.
+- `src/recovery/mitigation.py`: returns category-specific defensive checks and response suggestions; recommendations are software-tested, not hydraulically simulated or operationally validated.
+
+These tests verify deterministic software behavior only. Zone rankings have synthetic graph tests but no independent ground-truth zone labels or measured localization accuracy. The unlabeled BATADAL test set has no component-level ground truth, root-cause labels, or recovery outcomes, so localization accuracy, root-cause accuracy, impact prediction accuracy, and recovery effectiveness cannot be reported as benchmark metrics from this data.
+
+## 12. Reproducibility Guide & Directory Structure
 
 ### Environment Setup (Windows):
 ```powershell
@@ -216,13 +225,19 @@ X-Resilience-WDS/
 │   └── backups/                        # Pre-promotion rollback checkpoints
 ├── src/
 │   ├── detection/                      # Core loader, preprocessor, model, evaluator
-│   └── network/                        # EPANET loader, graph builder, zoning
+│   ├── explainability/                 # Model-based sensor explanations
+│   ├── impact/                         # CPIS and topology impact analysis
+│   ├── localization/                   # Sensor-to-component mapping
+│   ├── network/                        # EPANET loader, graph builder, zoning
+│   ├── recovery/                       # Defensive response recommendations
+│   └── root_cause/                     # Evidence-scoped demo assessment
 ├── dashboard/
 │   ├── app.py                          # Streamlit Phase 8 Operational Dashboard
 │   └── README.md                       # Dashboard documentation
 ├── tests/
 │   ├── test_phase1_network.py          # Network & graph unit tests
 │   ├── test_phase1b_detection.py       # Preprocessing & GNN model tests
+│   ├── test_phase2_services.py         # Impact/localization/root-cause/recovery tests
 │   └── test_dashboard.py              # Dashboard & data integrity tests
 ├── results/
 │   ├── final_figures/                  # Publication figures (fig1 - fig6)
@@ -233,6 +248,6 @@ X-Resilience-WDS/
 
 ---
 
-## 12. License & Citation
+## 13. License & Citation
 
 Distributed under the MIT License. See `LICENSE` for details.

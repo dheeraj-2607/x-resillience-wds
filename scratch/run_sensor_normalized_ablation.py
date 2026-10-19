@@ -31,6 +31,7 @@ from src.detection.dataset_loader import BATADALDatasetLoader
 from src.detection.evaluate import DetectionEvaluator
 from src.detection.graph_model import SpatioTemporalGNN, build_adjacency_matrix_from_graph
 from src.detection.preprocessing import DataPreprocessor
+from src.detection.scoring import calibrated_sensor_variance, sensor_variance_floor
 from src.network.ctown_loader import load_ctown_network
 from src.network.graph_builder import build_network_graph
 
@@ -80,8 +81,10 @@ def main():
     E_val = (v_preds - Y_val) ** 2
 
     # ESTIMATE EACH SENSOR'S NORMAL RESIDUAL DISTRIBUTION ON CALIBRATION DATA ONLY
-    sensor_normal_mean_mse = np.mean(E_calib, axis=0) + 1e-8
-    sensor_normal_std_mse = np.std(E_calib, axis=0) + 1e-8
+    sensor_normal_mean_mse = calibrated_sensor_variance(E_calib, sensor_cols, preprocessor.scaler)
+    sensor_normal_std_mse = np.maximum(
+        np.std(E_calib, axis=0), sensor_variance_floor(sensor_cols, preprocessor.scaler)
+    )
 
     # SENSOR NORMALIZATION TENSORS
     # 1. Ratio to normal mean MSE: (N, 43)

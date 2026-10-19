@@ -16,7 +16,11 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.network.ctown_loader import load_ctown_network
-from src.network.graph_builder import build_network_graph, component_to_sensor_mapping_interface
+from src.network.graph_builder import (
+    build_directed_hydraulic_graph,
+    build_network_graph,
+    component_to_sensor_mapping_interface,
+)
 from src.network.zoning import DMAZoning, LouvainZoning, assign_zones
 
 INP_PATH = Path(__file__).resolve().parents[1] / "data" / "raw" / "CTOWN.INP"
@@ -94,6 +98,19 @@ class TestGraphBuilder:
             1 for _, d in graph.nodes(data=True) if d.get("type") in {"junction", "tank"}
         )
         assert len(mapping) == n_junctions_tanks
+
+    def test_directed_graph_follows_predominant_simulated_flow(self, net):
+        graph = build_directed_hydraulic_graph(net)
+
+        assert isinstance(graph, nx.DiGraph)
+        assert graph.has_edge("J336", "J335")
+        assert not graph.has_edge("J335", "J336")
+        reverse_pipe = graph["J336"]["J335"]
+        assert reverse_pipe["id"] == "P10"
+        assert reverse_pipe["flow_direction_source"] == "predominant_simulated_flow"
+        assert reverse_pipe["predominant_flow_fraction"] == 1.0
+        assert reverse_pipe["weight"] > 0.0
+        assert graph.has_edge("J290", "J291")
 
 
 class TestZoning:

@@ -8,21 +8,28 @@ Usage:
 from __future__ import annotations
 
 import json
-import math
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Tuple
 
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+import yaml
+from src.explainability import compute_xai_explanations
+from src.impact.cpis import calculate_cpis, derive_episode_impact_factors, parse_dominant_sensor_scores
+from src.impact.topology import analyze_topology_and_impact
+from src.localization import compute_zone_embeddings, resolve_sensor_component
+from src.recovery import get_operational_mitigation, get_scenario_name, optimize_component_outage
+from src.root_cause import assess_explanation_root_cause
 
 # Root path configuration
 ROOT_DIR = Path(__file__).resolve().parents[1]
 CORRECTED_DIR = ROOT_DIR / "results" / "test_inference" / "corrected"
 PROCESSED_DIR = ROOT_DIR / "data" / "processed"
 SUMMARY_FILE = ROOT_DIR / "results" / "final_results_summary.json"
+CONFIG_FILE = ROOT_DIR / "configs" / "config.yaml"
 
 st.set_page_config(
     page_title="X-Resilience-WDS Operational Dashboard",
@@ -37,7 +44,12 @@ TERMINOLOGY_POLICY_NOTICE = (
     "No unverified attribution to cyberattack mechanisms is asserted."
 )
 
-THRESHOLD_TAU = 3.013382  # tau_99.8 from Dataset03 normal calibration
+_threshold_report = CORRECTED_DIR / "test_inference_report.json"
+THRESHOLD_TAU = (
+    float(json.loads(_threshold_report.read_text(encoding="utf-8"))["operational_threshold"])
+    if _threshold_report.exists()
+    else 3.013382
+)
 
 
 @st.cache_data
@@ -115,6 +127,39 @@ def load_dashboard_data() -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dic
         * np.sqrt(df_episodes["duration_hours"])
         * (1.0 + np.log10(1.0 + df_episodes["peak_score"] / THRESHOLD_TAU))
     )
+    with open(CONFIG_FILE, "r", encoding="utf-8") as file:
+        impact_config = yaml.safe_load(file).get("impact", {})
+
+    factor_names = (
+        "pressure_impact",
+        "flow_impact",
+        "service_disruption",
+        "infrastructure_criticality",
+    )
+
+    def calculate_episode_cpis(row):
+        stored_factors = {name: row.get(f"cpis_{name}") for name in factor_names}
+        if all(pd.notna(value) for value in stored_factors.values()):
+            impact_factors = stored_factors
+            evidence_basis = row.get("cpis_evidence_basis", "Saved per-sensor residual factors")
+        else:
+            sensor_scores = parse_dominant_sensor_scores(row.get("top_contributing_sensors", ""))
+            impact_factors = derive_episode_impact_factors(
+                sensor_scores,
+                row["duration_hours"],
+                THRESHOLD_TAU,
+                impact_config,
+            )
+            evidence_basis = "Top-five stored dominant sensor residuals (historical artifact)"
+        return {
+            **calculate_cpis(impact_factors, impact_config),
+            "cpis_evidence_basis": evidence_basis,
+        }
+
+    cpis_values = df_episodes.apply(calculate_episode_cpis, axis=1)
+    cpis_frame = pd.DataFrame(cpis_values.tolist(), index=df_episodes.index)
+    for column in cpis_frame.columns:
+        df_episodes[column] = cpis_frame[column]
 
     # Load attribution
     df_attribution = pd.DataFrame()
@@ -156,7 +201,7 @@ def main():
 
     df_filtered_episodes = df_episodes[
         df_episodes["operational_severity_log"] >= min_severity
-    ].sort_values(by="operational_severity_log", ascending=False)
+    ].sort_values(by="cpis_score", ascending=False)
 
     # Tabs Layout
     tab_overview, tab_timeline, tab_episodes, tab_attribution, tab_topology, tab_val, tab_demo = st.tabs(
@@ -192,8 +237,8 @@ def main():
         st.markdown("---")
         st.info(
             "**Data Isolation Status**: Evaluation performed completely unsupervised on "
-            "`BATADAL_test_dataset.csv`. Zero test labels accessed. Threshold τ=3.013382 calibrated "
-            "strictly on Dataset03 normal operational partition."
+            "`BATADAL_test_dataset.csv`. Zero test labels accessed. Threshold "
+            f"τ={THRESHOLD_TAU:.6f} calibrated on floored Dataset03 normal scores."
         )
 
         st.subheader("Dataset04 Ground-Truth Validation Summary")
@@ -269,6 +314,11 @@ def main():
             "- **Operational Display Severity**: $\\log_{10}(1 + \\text{Mean}) \\times \\sqrt{\\text{Duration}} \\times (1 + \\log_{10}(1 + \\text{Peak} / \\tau))$ "
             "(bounded scale for operational UI ranking)."
         )
+        st.markdown(
+            "**Cyber-Physical Impact Score (CPIS, 0-1)** is the configured weighted score of pressure impact, "
+            "flow impact, service disruption, and infrastructure criticality. Severity cutoffs are configurable; "
+            "asset criticality priors are provisional and CPIS is not a probability."
+        )
 
         st.dataframe(
             df_filtered_episodes[
@@ -277,6 +327,13 @@ def main():
                     "start_time",
                     "end_time",
                     "duration_hours",
+                    "cpis_score",
+                    "cpis_severity",
+                    "cpis_pressure_impact",
+                    "cpis_flow_impact",
+                    "cpis_service_disruption",
+                    "cpis_infrastructure_criticality",
+                    "cpis_evidence_basis",
                     "peak_score",
                     "mean_score",
                     "operational_severity_log",
@@ -289,6 +346,11 @@ def main():
                     "peak_score": "{:.2e}",
                     "mean_score": "{:.2e}",
                     "operational_severity_log": "{:.1f}",
+                    "cpis_score": "{:.3f}",
+                    "cpis_pressure_impact": "{:.2f}",
+                    "cpis_flow_impact": "{:.2f}",
+                    "cpis_service_disruption": "{:.2f}",
+                    "cpis_infrastructure_criticality": "{:.2f}",
                     "raw_severity": "{:.2e}",
                     "duration_hours": "{:.0f}",
                 }
@@ -297,9 +359,9 @@ def main():
             key="topology_map",
         )
 
-    # TAB 4: SENSOR ATTRIBUTION & PU3 WARNING
+    # TAB 4: SENSOR ATTRIBUTION & CALIBRATION FLOORS
     with tab_attribution:
-        st.subheader("Sensor Attribution & Near-Zero Baseline Variance Warning")
+        st.subheader("Sensor Attribution & Calibrated Variance Floors")
 
         selected_ep_id = st.selectbox(
             "Select Episode to Inspect",
@@ -319,13 +381,11 @@ def main():
         st.write(f"**Top Contributing Sensors**: `{top_sensors_str}`")
 
         if "PU3" in top_sensors_str or ep_row["peak_score"] > 1e6:
-            st.error(
-                "**EXTREME SCORE & NEAR-ZERO VARIANCE WARNING**\n\n"
-                "**Condition Detected**: Sensor `F_PU3` / `S_PU3` exhibits near-zero baseline variance during Dataset03 normal calibration "
-                "(mean ~ 0.0, variance ~ 2.91e-8) because pump PU3 was inactive throughout the calibration period.\n\n"
-                "**Mathematical Cause**: When PU3 turns ON during test episodes (e.g. EP-11, EP-12), the normalized forecasting residual "
-                "$e_i = (y_i - \\hat{y}_i)/(\\sigma_i + \\epsilon)$ produces extremely large z-scores (~1e10).\n\n"
-                "**Scientific Policy**: This represents a valid mathematical state-transition amplification, NOT corrupted data or an unverified event."
+            st.info(
+                "**Instrument-calibrated variance floor applied**\n\n"
+                "Pump `PU3` is inactive in the normal calibration partition. Flow and binary-status residual "
+                "variances are bounded below by their instrument-precision floors before normalization, "
+                "preventing inactive-to-active transitions from producing unbounded scores."
             )
 
         st.subheader("Episode Sensor Breakdown")
@@ -339,7 +399,7 @@ def main():
                     "Sensor ID": s,
                     "Component Type": comp_type,
                     "Topology-Associated Region": f"DMA / Node {loc}",
-                    "Baseline Status": "Near-Zero Baseline Variance" if "PU3" in s else "Normal Baseline Variance",
+                    "Variance Handling": "Instrument floor applied" if "PU3" in s else "Sensor-specific floor applied",
                 }
             )
         st.table(pd.DataFrame(sensor_data))
@@ -385,14 +445,10 @@ def main():
 
         sensor_mapping_rows = []
         for sensor, nodes in demo_pipe["sensor_nodes_map"].items():
-            if sensor.startswith(("P_", "L_")):
-                component_id = sensor[2:]
-                component_type = "Junction" if sensor.startswith("P_") else "Tank"
-                region_nodes = [component_id]
-            else:
-                component_id = sensor[2:]
-                component_type = "Pump" if component_id.startswith("PU") else "Valve"
-                region_nodes = sorted(nodes)
+            resolved = resolve_sensor_component(sensor, component_map)
+            component_id = resolved["component_id"]
+            component_type = resolved["component_type"]
+            region_nodes = [component_id] if component_type in {"Junction", "Tank"} else sorted(nodes)
             zones = sorted({demo_pipe["dma_zones"].get(node, -1) for node in region_nodes if demo_pipe["dma_zones"].get(node, -1) > 0})
             region = ", ".join(f"DMA {zone}" for zone in zones) if zones else "Unassigned"
             location = component_id if component_type in {"Junction", "Tank"} else " - ".join(sorted(nodes))
@@ -608,6 +664,7 @@ def main():
                         preprocessor = demo_pipe["preprocessor"]
                         adj_matrix = demo_pipe["adj_matrix"]
                         mu_sq_h = demo_pipe["mu_sq_h"]
+                        demo_threshold = demo_pipe["calibrated_threshold"]
                         normal_window_raw = demo_pipe["normal_window_raw"].copy().astype(float)
                         normal_target_raw = demo_pipe["normal_target_raw"].copy()
                         sensor_stds = demo_pipe["sensor_stds"]
@@ -671,10 +728,15 @@ def main():
                             for idx in top_attr_idx
                         ]
 
-                        is_detected = score_dist >= THRESHOLD_TAU
+                        is_detected = score_dist >= demo_threshold
 
                         # XAI Computation (SHAP & LIME)
                         xai_res = compute_xai_explanations(demo_pipe, normal_window_raw, disturbed_window, target_col)
+                        zone_localization = compute_zone_embeddings(
+                            xai_res,
+                            demo_pipe["sensor_nodes_map"],
+                            demo_pipe["dma_zones"],
+                        )
 
                         # Topology & Operational Rerouting Analysis
                         topo_res = analyze_topology_and_impact(
@@ -685,10 +747,39 @@ def main():
                             component_map,
                             demo_pipe["dma_zones"],
                         )
+                        root_cause_assessment = assess_explanation_root_cause(
+                            xai_res,
+                            score_dist,
+                            demo_threshold,
+                            graph=demo_pipe["directed_graph"],
+                            sensor_nodes=demo_pipe["sensor_nodes_map"],
+                            dma_zones=demo_pipe["dma_zones"],
+                        )
+                        if topo_res["is_edge"]:
+                            critical_nodes = [
+                                node for node in topo_res["affected_topology_nodes"]
+                                if node in demo_pipe["net"].wn.junction_name_list
+                            ]
+                            recovery_result = optimize_component_outage(
+                                demo_pipe["net"].wn,
+                                topo_res["comp_id"],
+                                dma_zones=demo_pipe["dma_zones"],
+                                affected_nodes=topo_res["affected_topology_nodes"],
+                                critical_nodes=critical_nodes,
+                                recovery_config=demo_pipe["recovery_config"],
+                            )
+                        else:
+                            recovery_result = {
+                                "status": "UNSUPPORTED_EVENT_MODEL",
+                                "recommended_action": None,
+                                "evaluations": [],
+                                "reason": "Hydraulic recovery optimization currently models link outages; pressure/tank sensor injections are not converted into hydraulic state changes.",
+                            }
 
                         st.session_state["sim_result"] = {
                             "score_norm": score_norm,
                             "score_dist": score_dist,
+                            "threshold": demo_threshold,
                             "is_detected": is_detected,
                             "normal_signal": normal_window_raw[target_col].values,
                             "disturbed_signal": disturbed_window[target_col].values,
@@ -699,7 +790,10 @@ def main():
                             "sel_mag": sel_mag,
                             "sel_dur": sel_dur,
                             "xai_res": xai_res,
+                            "zone_localization": zone_localization,
                             "topo_res": topo_res,
+                            "root_cause_assessment": root_cause_assessment,
+                            "recovery_result": recovery_result,
                         }
 
             if "sim_result" in st.session_state:
@@ -725,7 +819,7 @@ def main():
                 mcol1, mcol2, mcol3, mcol4 = st.columns(4)
                 mcol1.metric("Baseline Anomaly Score", f"{res['score_norm']:.4f}")
                 mcol2.metric("Simulated Anomaly Score", f"{res['score_dist']:.4f}")
-                mcol3.metric("Operational Threshold (τ)", f"{THRESHOLD_TAU:.6f}")
+                mcol3.metric("Operational Threshold (τ)", f"{res['threshold']:.6f}")
                 if res["is_detected"]:
                     mcol4.error("Model Response:\n STATISTICAL ANOMALY DETECTED")
                 else:
@@ -775,10 +869,10 @@ def main():
                         )
                     )
                     fig_score.add_hline(
-                        y=THRESHOLD_TAU,
+                        y=res["threshold"],
                         line_dash="dash",
                         line_color="red",
-                        annotation_text=f"Threshold τ = {THRESHOLD_TAU:.4f}",
+                        annotation_text=f"Threshold τ = {res['threshold']:.4f}",
                     )
                     fig_score.update_layout(
                         height=350,
@@ -792,7 +886,7 @@ def main():
 
                 rcol1, rcol2, rcol3 = st.columns(3)
                 with rcol1:
-                    st.markdown("**1. Injected Cause (Known Ground-Truth)**")
+                    st.markdown("**1. Selected Demo Input (excluded from root-cause inference)**")
                     st.write(
                         f"- Component: `{topo_res['comp_id']}` ({res['target_col']})\n"
                         f"- Action: {res['sel_dist_type']}\n"
@@ -805,15 +899,19 @@ def main():
                     st.write(
                         f"- Residual Z-Score spike at `{res['target_col']}`\n"
                         f"- Spatio-temporal propagation to: `{top_ev_sensors}`\n"
-                        f"- GNN Anomaly Score = {res['score_dist']:.4f} (Threshold = {THRESHOLD_TAU:.4f})\n"
+                        f"- GNN Anomaly Score = {res['score_dist']:.4f} (Threshold = {res['threshold']:.4f})\n"
                         f"- Topology region: `{topo_res['dma_region']}`"
                     )
                 with rcol3:
-                    st.markdown("**3. Root-Cause Hypothesis**")
+                    st.markdown("**3. Explanation-Derived Root-Cause Candidate**")
+                    assessment = res["root_cause_assessment"]
+                    top_zone = res["zone_localization"]["top_zone"]
                     st.warning(
-                        f"**Hypothesis**: Localized abnormal {res['sel_category'].lower()} behavior at component "
-                        f"`{topo_res['comp_id']}` is the most likely initiating source of the simulated disturbance.\n\n"
-                        "*(Confidence Rating: Evidence-supported hypothesis)*"
+                        f"**Hypothesis**: {assessment['hypothesis']}\n\n"
+                        f"**Top SHAP sensor**: `{assessment['candidate_sensor']}` "
+                        f"({assessment['candidate_component']}) · {assessment['candidate_topology_region']}\n\n"
+                        f"**Top impacted DMA**: {f'DMA {top_zone}' if top_zone is not None else 'Unresolved'}\n\n"
+                        f"*(Confidence Rating: {assessment['confidence']})*"
                     )
 
                 # PART 4 & PART 6 — TOPOLOGY-BASED ROOT CAUSE & OPERATIONAL REROUTING
@@ -867,6 +965,46 @@ def main():
                 for m in mitigations:
                     st.write(f"- {m}")
 
+                st.subheader("Hydraulic Recovery Optimization")
+                st.caption(
+                    "Separate EPANET/WNTR component-outage contingency. Scores are simulation estimates, "
+                    "not field-validated actions or guarantees."
+                )
+                recovery_result = res["recovery_result"]
+                recommended = recovery_result.get("recommended_action")
+                if recommended is not None:
+                    st.success(
+                        f"Recommended simulated action: **{recommended['label']}** "
+                        f"(objective score {recommended['objective_score']:.3f})"
+                    )
+                    recovery_metrics = st.columns(5)
+                    recovery_metrics[0].metric("Service continuity", f"{recommended['service_continuity']:.1%}")
+                    recovery_metrics[1].metric("Hydraulic stability", f"{recommended['hydraulic_stability']:.1%}")
+                    recovery_metrics[2].metric("Estimated recovery", f"{recommended['recovery_time_hours']:.1f} h")
+                    recovery_metrics[3].metric("Operational cost proxy", f"{recommended['operational_cost']:.2f}")
+                    recovery_metrics[4].metric("Criticality protection", f"{recommended['criticality_protection']:.1%}")
+                elif recovery_result.get("best_available_action"):
+                    best_available = recovery_result["best_available_action"]
+                    st.warning(
+                        f"No candidate met all configured feasibility thresholds. Best available: "
+                        f"{best_available['label']} (objective {best_available['objective_score']:.3f})."
+                    )
+                else:
+                    st.info(recovery_result.get("reason", "No simulatable candidate recovery action was generated."))
+
+                if recovery_result.get("evaluations"):
+                    recovery_table = pd.DataFrame(recovery_result["evaluations"])
+                    visible_columns = [
+                        "label", "action_type", "service_continuity", "hydraulic_stability",
+                        "recovery_time_hours", "operational_cost", "criticality_protection",
+                        "objective_score", "feasible", "status",
+                    ]
+                    st.dataframe(
+                        recovery_table[[column for column in visible_columns if column in recovery_table]],
+                        use_container_width=True,
+                        hide_index=True,
+                    )
+
                 # PART 7, 8, 9, 10 — XAI (SHAP & LIME)
                 st.markdown("---")
                 st.subheader("Explainable AI (XAI) Analysis: SHAP vs LIME")
@@ -886,14 +1024,14 @@ def main():
                             "Increased anomaly score": "#d62728",
                             "Reduced anomaly score": "#1f77b4",
                         },
-                        title="SHAP Feature Attribution (2-Player Shapley Values)",
+                        title="Permutation SHAP Sensor Attribution",
                     )
                     fig_shap.update_layout(height=350, yaxis=dict(autorange="reversed"))
                     st.plotly_chart(fig_shap, use_container_width=True)
 
                 with xcol2:
                     st.markdown("**LIME Local Surrogate Explanation**")
-                    st.caption("Local surrogate model: Ridge regression on N=50 perturbed samples around simulation")
+                    st.caption("LIME tabular regression surrogate fitted on normal-calibration perturbations")
                     df_lime_top10 = xai_res["df_lime"].head(10)
                     fig_lime = px.bar(
                         df_lime_top10,
@@ -906,7 +1044,20 @@ def main():
                     st.plotly_chart(fig_lime, use_container_width=True)
 
                 # Explainability Agreement & Sensor Mapping
-                st.markdown("#### Explainability Agreement & Physical Mapping")
+                st.markdown("#### Explainability Agreement, Component Mapping & Zone Localization")
+                metric_cols = st.columns(3)
+                metric_cols[0].metric(
+                    "SHAP Top-4 Masking Gain",
+                    f"{xai_res['metrics']['fidelity']['top4_gain_over_random']:.4f}",
+                )
+                metric_cols[1].metric(
+                    "SHAP Rank Stability",
+                    f"{xai_res['metrics']['stability']['shap']:.3f}",
+                )
+                metric_cols[2].metric(
+                    "SHAP/LIME Top-4 Jaccard",
+                    f"{xai_res['metrics']['agreement_jaccard']:.2f}",
+                )
 
                 ag_col1, ag_col2 = st.columns(2)
                 with ag_col1:
@@ -921,6 +1072,17 @@ def main():
                 with ag_col2:
                     st.markdown("**Top XAI Sensor → Physical Component Mapping**")
                     st.table(pd.DataFrame(xai_res["xai_mapping"]))
+                    zone_rows = res["zone_localization"]["rankings"]
+                    if zone_rows:
+                        st.markdown("**DMA attribution ranking**")
+                        zone_table = pd.DataFrame(zone_rows).drop(columns=["embedding"])
+                        st.dataframe(zone_table, use_container_width=True, hide_index=True)
+                        st.caption(
+                            "Project-generated SHAP/LIME attribution-pooled DMA embeddings; "
+                            "not pretrained LightEdge-IDS embeddings or a calibrated probability."
+                        )
+                    else:
+                        st.info("No mapped DMA received explanation attribution.")
 
                 # PART 11 — FINAL INCIDENT SUMMARY CARD
                 st.markdown("---")
@@ -937,9 +1099,11 @@ def main():
                     f"AFFECTED COMPONENT  : {topo_res['comp_id']} ({res['target_col']})\n"
                     f"MODEL RESULT        : {'Statistical Anomaly Detected' if res['is_detected'] else ' Normal / Below Threshold'}\n"
                     f"ANOMALY SCORE       : {res['score_dist']:.4f} (Baseline: {res['score_norm']:.4f})\n"
-                    f"THRESHOLD (τ)       : {THRESHOLD_TAU:.6f}\n"
+                    f"THRESHOLD (τ)       : {res['threshold']:.6f}\n"
                     f"PRIMARY EVIDENCE    : Sensor {res['target_col']} residual deviation + associated pressure/flow residual shifts\n"
-                    f"ROOT-CAUSE HYPOTH   : Localized abnormal {res['sel_category'].lower()} behavior at {topo_res['comp_id']} (Evidence-supported hypothesis)\n"
+                    f"ROOT-CAUSE CANDIDATE: {res['root_cause_assessment']['candidate_sensor']} ({res['root_cause_assessment']['candidate_component']})\n"
+                    f"ROOT-CAUSE BASIS    : {res['root_cause_assessment']['hypothesis']} ({res['root_cause_assessment']['confidence']})\n"
+                    f"TOP AFFECTED DMA    : {res['zone_localization']['top_zone']} (attribution-pooled zone embedding)\n"
                     f"TOPOLOGY IMPACT     : Connected nodes {topo_res['endpoints']}; Monitored neighbors: {topo_res['nearby_sensors'][:3]}\n"
                     f"XAI EVIDENCE        : SHAP: [{top_shap_str}] | LIME: [{top_lime_str}] (Agreement: {xai_res['agreement']})\n"
                     f"RECOMMENDED RESPONSE: {mitigations[0]} -> Isolate if necessary -> Evaluate topology route -> Monitor downstream sensors -> Restore normal operation.\n"
@@ -991,8 +1155,9 @@ def load_demo_pipeline():
     from src.detection.dataset_loader import BATADALDatasetLoader
     from src.detection.graph_model import SpatioTemporalGNN, build_adjacency_matrix_from_graph, resolve_sensor_locations
     from src.detection.preprocessing import DataPreprocessor
+    from src.detection.scoring import calibrated_sensor_variance
     from src.network.ctown_loader import load_ctown_network
-    from src.network.graph_builder import build_network_graph
+    from src.network.graph_builder import build_directed_hydraulic_graph, build_network_graph
     from src.network.zoning import assign_zones
 
     config_path = ROOT_DIR / "configs" / "config.yaml"
@@ -1014,6 +1179,7 @@ def load_demo_pipeline():
 
     net = load_ctown_network(ROOT_DIR / config["paths"]["inp_file"])
     g = build_network_graph(net)
+    directed_graph = build_directed_hydraulic_graph(net)
     dma_zones = assign_zones(g, method="dma")
     adj_matrix = build_adjacency_matrix_from_graph(g, sensor_cols, max_hops=3)
     sensor_nodes_map = resolve_sensor_locations(g, sensor_cols)
@@ -1036,7 +1202,9 @@ def load_demo_pipeline():
         c_preds = model(torch.from_numpy(X_cal), adj_matrix=adj_matrix).numpy()
 
     E_cal = (c_preds - Y_cal) ** 2
-    mu_sq_h = np.mean(E_cal, axis=0) + 1e-8
+    mu_sq_h = calibrated_sensor_variance(E_cal, sensor_cols, preprocessor.scaler)
+    calibration_scores = np.mean((E_cal / mu_sq_h)[:, 11, :], axis=1)
+    calibrated_threshold = float(np.percentile(calibration_scores, 99.8))
 
     normal_window_raw = calib_df.iloc[50:62][sensor_cols].copy().reset_index(drop=True)
     normal_target_raw = calib_df.iloc[62:74][sensor_cols].copy().reset_index(drop=True)
@@ -1048,6 +1216,10 @@ def load_demo_pipeline():
         "preprocessor": preprocessor,
         "adj_matrix": adj_matrix,
         "mu_sq_h": mu_sq_h,
+        "calibrated_threshold": calibrated_threshold,
+        "xai_calibration_windows": X_cal[
+            np.linspace(0, len(X_cal) - 1, min(256, len(X_cal)), dtype=int)
+        ],
         "sensor_cols": sensor_cols,
         "sensor_nodes_map": sensor_nodes_map,
         "dma_zones": dma_zones,
@@ -1056,7 +1228,9 @@ def load_demo_pipeline():
         "sensor_stds": sensor_stds,
         "all_topology_components": sorted(list(g.nodes())),
         "g": g,
+        "directed_graph": directed_graph,
         "net": net,
+        "recovery_config": config.get("recovery", {}),
     }
 
 
@@ -1167,297 +1341,6 @@ def build_ctown_topology_figure(g, dma_zones, topology_result=None, anomaly_dete
         yaxis=dict(visible=False),
     )
     return fig
-
-
-def compute_xai_explanations(demo_pipe, normal_window_raw, disturbed_window, target_sensor):
-    """Compute exact 2-player SHAP feature attribution and local surrogate LIME explanations."""
-    import torch
-    from sklearn.linear_model import Ridge
-
-    model = demo_pipe["model"]
-    preprocessor = demo_pipe["preprocessor"]
-    adj_matrix = demo_pipe["adj_matrix"]
-    mu_sq_h = demo_pipe["mu_sq_h"]
-    sensor_cols = demo_pipe["sensor_cols"]
-    normal_target_raw = demo_pipe["normal_target_raw"]
-    component_map = demo_pipe.get("component_map", {})
-
-    normal_X = preprocessor.transform_features(normal_window_raw, sensor_cols)[np.newaxis, :, :].astype(np.float32)
-    normal_Y = preprocessor.transform_features(normal_target_raw, sensor_cols)[np.newaxis, :, :].astype(np.float32)
-    disturbed_X = preprocessor.transform_features(disturbed_window, sensor_cols)[np.newaxis, :, :].astype(np.float32)
-
-    def eval_score_batch(X_batch):
-        X_batch_f32 = X_batch.astype(np.float32)
-        with torch.no_grad():
-            preds = model(torch.from_numpy(X_batch_f32), adj_matrix=adj_matrix).numpy()
-        E = (preds - normal_Y) ** 2
-        Z = E / mu_sq_h
-        return np.mean(Z[:, 11, :], axis=1)
-
-    s_dist = float(eval_score_batch(disturbed_X)[0])
-    s_norm = float(eval_score_batch(normal_X)[0])
-
-    # 1. SHAP (2-Player Coalition Shapley Values)
-    N_sensors = len(sensor_cols)
-    X_dist_sub = np.repeat(disturbed_X, N_sensors, axis=0)
-    X_norm_add = np.repeat(normal_X, N_sensors, axis=0)
-
-    for k in range(N_sensors):
-        X_dist_sub[k, :, k] = normal_X[0, :, k]
-        X_norm_add[k, :, k] = disturbed_X[0, :, k]
-
-    scores_dist_sub = eval_score_batch(X_dist_sub)
-    scores_norm_add = eval_score_batch(X_norm_add)
-
-    shap_vals = 0.5 * (s_dist - scores_dist_sub) + 0.5 * (scores_norm_add - s_norm)
-
-    shap_records = []
-    for k, s_name in enumerate(sensor_cols):
-        v = float(shap_vals[k])
-        direction = "Increased anomaly score" if v >= 0 else "Reduced anomaly score"
-        shap_records.append({
-            "Sensor": s_name,
-            "SHAP Value": v,
-            "Abs SHAP": abs(v),
-            "Direction": direction,
-        })
-    df_shap = pd.DataFrame(shap_records).sort_values(by="Abs SHAP", ascending=False).reset_index(drop=True)
-
-    # 2. LIME Local Surrogate (Ridge Regression on perturbed samples)
-    np.random.seed(42)
-    N_samples = 50
-    noise = np.random.normal(0.0, 0.5, size=(N_samples, 12, N_sensors)).astype(np.float32)
-    mask = (np.random.uniform(0, 1, size=(N_samples, 1, N_sensors)) > 0.5).astype(np.float32)
-    X_perturbed = disturbed_X + noise * mask
-
-    scores_pert = eval_score_batch(X_perturbed)
-    X_diff = (X_perturbed[:, 11, :] - normal_X[:, 11, :]).astype(np.float32)
-    dists = np.sqrt(np.mean((X_perturbed - disturbed_X) ** 2, axis=(1, 2)))
-    weights = np.exp(- (dists ** 2) / (2 * (0.5 ** 2)))
-
-    ridge = Ridge(alpha=0.1)
-    ridge.fit(X_diff, scores_pert, sample_weight=weights)
-
-    lime_coefs = ridge.coef_
-    lime_records = []
-    for k, s_name in enumerate(sensor_cols):
-        v = float(lime_coefs[k])
-        lime_records.append({
-            "Sensor": s_name,
-            "LIME Weight": v,
-            "Abs LIME": abs(v),
-        })
-    df_lime = pd.DataFrame(lime_records).sort_values(by="Abs LIME", ascending=False).reset_index(drop=True)
-
-    # Agreement
-    top4_shap = set(df_shap["Sensor"].iloc[:4])
-    top4_lime = set(df_lime["Sensor"].iloc[:4])
-    overlap = len(top4_shap.intersection(top4_lime))
-    if overlap >= 3:
-        agreement = "High"
-    elif overlap == 2:
-        agreement = "Moderate"
-    else:
-        agreement = "Low"
-
-    # Sensor to Physical Component Mapping for top XAI sensors
-    xai_mapping = []
-    top_xai_sensors = list(df_shap["Sensor"].iloc[:5])
-    for s in top_xai_sensors:
-        if s.startswith("P_"):
-            p_comp = f"Junction {s[2:]}"
-        elif s.startswith("L_"):
-            p_comp = f"Tank {s[2:]}"
-        elif s.startswith("F_PU") or s.startswith("S_PU"):
-            p_comp = f"Pump {s.split('_')[1]}"
-        elif s.startswith("F_V") or s.startswith("S_V"):
-            p_comp = f"Valve {s.split('_')[1]}"
-        else:
-            p_comp = s
-        xai_mapping.append({
-            "Sensor": s,
-            "Physical Component": p_comp,
-            "Topology Region": f"DMA / Node {component_map.get(s, [s])[0]}",
-        })
-
-    return {
-        "df_shap": df_shap,
-        "df_lime": df_lime,
-        "agreement": agreement,
-        "overlap_count": overlap,
-        "xai_mapping": xai_mapping,
-        "s_dist": s_dist,
-        "s_norm": s_norm,
-    }
-
-
-def analyze_topology_and_impact(g, net, target_sensor, sensor_nodes_map, component_map, dma_zones=None):
-    """Derive EPANET component, connected graph neighbors, nearby monitored sensors, DMA, and alternative supply path."""
-    import networkx as nx
-
-    if target_sensor.startswith("P_"):
-        comp_id = target_sensor[2:]
-        comp_type = "Junction"
-        is_edge = False
-    elif target_sensor.startswith("L_"):
-        comp_id = target_sensor[2:]
-        comp_type = "Tank"
-        is_edge = False
-    elif target_sensor.startswith("F_PU") or target_sensor.startswith("S_PU"):
-        comp_id = target_sensor.split("_")[1]
-        comp_type = "Pump"
-        is_edge = True
-    elif target_sensor.startswith("F_V") or target_sensor.startswith("S_V"):
-        comp_id = target_sensor.split("_")[1]
-        comp_type = "Valve"
-        is_edge = True
-    else:
-        comp_id = target_sensor
-        comp_type = "Unknown"
-        is_edge = False
-
-    endpoints = []
-    nbr_nodes = []
-    if is_edge:
-        found_edge = None
-        for u, v, d in g.edges(data=True):
-            if d.get("id") == comp_id:
-                found_edge = (u, v)
-                break
-        if found_edge:
-            u, v = found_edge
-            endpoints = [u, v]
-            nbr_nodes = sorted(list((set(g.neighbors(u)) | set(g.neighbors(v))) - {u, v}))
-        else:
-            endpoints = [comp_id]
-            nbr_nodes = []
-    else:
-        if comp_id in g:
-            endpoints = [comp_id]
-            nbr_nodes = sorted(list(g.neighbors(comp_id)))
-
-    all_target_nodes = set(endpoints + nbr_nodes)
-    nearby_sensors = []
-    for s_name, nodes in sensor_nodes_map.items():
-        if s_name != target_sensor and any(n in all_target_nodes for n in nodes):
-            nearby_sensors.append(s_name)
-
-    dma_region = "Unassigned DMA region"
-    component_zones = sorted({dma_zones[node] for node in endpoints if dma_zones and dma_zones.get(node, -1) > 0})
-    if component_zones:
-        dma_region = " / ".join(f"DMA {zone}" for zone in component_zones)
-        if len(component_zones) > 1:
-            dma_region += " boundary"
-    elif hasattr(net, "junctions") and "pattern" in net.junctions.columns:
-        for ep in endpoints:
-            j_match = net.junctions[net.junctions["id"] == ep]
-            if len(j_match) > 0 and pd.notna(j_match.iloc[0]["pattern"]):
-                pat = str(j_match.iloc[0]["pattern"])
-                if "DMA" in pat:
-                    dma_region = f"DMA / {pat.replace('_pat', '').upper()}"
-                    break
-
-    has_reroute = False
-    reroute_path_str = "No validated alternative route identified from the available topology."
-
-    if is_edge and len(endpoints) == 2:
-        u, v = endpoints[0], endpoints[1]
-        g_sub = g.copy()
-        if g_sub.has_edge(u, v):
-            g_sub.remove_edge(u, v)
-        if nx.has_path(g_sub, u, v):
-            path = nx.shortest_path(g_sub, u, v)
-            if len(path) <= 12:
-                reroute_path_str = " -> ".join(path)
-                has_reroute = True
-    elif not is_edge and len(nbr_nodes) >= 2:
-        u = endpoints[0]
-        g_sub = g.copy()
-        if u in g_sub:
-            g_sub.remove_node(u)
-        n1, n2 = nbr_nodes[0], nbr_nodes[1]
-        if nx.has_path(g_sub, n1, n2):
-            path = nx.shortest_path(g_sub, n1, n2)
-            if len(path) <= 12:
-                reroute_path_str = " -> ".join(path)
-                has_reroute = True
-
-    return {
-        "comp_id": comp_id,
-        "comp_type": comp_type,
-        "is_edge": is_edge,
-        "endpoints": endpoints,
-        "nbr_nodes": nbr_nodes,
-        "nearby_sensors": nearby_sensors,
-        "dma_region": dma_region,
-        "has_reroute": has_reroute,
-        "reroute_path_str": reroute_path_str,
-    }
-
-
-def get_operational_mitigation(sel_category: str) -> List[str]:
-    """Return defensive operational mitigation steps for the simulated component category."""
-    if sel_category == "Pump Flow":
-        return [
-            "Verify pump operating state and flow telemetry readings.",
-            "Verify commanded flow rate and pump speed setpoints.",
-            "Isolate the abnormal pump if operationally appropriate.",
-            "Transfer demand to an available parallel or alternative supply route if supported by network topology.",
-            "Monitor downstream junction pressure and connected tank storage levels.",
-            "Restore normal operating conditions after resolving component disturbance."
-        ]
-    elif sel_category == "Pump Status":
-        return [
-            "Verify pump controller status and power supply integrity.",
-            "Compare commanded control state vs observed operational state.",
-            "Switch to an available redundant pump if operationally appropriate.",
-            "Monitor resulting pressure and flow dynamics in connected sub-networks."
-        ]
-    elif sel_category == "Valve Flow":
-        return [
-            "Verify valve position actuator and flow control settings.",
-            "Inspect valve assembly for unexpected throttling or bypass flow.",
-            "Isolate affected valve section if operationally safe.",
-            "Utilize alternative supply path where network topology supports it."
-        ]
-    elif sel_category == "Valve Status":
-        return [
-            "Verify valve position command signal and actual mechanical state.",
-            "Inspect PLC control logic and manual override status.",
-            "Use an alternative supply route/path if physically available.",
-            "Monitor downstream pressure sensors for hydraulic equilibrium."
-        ]
-    elif sel_category == "Junction Pressure":
-        return [
-            "Verify pressure control equipment (PRVs) and pressure transducers.",
-            "Inspect nearby pumps and valves for uncommanded state changes.",
-            "Isolate affected network section if severe pressure deviation persists.",
-            "Use alternative supply routing if supported by network topology."
-        ]
-    else:  # Tank Level
-        return [
-            "Verify tank level sensor calibration and physical inlet/outlet valve status.",
-            "Inspect connected supply pumps for abnormal duty cycles.",
-            "Balance hydraulic supply through available network storage routes.",
-            "Maintain minimum operational reserve levels for emergency storage."
-        ]
-
-
-def get_scenario_name(sel_category: str, sel_dist_type: str) -> str:
-    """Return scientific scenario classification name."""
-    if sel_category == "Junction Pressure":
-        return "Simulated Pressure Manipulation / Pressure Setpoint Deviation"
-    elif sel_category == "Tank Level":
-        return "Simulated Tank-Level Manipulation / Level Sensor Deviation"
-    elif sel_category == "Pump Flow":
-        return "Simulated Pump Flow Manipulation"
-    elif sel_category == "Pump Status":
-        return "Simulated Pump State Manipulation"
-    elif sel_category == "Valve Flow":
-        return "Simulated Valve Flow Manipulation"
-    elif sel_category == "Valve Status":
-        return "Simulated Valve State Manipulation"
-    return f"Simulated {sel_category} Manipulation"
 
 
 if __name__ == "__main__":

@@ -40,7 +40,10 @@ def main():
     print("           STEP 1: INDEPENDENT RECOMPUTATION OF EPISODES             ")
     print("=====================================================================")
 
-    tau = 3.013382
+    inference_report = json.loads(
+        Path("results/test_inference/corrected/test_inference_report.json").read_text(encoding="utf-8")
+    )
+    tau = float(inference_report["operational_threshold"])
     scores_path = Path("results/test_inference/corrected/test_anomaly_scores.csv")
     df_scores = pd.read_csv(scores_path)
 

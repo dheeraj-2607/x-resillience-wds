@@ -1,0 +1,4855 @@
+{
+  "benchmark": "BATADAL 14-attack component localization",
+  "model_checkpoint": "models/detection_gnn_h12_candidate.pt",
+  "ground_truth": "data/ground_truth_attacks.csv",
+  "hydraulic_graph": {
+    "simulation": "WNTR EPANET baseline simulation from CTOWN.INP",
+    "directed_edges": 444,
+    "orientation": "predominant nonzero signed flow; equipment orientation for zero-flow links",
+    "ppr_alpha": 0.5,
+    "ppr_direct_shap_weight": 0.5,
+    "candidate_score_normalization": "separate max normalization of PPR and direct component SHAP mass, then equal-weight fusion"
+  },
+  "evidence_selection": "Peak normalized-residual H=12 window whose target timestamp falls within each attack interval.",
+  "methods": {
+    "baseline_a_raw_deviation": "Rank sensors by final-horizon instrument-normalized squared residual; map to directly sensed components.",
+    "baseline_b_top1_shap": "Rank sensors by real SHAP permutation attribution; map the top sensor directly to its component.",
+    "proposed_shap_reversed_flow_ppr": "Average absolute sensor SHAP magnitudes over the three highest-score event windows, then personalize PageRank on the reversed simulated-flow graph."
+  },
+  "metrics": {
+    "baseline_a_raw_deviation": {
+      "method": "baseline_a_raw_deviation",
+      "attacks": 14,
+      "top1_component_accuracy_pct": 14.285714285714286,
+      "top3_component_accuracy_pct": 21.428571428571427,
+      "dma_zone_accuracy_pct": 64.28571428571429,
+      "mean_topological_hop_distance": 12.357142857142858,
+      "by_attack_type": {
+        "Actuator Manipulation": {
+          "attacks": 8,
+          "top1_component_accuracy_pct": 25.0,
+          "top3_component_accuracy_pct": 37.5
+        },
+        "Sensor Spoofing/Concealment": {
+          "attacks": 6,
+          "top1_component_accuracy_pct": 0.0,
+          "top3_component_accuracy_pct": 0.0
+        }
+      }
+    },
+    "baseline_b_top1_shap": {
+      "method": "baseline_b_top1_shap",
+      "attacks": 14,
+      "top1_component_accuracy_pct": 21.428571428571427,
+      "top3_component_accuracy_pct": 21.428571428571427,
+      "dma_zone_accuracy_pct": 57.142857142857146,
+      "mean_topological_hop_distance": 21.571428571428573,
+      "by_attack_type": {
+        "Actuator Manipulation": {
+          "attacks": 8,
+          "top1_component_accuracy_pct": 25.0,
+          "top3_component_accuracy_pct": 25.0
+        },
+        "Sensor Spoofing/Concealment": {
+          "attacks": 6,
+          "top1_component_accuracy_pct": 16.666666666666668,
+          "top3_component_accuracy_pct": 16.666666666666668
+        }
+      }
+    },
+    "proposed_shap_reversed_flow_ppr": {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attacks": 14,
+      "top1_component_accuracy_pct": 14.285714285714286,
+      "top3_component_accuracy_pct": 57.142857142857146,
+      "dma_zone_accuracy_pct": 57.142857142857146,
+      "mean_topological_hop_distance": 20.714285714285715,
+      "by_attack_type": {
+        "Actuator Manipulation": {
+          "attacks": 8,
+          "top1_component_accuracy_pct": 25.0,
+          "top3_component_accuracy_pct": 62.5
+        },
+        "Sensor Spoofing/Concealment": {
+          "attacks": 6,
+          "top1_component_accuracy_pct": 0.0,
+          "top3_component_accuracy_pct": 50.0
+        }
+      }
+    }
+  },
+  "by_dataset": {
+    "Dataset04": {
+      "baseline_a_raw_deviation": {
+        "method": "baseline_a_raw_deviation",
+        "attacks": 7,
+        "top1_component_accuracy_pct": 0.0,
+        "top3_component_accuracy_pct": 14.285714285714286,
+        "dma_zone_accuracy_pct": 71.42857142857143,
+        "mean_topological_hop_distance": 14.285714285714286,
+        "by_attack_type": {
+          "Actuator Manipulation": {
+            "attacks": 5,
+            "top1_component_accuracy_pct": 0.0,
+            "top3_component_accuracy_pct": 20.0
+          },
+          "Sensor Spoofing/Concealment": {
+            "attacks": 2,
+            "top1_component_accuracy_pct": 0.0,
+            "top3_component_accuracy_pct": 0.0
+          }
+        }
+      },
+      "baseline_b_top1_shap": {
+        "method": "baseline_b_top1_shap",
+        "attacks": 7,
+        "top1_component_accuracy_pct": 0.0,
+        "top3_component_accuracy_pct": 0.0,
+        "dma_zone_accuracy_pct": 57.142857142857146,
+        "mean_topological_hop_distance": 22.142857142857142,
+        "by_attack_type": {
+          "Actuator Manipulation": {
+            "attacks": 5,
+            "top1_component_accuracy_pct": 0.0,
+            "top3_component_accuracy_pct": 0.0
+          },
+          "Sensor Spoofing/Concealment": {
+            "attacks": 2,
+            "top1_component_accuracy_pct": 0.0,
+            "top3_component_accuracy_pct": 0.0
+          }
+        }
+      },
+      "proposed_shap_reversed_flow_ppr": {
+        "method": "proposed_shap_reversed_flow_ppr",
+        "attacks": 7,
+        "top1_component_accuracy_pct": 0.0,
+        "top3_component_accuracy_pct": 57.142857142857146,
+        "dma_zone_accuracy_pct": 42.857142857142854,
+        "mean_topological_hop_distance": 24.714285714285715,
+        "by_attack_type": {
+          "Actuator Manipulation": {
+            "attacks": 5,
+            "top1_component_accuracy_pct": 0.0,
+            "top3_component_accuracy_pct": 40.0
+          },
+          "Sensor Spoofing/Concealment": {
+            "attacks": 2,
+            "top1_component_accuracy_pct": 0.0,
+            "top3_component_accuracy_pct": 100.0
+          }
+        }
+      },
+      "attack_results": [
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 1,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Tank",
+          "target_component": "T7",
+          "target_dma_zone": 4,
+          "timestamp_of_peak_window": "2016-09-14 08:00:00",
+          "raw_deviation_top_sensor": "F_PU11",
+          "shap_top_sensor": "S_V2",
+          "shap_top_sensors": [
+            "S_V2",
+            "P_J415",
+            "F_V2",
+            "F_PU10",
+            "P_J14"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T3",
+            "L_T7",
+            "F_PU11",
+            "P_J317",
+            "S_PU11"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Pump",
+              "component_id": "PU11",
+              "nodes": [
+                "J323",
+                "J309"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J317",
+              "nodes": [
+                "J317"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Tank",
+              "component_id": "T7",
+              "nodes": [
+                "T7"
+              ],
+              "dma_zone": 4
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 11.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 1,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Tank",
+          "target_component": "T7",
+          "target_dma_zone": 4,
+          "timestamp_of_peak_window": "2016-09-14 08:00:00",
+          "raw_deviation_top_sensor": "F_PU11",
+          "shap_top_sensor": "S_V2",
+          "shap_top_sensors": [
+            "S_V2",
+            "P_J415",
+            "F_V2",
+            "F_PU10",
+            "P_J14"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T3",
+            "L_T7",
+            "F_PU11",
+            "P_J317",
+            "S_PU11"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Valve",
+              "component_id": "V2",
+              "nodes": [
+                "J14",
+                "J422"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 28.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 1,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Tank",
+          "target_component": "T7",
+          "target_dma_zone": 4,
+          "timestamp_of_peak_window": "2016-09-14 08:00:00",
+          "raw_deviation_top_sensor": "F_PU11",
+          "shap_top_sensor": "S_V2",
+          "shap_top_sensors": [
+            "S_V2",
+            "P_J415",
+            "F_V2",
+            "F_PU10",
+            "P_J14"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T3",
+            "L_T7",
+            "F_PU11",
+            "P_J317",
+            "S_PU11"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "T3",
+              "component_type": "Tank",
+              "score": 0.9391763591094843,
+              "nodes": [
+                "T3"
+              ],
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.38891683141062333
+            },
+            {
+              "component_id": "PU11",
+              "component_type": "Pump",
+              "score": 0.9205771255130932,
+              "nodes": [
+                "J309",
+                "J323"
+              ],
+              "upstream_node": "J309",
+              "downstream_node": "J323",
+              "ppr_score": 0.8411542510261864,
+              "direct_shap_mass": 0.4427797891936033
+            },
+            {
+              "component_id": "T7",
+              "component_type": "Tank",
+              "score": 0.7820270165478664,
+              "nodes": [
+                "T7"
+              ],
+              "ppr_score": 0.8322282564194088,
+              "direct_shap_mass": 0.32403766312318777
+            }
+          ],
+          "predicted_dma_zone": 3,
+          "topological_hop_distance": 38.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "T3"
+            ],
+            "links": []
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 2,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Tank",
+          "target_component": "T7",
+          "target_dma_zone": 4,
+          "timestamp_of_peak_window": "2016-09-27 04:00:00",
+          "raw_deviation_top_sensor": "P_J289",
+          "shap_top_sensor": "L_T3",
+          "shap_top_sensors": [
+            "L_T3",
+            "F_PU1",
+            "L_T4",
+            "P_J317",
+            "S_PU7"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T3",
+            "L_T7",
+            "P_J280",
+            "F_PU1",
+            "L_T4"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J289",
+              "nodes": [
+                "J289"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J300",
+              "nodes": [
+                "J300"
+              ],
+              "dma_zone": 3
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J422",
+              "nodes": [
+                "J422"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 32.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 2,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Tank",
+          "target_component": "T7",
+          "target_dma_zone": 4,
+          "timestamp_of_peak_window": "2016-09-27 04:00:00",
+          "raw_deviation_top_sensor": "P_J289",
+          "shap_top_sensor": "L_T3",
+          "shap_top_sensors": [
+            "L_T3",
+            "F_PU1",
+            "L_T4",
+            "P_J317",
+            "S_PU7"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T3",
+            "L_T7",
+            "P_J280",
+            "F_PU1",
+            "L_T4"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Tank",
+              "component_id": "T3",
+              "nodes": [
+                "T3"
+              ],
+              "dma_zone": 3
+            }
+          ],
+          "predicted_dma_zone": 3,
+          "topological_hop_distance": 38.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 2,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Tank",
+          "target_component": "T7",
+          "target_dma_zone": 4,
+          "timestamp_of_peak_window": "2016-09-27 04:00:00",
+          "raw_deviation_top_sensor": "P_J289",
+          "shap_top_sensor": "L_T3",
+          "shap_top_sensors": [
+            "L_T3",
+            "F_PU1",
+            "L_T4",
+            "P_J317",
+            "S_PU7"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T3",
+            "L_T7",
+            "P_J280",
+            "F_PU1",
+            "L_T4"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "T3",
+              "component_type": "Tank",
+              "score": 1.0,
+              "nodes": [
+                "T3"
+              ],
+              "ppr_score": 1.0,
+              "direct_shap_mass": 1.084301882632588
+            },
+            {
+              "component_id": "T7",
+              "component_type": "Tank",
+              "score": 0.29203148525354045,
+              "nodes": [
+                "T7"
+              ],
+              "ppr_score": 0.29194720977742933,
+              "direct_shap_mass": 0.3167416693058118
+            },
+            {
+              "component_id": "PU8",
+              "component_type": "Pump",
+              "score": 0.28073928510143215,
+              "nodes": [
+                "J301",
+                "J304"
+              ],
+              "upstream_node": "J301",
+              "downstream_node": "J304",
+              "ppr_score": 0.3137985890825178,
+              "direct_shap_mass": 0.26855986981919555
+            }
+          ],
+          "predicted_dma_zone": 3,
+          "topological_hop_distance": 38.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "T3"
+            ],
+            "links": []
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 3,
+          "dataset": "Dataset04",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T1",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-10-11 13:00:00",
+          "raw_deviation_top_sensor": "P_J14",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T4",
+            "L_T7",
+            "L_T3",
+            "L_T6"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T6",
+            "L_T1",
+            "L_T7",
+            "P_J422"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J14",
+              "nodes": [
+                "J14"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Pump",
+              "component_id": "PU1",
+              "nodes": [
+                "J273",
+                "J285"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J302",
+              "nodes": [
+                "J302"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 16.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 3,
+          "dataset": "Dataset04",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T1",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-10-11 13:00:00",
+          "raw_deviation_top_sensor": "P_J14",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T4",
+            "L_T7",
+            "L_T3",
+            "L_T6"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T6",
+            "L_T1",
+            "L_T7",
+            "P_J422"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J280",
+              "nodes": [
+                "J280"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 26.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 3,
+          "dataset": "Dataset04",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T1",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-10-11 13:00:00",
+          "raw_deviation_top_sensor": "P_J14",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T4",
+            "L_T7",
+            "L_T3",
+            "L_T6"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T6",
+            "L_T1",
+            "L_T7",
+            "P_J422"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "T6",
+              "component_type": "Tank",
+              "score": 0.6406677735146478,
+              "nodes": [
+                "T6"
+              ],
+              "ppr_score": 0.28133554702929564,
+              "direct_shap_mass": 0.6004746814647769
+            },
+            {
+              "component_id": "T1",
+              "component_type": "Tank",
+              "score": 0.5881304368922372,
+              "nodes": [
+                "T1"
+              ],
+              "ppr_score": 0.2582685619017003,
+              "direct_shap_mass": 0.5512311410649229
+            },
+            {
+              "component_id": "PU2",
+              "component_type": "Pump",
+              "score": 0.5855279933245418,
+              "nodes": [
+                "J280",
+                "J269"
+              ],
+              "upstream_node": "J280",
+              "downstream_node": "J269",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.1027147890957516
+            }
+          ],
+          "predicted_dma_zone": 4,
+          "topological_hop_distance": 17.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "T6"
+            ],
+            "links": []
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 4,
+          "dataset": "Dataset04",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T1",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-11-01 13:00:00",
+          "raw_deviation_top_sensor": "P_J14",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "F_V2",
+            "L_T6",
+            "P_J307",
+            "L_T4"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "P_J302",
+            "P_J307",
+            "L_T2",
+            "L_T1"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J14",
+              "nodes": [
+                "J14"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J302",
+              "nodes": [
+                "J302"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J307",
+              "nodes": [
+                "J307"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 16.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 4,
+          "dataset": "Dataset04",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T1",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-11-01 13:00:00",
+          "raw_deviation_top_sensor": "P_J14",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "F_V2",
+            "L_T6",
+            "P_J307",
+            "L_T4"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "P_J302",
+            "P_J307",
+            "L_T2",
+            "L_T1"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J280",
+              "nodes": [
+                "J280"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 26.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 4,
+          "dataset": "Dataset04",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T1",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-11-01 13:00:00",
+          "raw_deviation_top_sensor": "P_J14",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "F_V2",
+            "L_T6",
+            "P_J307",
+            "L_T4"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "P_J302",
+            "P_J307",
+            "L_T2",
+            "L_T1"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "PU2",
+              "component_type": "Pump",
+              "score": 1.0,
+              "nodes": [
+                "J280",
+                "J269"
+              ],
+              "upstream_node": "J280",
+              "downstream_node": "J269",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.3824160478030943
+            },
+            {
+              "component_id": "T2",
+              "component_type": "Tank",
+              "score": 0.6175818436649599,
+              "nodes": [
+                "T2"
+              ],
+              "ppr_score": 0.2689669078137729,
+              "direct_shap_mass": 0.36948915382264264
+            },
+            {
+              "component_id": "T1",
+              "component_type": "Tank",
+              "score": 0.5410090331023285,
+              "nodes": [
+                "T1"
+              ],
+              "ppr_score": 0.23563004748067976,
+              "direct_shap_mass": 0.3236723610283147
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 25.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "J269",
+              "J280"
+            ],
+            "links": [
+              "PU2"
+            ]
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 5,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU7",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-11-27 16:00:00",
+          "raw_deviation_top_sensor": "F_PU6",
+          "shap_top_sensor": "L_T3",
+          "shap_top_sensors": [
+            "L_T3",
+            "S_PU6",
+            "L_T6",
+            "L_T2",
+            "P_J302"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T6",
+            "L_T1",
+            "L_T3",
+            "P_J280",
+            "P_J302"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Pump",
+              "component_id": "PU6",
+              "nodes": [
+                "J289",
+                "J415"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Tank",
+              "component_id": "T4",
+              "nodes": [
+                "T4"
+              ],
+              "dma_zone": 2
+            },
+            {
+              "component_type": "Pump",
+              "component_id": "PU4",
+              "nodes": [
+                "J292",
+                "J299"
+              ],
+              "dma_zone": 3
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 1.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 5,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU7",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-11-27 16:00:00",
+          "raw_deviation_top_sensor": "F_PU6",
+          "shap_top_sensor": "L_T3",
+          "shap_top_sensors": [
+            "L_T3",
+            "S_PU6",
+            "L_T6",
+            "L_T2",
+            "P_J302"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T6",
+            "L_T1",
+            "L_T3",
+            "P_J280",
+            "P_J302"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Tank",
+              "component_id": "T3",
+              "nodes": [
+                "T3"
+              ],
+              "dma_zone": 3
+            }
+          ],
+          "predicted_dma_zone": 3,
+          "topological_hop_distance": 9.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 5,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU7",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-11-27 16:00:00",
+          "raw_deviation_top_sensor": "F_PU6",
+          "shap_top_sensor": "L_T3",
+          "shap_top_sensors": [
+            "L_T3",
+            "S_PU6",
+            "L_T6",
+            "L_T2",
+            "P_J302"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T6",
+            "L_T1",
+            "L_T3",
+            "P_J280",
+            "P_J302"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "T6",
+              "component_type": "Tank",
+              "score": 1.0,
+              "nodes": [
+                "T6"
+              ],
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.1852495872978507
+            },
+            {
+              "component_id": "T1",
+              "component_type": "Tank",
+              "score": 0.732249779238398,
+              "nodes": [
+                "T1"
+              ],
+              "ppr_score": 0.732259340604416,
+              "direct_shap_mass": 0.13564719816374668
+            },
+            {
+              "component_id": "T3",
+              "component_type": "Tank",
+              "score": 0.7159911018108468,
+              "nodes": [
+                "T3"
+              ],
+              "ppr_score": 0.7166489198460215,
+              "direct_shap_mass": 0.13251519559985958
+            }
+          ],
+          "predicted_dma_zone": 4,
+          "topological_hop_distance": 28.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "T6"
+            ],
+            "links": []
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 6,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU7",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-12-09 21:00:00",
+          "raw_deviation_top_sensor": "F_PU6",
+          "shap_top_sensor": "F_PU6",
+          "shap_top_sensors": [
+            "F_PU6",
+            "S_PU6",
+            "L_T1",
+            "L_T7",
+            "F_PU1"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU6",
+            "S_PU6",
+            "L_T1",
+            "L_T7",
+            "P_J280"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Pump",
+              "component_id": "PU6",
+              "nodes": [
+                "J289",
+                "J415"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Tank",
+              "component_id": "T3",
+              "nodes": [
+                "T3"
+              ],
+              "dma_zone": 3
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J269",
+              "nodes": [
+                "J269"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 1.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 6,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU7",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-12-09 21:00:00",
+          "raw_deviation_top_sensor": "F_PU6",
+          "shap_top_sensor": "F_PU6",
+          "shap_top_sensors": [
+            "F_PU6",
+            "S_PU6",
+            "L_T1",
+            "L_T7",
+            "F_PU1"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU6",
+            "S_PU6",
+            "L_T1",
+            "L_T7",
+            "P_J280"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Pump",
+              "component_id": "PU6",
+              "nodes": [
+                "J289",
+                "J415"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 1.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 6,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU7",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-12-09 21:00:00",
+          "raw_deviation_top_sensor": "F_PU6",
+          "shap_top_sensor": "F_PU6",
+          "shap_top_sensors": [
+            "F_PU6",
+            "S_PU6",
+            "L_T1",
+            "L_T7",
+            "F_PU1"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU6",
+            "S_PU6",
+            "L_T1",
+            "L_T7",
+            "P_J280"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "PU6",
+              "component_type": "Pump",
+              "score": 1.0,
+              "nodes": [
+                "J289",
+                "J415"
+              ],
+              "upstream_node": "J289",
+              "downstream_node": "J415",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 4.717333486657468
+            },
+            {
+              "component_id": "T1",
+              "component_type": "Tank",
+              "score": 0.5404563671550368,
+              "nodes": [
+                "T1"
+              ],
+              "ppr_score": 0.6706796216988234,
+              "direct_shap_mass": 1.9352063994567743
+            },
+            {
+              "component_id": "T7",
+              "component_type": "Tank",
+              "score": 0.2403093847091463,
+              "nodes": [
+                "T7"
+              ],
+              "ppr_score": 0.2982111833604542,
+              "direct_shap_mass": 0.8604774139309951
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 1.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "J415",
+              "J289"
+            ],
+            "links": [
+              "PU6"
+            ]
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 7,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU7",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-12-18 21:00:00",
+          "raw_deviation_top_sensor": "F_PU11",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "F_PU1",
+            "F_PU2",
+            "S_PU2",
+            "P_J269"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T7",
+            "F_PU1",
+            "P_J269",
+            "L_T1"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Pump",
+              "component_id": "PU11",
+              "nodes": [
+                "J323",
+                "J309"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J317",
+              "nodes": [
+                "J317"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J307",
+              "nodes": [
+                "J307"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 23.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 7,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU7",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-12-18 21:00:00",
+          "raw_deviation_top_sensor": "F_PU11",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "F_PU1",
+            "F_PU2",
+            "S_PU2",
+            "P_J269"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T7",
+            "F_PU1",
+            "P_J269",
+            "L_T1"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J280",
+              "nodes": [
+                "J280"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 27.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 7,
+          "dataset": "Dataset04",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU7",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2016-12-18 21:00:00",
+          "raw_deviation_top_sensor": "F_PU11",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "F_PU1",
+            "F_PU2",
+            "S_PU2",
+            "P_J269"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T7",
+            "F_PU1",
+            "P_J269",
+            "L_T1"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "PU2",
+              "component_type": "Pump",
+              "score": 1.0,
+              "nodes": [
+                "J280",
+                "J269"
+              ],
+              "upstream_node": "J280",
+              "downstream_node": "J269",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.4140082082109224
+            },
+            {
+              "component_id": "T7",
+              "component_type": "Tank",
+              "score": 0.6169462437221903,
+              "nodes": [
+                "T7"
+              ],
+              "ppr_score": 0.3249460453092959,
+              "direct_shap_mass": 0.37631128786803925
+            },
+            {
+              "component_id": "PU1",
+              "component_type": "Pump",
+              "score": 0.441287676083039,
+              "nodes": [
+                "J285",
+                "J273"
+              ],
+              "upstream_node": "J285",
+              "downstream_node": "J273",
+              "ppr_score": 0.22433316978459603,
+              "direct_shap_mass": 0.2725176664966045
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 26.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "J269",
+              "J280"
+            ],
+            "links": [
+              "PU2"
+            ]
+          }
+        }
+      ]
+    },
+    "Test Dataset": {
+      "baseline_a_raw_deviation": {
+        "method": "baseline_a_raw_deviation",
+        "attacks": 7,
+        "top1_component_accuracy_pct": 28.571428571428573,
+        "top3_component_accuracy_pct": 28.571428571428573,
+        "dma_zone_accuracy_pct": 57.142857142857146,
+        "mean_topological_hop_distance": 10.428571428571429,
+        "by_attack_type": {
+          "Actuator Manipulation": {
+            "attacks": 3,
+            "top1_component_accuracy_pct": 66.66666666666667,
+            "top3_component_accuracy_pct": 66.66666666666667
+          },
+          "Sensor Spoofing/Concealment": {
+            "attacks": 4,
+            "top1_component_accuracy_pct": 0.0,
+            "top3_component_accuracy_pct": 0.0
+          }
+        }
+      },
+      "baseline_b_top1_shap": {
+        "method": "baseline_b_top1_shap",
+        "attacks": 7,
+        "top1_component_accuracy_pct": 42.857142857142854,
+        "top3_component_accuracy_pct": 42.857142857142854,
+        "dma_zone_accuracy_pct": 57.142857142857146,
+        "mean_topological_hop_distance": 21.0,
+        "by_attack_type": {
+          "Actuator Manipulation": {
+            "attacks": 3,
+            "top1_component_accuracy_pct": 66.66666666666667,
+            "top3_component_accuracy_pct": 66.66666666666667
+          },
+          "Sensor Spoofing/Concealment": {
+            "attacks": 4,
+            "top1_component_accuracy_pct": 25.0,
+            "top3_component_accuracy_pct": 25.0
+          }
+        }
+      },
+      "proposed_shap_reversed_flow_ppr": {
+        "method": "proposed_shap_reversed_flow_ppr",
+        "attacks": 7,
+        "top1_component_accuracy_pct": 28.571428571428573,
+        "top3_component_accuracy_pct": 57.142857142857146,
+        "dma_zone_accuracy_pct": 71.42857142857143,
+        "mean_topological_hop_distance": 16.714285714285715,
+        "by_attack_type": {
+          "Actuator Manipulation": {
+            "attacks": 3,
+            "top1_component_accuracy_pct": 66.66666666666667,
+            "top3_component_accuracy_pct": 100.0
+          },
+          "Sensor Spoofing/Concealment": {
+            "attacks": 4,
+            "top1_component_accuracy_pct": 0.0,
+            "top3_component_accuracy_pct": 25.0
+          }
+        }
+      },
+      "attack_results": [
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 8,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T3",
+          "target_dma_zone": 3,
+          "timestamp_of_peak_window": "2017-01-17 06:00:00",
+          "raw_deviation_top_sensor": "P_J256",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "F_PU1",
+            "L_T4",
+            "L_T7",
+            "P_J415"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU1",
+            "P_J280",
+            "L_T4",
+            "L_T7",
+            "P_J415"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J256",
+              "nodes": [
+                "J256"
+              ],
+              "dma_zone": 3
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J300",
+              "nodes": [
+                "J300"
+              ],
+              "dma_zone": 3
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J289",
+              "nodes": [
+                "J289"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 3,
+          "topological_hop_distance": 4.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 8,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T3",
+          "target_dma_zone": 3,
+          "timestamp_of_peak_window": "2017-01-17 06:00:00",
+          "raw_deviation_top_sensor": "P_J256",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "F_PU1",
+            "L_T4",
+            "L_T7",
+            "P_J415"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU1",
+            "P_J280",
+            "L_T4",
+            "L_T7",
+            "P_J415"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J280",
+              "nodes": [
+                "J280"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 32.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 8,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T3",
+          "target_dma_zone": 3,
+          "timestamp_of_peak_window": "2017-01-17 06:00:00",
+          "raw_deviation_top_sensor": "P_J256",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "F_PU1",
+            "L_T4",
+            "L_T7",
+            "P_J415"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU1",
+            "P_J280",
+            "L_T4",
+            "L_T7",
+            "P_J415"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "V2",
+              "component_type": "Valve",
+              "score": 0.7793219925692818,
+              "nodes": [
+                "J14",
+                "J422"
+              ],
+              "upstream_node": "J14",
+              "downstream_node": "J422",
+              "ppr_score": 0.743027250397192,
+              "direct_shap_mass": 0.17525473593967292
+            },
+            {
+              "component_id": "T4",
+              "component_type": "Tank",
+              "score": 0.7687890018178856,
+              "nodes": [
+                "T4"
+              ],
+              "ppr_score": 0.5960429671913334,
+              "direct_shap_mass": 0.20231129053812716
+            },
+            {
+              "component_id": "PU1",
+              "component_type": "Pump",
+              "score": 0.759968397694786,
+              "nodes": [
+                "J285",
+                "J273"
+              ],
+              "upstream_node": "J285",
+              "downstream_node": "J273",
+              "ppr_score": 0.519936795389572,
+              "direct_shap_mass": 0.21487388435604546
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 9.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "J422",
+              "J14"
+            ],
+            "links": [
+              "V2"
+            ]
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 9,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T2",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-01-31 04:00:00",
+          "raw_deviation_top_sensor": "P_J289",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T1",
+            "L_T5",
+            "L_T7",
+            "L_T4"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T1",
+            "L_T4",
+            "L_T3",
+            "L_T5"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J289",
+              "nodes": [
+                "J289"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J300",
+              "nodes": [
+                "J300"
+              ],
+              "dma_zone": 3
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J422",
+              "nodes": [
+                "J422"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 4.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 9,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T2",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-01-31 04:00:00",
+          "raw_deviation_top_sensor": "P_J289",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T1",
+            "L_T5",
+            "L_T7",
+            "L_T4"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T1",
+            "L_T4",
+            "L_T3",
+            "L_T5"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J280",
+              "nodes": [
+                "J280"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 26.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 9,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T2",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-01-31 04:00:00",
+          "raw_deviation_top_sensor": "P_J289",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T1",
+            "L_T5",
+            "L_T7",
+            "L_T4"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T1",
+            "L_T4",
+            "L_T3",
+            "L_T5"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "T1",
+              "component_type": "Tank",
+              "score": 0.9644810054406368,
+              "nodes": [
+                "T1"
+              ],
+              "ppr_score": 0.9289620108812736,
+              "direct_shap_mass": 1.0772956486048324
+            },
+            {
+              "component_id": "T4",
+              "component_type": "Tank",
+              "score": 0.6248227610135524,
+              "nodes": [
+                "T4"
+              ],
+              "ppr_score": 0.6018089719113038,
+              "direct_shap_mass": 0.6979114964469187
+            },
+            {
+              "component_id": "T3",
+              "component_type": "Tank",
+              "score": 0.5268254008259079,
+              "nodes": [
+                "T3"
+              ],
+              "ppr_score": 0.5075625858895473,
+              "direct_shap_mass": 0.5882984585950687
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 20.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "T1"
+            ],
+            "links": []
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 10,
+          "dataset": "Test Dataset",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU3",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-02-10 03:00:00",
+          "raw_deviation_top_sensor": "F_PU3",
+          "shap_top_sensor": "F_PU3",
+          "shap_top_sensors": [
+            "F_PU3",
+            "F_PU2",
+            "S_PU2",
+            "L_T4",
+            "S_PU3"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU3",
+            "F_PU2",
+            "S_PU2",
+            "L_T4",
+            "S_PU3"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Pump",
+              "component_id": "PU3",
+              "nodes": [
+                "J276",
+                "J274"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Tank",
+              "component_id": "T3",
+              "nodes": [
+                "T3"
+              ],
+              "dma_zone": 3
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J422",
+              "nodes": [
+                "J422"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 0.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 10,
+          "dataset": "Test Dataset",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU3",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-02-10 03:00:00",
+          "raw_deviation_top_sensor": "F_PU3",
+          "shap_top_sensor": "F_PU3",
+          "shap_top_sensors": [
+            "F_PU3",
+            "F_PU2",
+            "S_PU2",
+            "L_T4",
+            "S_PU3"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU3",
+            "F_PU2",
+            "S_PU2",
+            "L_T4",
+            "S_PU3"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Pump",
+              "component_id": "PU3",
+              "nodes": [
+                "J276",
+                "J274"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 0.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 10,
+          "dataset": "Test Dataset",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU3",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-02-10 03:00:00",
+          "raw_deviation_top_sensor": "F_PU3",
+          "shap_top_sensor": "F_PU3",
+          "shap_top_sensors": [
+            "F_PU3",
+            "F_PU2",
+            "S_PU2",
+            "L_T4",
+            "S_PU3"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU3",
+            "F_PU2",
+            "S_PU2",
+            "L_T4",
+            "S_PU3"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "PU3",
+              "component_type": "Pump",
+              "score": 1.0,
+              "nodes": [
+                "J276",
+                "J274"
+              ],
+              "upstream_node": "J276",
+              "downstream_node": "J274",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 380.85869843737044
+            },
+            {
+              "component_id": "PU2",
+              "component_type": "Pump",
+              "score": 0.05350310941021567,
+              "nodes": [
+                "J280",
+                "J269"
+              ],
+              "upstream_node": "J280",
+              "downstream_node": "J269",
+              "ppr_score": 0.058062234340326646,
+              "direct_shap_mass": 18.64074222543153
+            },
+            {
+              "component_id": "T4",
+              "component_type": "Tank",
+              "score": 0.015467705699617185,
+              "nodes": [
+                "T4"
+              ],
+              "ppr_score": 0.01775678504251837,
+              "direct_shap_mass": 5.01919448141128
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 0.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "J274",
+              "J276"
+            ],
+            "links": [
+              "PU3"
+            ]
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 11,
+          "dataset": "Test Dataset",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU3",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-02-12 18:00:00",
+          "raw_deviation_top_sensor": "F_PU3",
+          "shap_top_sensor": "F_PU3",
+          "shap_top_sensors": [
+            "F_PU3",
+            "F_PU1",
+            "P_J14",
+            "P_J269",
+            "L_T5"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU3",
+            "P_J269",
+            "P_J14",
+            "S_PU3",
+            "F_PU1"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Pump",
+              "component_id": "PU3",
+              "nodes": [
+                "J276",
+                "J274"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Tank",
+              "component_id": "T3",
+              "nodes": [
+                "T3"
+              ],
+              "dma_zone": 3
+            },
+            {
+              "component_type": "Pump",
+              "component_id": "PU4",
+              "nodes": [
+                "J292",
+                "J299"
+              ],
+              "dma_zone": 3
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 0.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 11,
+          "dataset": "Test Dataset",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU3",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-02-12 18:00:00",
+          "raw_deviation_top_sensor": "F_PU3",
+          "shap_top_sensor": "F_PU3",
+          "shap_top_sensors": [
+            "F_PU3",
+            "F_PU1",
+            "P_J14",
+            "P_J269",
+            "L_T5"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU3",
+            "P_J269",
+            "P_J14",
+            "S_PU3",
+            "F_PU1"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Pump",
+              "component_id": "PU3",
+              "nodes": [
+                "J276",
+                "J274"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 0.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 11,
+          "dataset": "Test Dataset",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Pump",
+          "target_component": "PU3",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-02-12 18:00:00",
+          "raw_deviation_top_sensor": "F_PU3",
+          "shap_top_sensor": "F_PU3",
+          "shap_top_sensors": [
+            "F_PU3",
+            "F_PU1",
+            "P_J14",
+            "P_J269",
+            "L_T5"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "F_PU3",
+            "P_J269",
+            "P_J14",
+            "S_PU3",
+            "F_PU1"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "PU3",
+              "component_type": "Pump",
+              "score": 1.0,
+              "nodes": [
+                "J276",
+                "J274"
+              ],
+              "upstream_node": "J276",
+              "downstream_node": "J274",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 85.51754713265348
+            },
+            {
+              "component_id": "V2",
+              "component_type": "Valve",
+              "score": 0.037712220370001596,
+              "nodes": [
+                "J14",
+                "J422"
+              ],
+              "upstream_node": "J14",
+              "downstream_node": "J422",
+              "ppr_score": 0.0533603096122023,
+              "direct_shap_mass": 1.8868703736627594
+            },
+            {
+              "component_id": "PU2",
+              "component_type": "Pump",
+              "score": 0.021655448676437133,
+              "nodes": [
+                "J280",
+                "J269"
+              ],
+              "upstream_node": "J280",
+              "downstream_node": "J269",
+              "ppr_score": 0.035803726710983336,
+              "direct_shap_mass": 0.6419948192007799
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 0.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "J274",
+              "J276"
+            ],
+            "links": [
+              "PU3"
+            ]
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 12,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T2",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-02-26 04:00:00",
+          "raw_deviation_top_sensor": "P_J300",
+          "shap_top_sensor": "L_T2",
+          "shap_top_sensors": [
+            "L_T2",
+            "L_T4",
+            "L_T3",
+            "L_T7",
+            "L_T6"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T1",
+            "L_T2",
+            "L_T7",
+            "L_T3",
+            "L_T6"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J300",
+              "nodes": [
+                "J300"
+              ],
+              "dma_zone": 3
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J289",
+              "nodes": [
+                "J289"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Pump",
+              "component_id": "PU7",
+              "nodes": [
+                "J290",
+                "J291"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 3,
+          "topological_hop_distance": 5.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 12,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T2",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-02-26 04:00:00",
+          "raw_deviation_top_sensor": "P_J300",
+          "shap_top_sensor": "L_T2",
+          "shap_top_sensors": [
+            "L_T2",
+            "L_T4",
+            "L_T3",
+            "L_T7",
+            "L_T6"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T1",
+            "L_T2",
+            "L_T7",
+            "L_T3",
+            "L_T6"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Tank",
+              "component_id": "T2",
+              "nodes": [
+                "T2"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 0.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 12,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T2",
+          "target_dma_zone": 1,
+          "timestamp_of_peak_window": "2017-02-26 04:00:00",
+          "raw_deviation_top_sensor": "P_J300",
+          "shap_top_sensor": "L_T2",
+          "shap_top_sensors": [
+            "L_T2",
+            "L_T4",
+            "L_T3",
+            "L_T7",
+            "L_T6"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T1",
+            "L_T2",
+            "L_T7",
+            "L_T3",
+            "L_T6"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "T1",
+              "component_type": "Tank",
+              "score": 1.0,
+              "nodes": [
+                "T1"
+              ],
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.5866237619542592
+            },
+            {
+              "component_id": "T2",
+              "component_type": "Tank",
+              "score": 0.932304961903427,
+              "nodes": [
+                "T2"
+              ],
+              "ppr_score": 0.9322949157293989,
+              "direct_shap_mass": 0.5469181373648123
+            },
+            {
+              "component_id": "T7",
+              "component_type": "Tank",
+              "score": 0.8208974732673215,
+              "nodes": [
+                "T7"
+              ],
+              "ppr_score": 0.8208886275792552,
+              "direct_shap_mass": 0.4815631530376327
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 20.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "T1"
+            ],
+            "links": []
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 13,
+          "dataset": "Test Dataset",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Tank",
+          "target_component": "T7",
+          "target_dma_zone": 4,
+          "timestamp_of_peak_window": "2017-03-13 15:00:00",
+          "raw_deviation_top_sensor": "P_J289",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T3",
+            "L_T1",
+            "P_J317",
+            "F_PU10"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T6",
+            "L_T7",
+            "L_T3",
+            "P_J280",
+            "P_J302"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J289",
+              "nodes": [
+                "J289"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J300",
+              "nodes": [
+                "J300"
+              ],
+              "dma_zone": 3
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J422",
+              "nodes": [
+                "J422"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 32.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 13,
+          "dataset": "Test Dataset",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Tank",
+          "target_component": "T7",
+          "target_dma_zone": 4,
+          "timestamp_of_peak_window": "2017-03-13 15:00:00",
+          "raw_deviation_top_sensor": "P_J289",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T3",
+            "L_T1",
+            "P_J317",
+            "F_PU10"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T6",
+            "L_T7",
+            "L_T3",
+            "P_J280",
+            "P_J302"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J280",
+              "nodes": [
+                "J280"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 38.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 13,
+          "dataset": "Test Dataset",
+          "attack_type": "Actuator Manipulation",
+          "target_component_type": "Tank",
+          "target_component": "T7",
+          "target_dma_zone": 4,
+          "timestamp_of_peak_window": "2017-03-13 15:00:00",
+          "raw_deviation_top_sensor": "P_J289",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T3",
+            "L_T1",
+            "P_J317",
+            "F_PU10"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "L_T6",
+            "L_T7",
+            "L_T3",
+            "P_J280",
+            "P_J302"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "T6",
+              "component_type": "Tank",
+              "score": 1.0,
+              "nodes": [
+                "T6"
+              ],
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.7851227527197729
+            },
+            {
+              "component_id": "T7",
+              "component_type": "Tank",
+              "score": 0.4945279843887235,
+              "nodes": [
+                "T7"
+              ],
+              "ppr_score": 0.4945279843887235,
+              "direct_shap_mass": 0.3882651724002355
+            },
+            {
+              "component_id": "T3",
+              "component_type": "Tank",
+              "score": 0.39092478003681735,
+              "nodes": [
+                "T3"
+              ],
+              "ppr_score": 0.39115599138532303,
+              "direct_shap_mass": 0.30674241011847897
+            }
+          ],
+          "predicted_dma_zone": 4,
+          "topological_hop_distance": 11.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "T6"
+            ],
+            "links": []
+          }
+        },
+        {
+          "method": "baseline_a_raw_deviation",
+          "attack_id": 14,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T4",
+          "target_dma_zone": 2,
+          "timestamp_of_peak_window": "2017-03-25 21:00:00",
+          "raw_deviation_top_sensor": "S_V2",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T2",
+            "L_T3",
+            "F_PU1",
+            "L_T7"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T5",
+            "L_T2",
+            "L_T3",
+            "S_PU10"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Valve",
+              "component_id": "V2",
+              "nodes": [
+                "J14",
+                "J422"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J422",
+              "nodes": [
+                "J422"
+              ],
+              "dma_zone": 1
+            },
+            {
+              "component_type": "Junction",
+              "component_id": "J300",
+              "nodes": [
+                "J300"
+              ],
+              "dma_zone": 3
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 28.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "baseline_b_top1_shap",
+          "attack_id": 14,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T4",
+          "target_dma_zone": 2,
+          "timestamp_of_peak_window": "2017-03-25 21:00:00",
+          "raw_deviation_top_sensor": "S_V2",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T2",
+            "L_T3",
+            "F_PU1",
+            "L_T7"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T5",
+            "L_T2",
+            "L_T3",
+            "S_PU10"
+          ],
+          "predicted_components": [
+            {
+              "component_type": "Junction",
+              "component_id": "J280",
+              "nodes": [
+                "J280"
+              ],
+              "dma_zone": 1
+            }
+          ],
+          "predicted_dma_zone": 1,
+          "topological_hop_distance": 51.0,
+          "ppr_propagation_path": null
+        },
+        {
+          "method": "proposed_shap_reversed_flow_ppr",
+          "attack_id": 14,
+          "dataset": "Test Dataset",
+          "attack_type": "Sensor Spoofing/Concealment",
+          "target_component_type": "Tank",
+          "target_component": "T4",
+          "target_dma_zone": 2,
+          "timestamp_of_peak_window": "2017-03-25 21:00:00",
+          "raw_deviation_top_sensor": "S_V2",
+          "shap_top_sensor": "P_J280",
+          "shap_top_sensors": [
+            "P_J280",
+            "L_T2",
+            "L_T3",
+            "F_PU1",
+            "L_T7"
+          ],
+          "ppr_interval_shap_top_sensors": [
+            "P_J280",
+            "L_T5",
+            "L_T2",
+            "L_T3",
+            "S_PU10"
+          ],
+          "predicted_components": [
+            {
+              "component_id": "T5",
+              "component_type": "Tank",
+              "score": 0.7883606388724582,
+              "nodes": [
+                "T5"
+              ],
+              "ppr_score": 0.5767212777449165,
+              "direct_shap_mass": 0.29914630980193996
+            },
+            {
+              "component_id": "PU10",
+              "component_type": "Pump",
+              "score": 0.6862655700648697,
+              "nodes": [
+                "J307",
+                "J317"
+              ],
+              "upstream_node": "J307",
+              "downstream_node": "J317",
+              "ppr_score": 0.5452290014370348,
+              "direct_shap_mass": 0.24748438188117533
+            },
+            {
+              "component_id": "PU2",
+              "component_type": "Pump",
+              "score": 0.5840203199548339,
+              "nodes": [
+                "J280",
+                "J269"
+              ],
+              "upstream_node": "J280",
+              "downstream_node": "J269",
+              "ppr_score": 1.0,
+              "direct_shap_mass": 0.05026873732573371
+            }
+          ],
+          "predicted_dma_zone": 5,
+          "topological_hop_distance": 57.0,
+          "ppr_propagation_path": {
+            "nodes": [
+              "T5"
+            ],
+            "links": []
+          }
+        }
+      ]
+    }
+  },
+  "all_attack_results": [
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 1,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Tank",
+      "target_component": "T7",
+      "target_dma_zone": 4,
+      "timestamp_of_peak_window": "2016-09-14 08:00:00",
+      "raw_deviation_top_sensor": "F_PU11",
+      "shap_top_sensor": "S_V2",
+      "shap_top_sensors": [
+        "S_V2",
+        "P_J415",
+        "F_V2",
+        "F_PU10",
+        "P_J14"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T3",
+        "L_T7",
+        "F_PU11",
+        "P_J317",
+        "S_PU11"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Pump",
+          "component_id": "PU11",
+          "nodes": [
+            "J323",
+            "J309"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J317",
+          "nodes": [
+            "J317"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Tank",
+          "component_id": "T7",
+          "nodes": [
+            "T7"
+          ],
+          "dma_zone": 4
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 11.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 1,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Tank",
+      "target_component": "T7",
+      "target_dma_zone": 4,
+      "timestamp_of_peak_window": "2016-09-14 08:00:00",
+      "raw_deviation_top_sensor": "F_PU11",
+      "shap_top_sensor": "S_V2",
+      "shap_top_sensors": [
+        "S_V2",
+        "P_J415",
+        "F_V2",
+        "F_PU10",
+        "P_J14"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T3",
+        "L_T7",
+        "F_PU11",
+        "P_J317",
+        "S_PU11"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Valve",
+          "component_id": "V2",
+          "nodes": [
+            "J14",
+            "J422"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 28.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 1,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Tank",
+      "target_component": "T7",
+      "target_dma_zone": 4,
+      "timestamp_of_peak_window": "2016-09-14 08:00:00",
+      "raw_deviation_top_sensor": "F_PU11",
+      "shap_top_sensor": "S_V2",
+      "shap_top_sensors": [
+        "S_V2",
+        "P_J415",
+        "F_V2",
+        "F_PU10",
+        "P_J14"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T3",
+        "L_T7",
+        "F_PU11",
+        "P_J317",
+        "S_PU11"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "T3",
+          "component_type": "Tank",
+          "score": 0.9391763591094843,
+          "nodes": [
+            "T3"
+          ],
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.38891683141062333
+        },
+        {
+          "component_id": "PU11",
+          "component_type": "Pump",
+          "score": 0.9205771255130932,
+          "nodes": [
+            "J309",
+            "J323"
+          ],
+          "upstream_node": "J309",
+          "downstream_node": "J323",
+          "ppr_score": 0.8411542510261864,
+          "direct_shap_mass": 0.4427797891936033
+        },
+        {
+          "component_id": "T7",
+          "component_type": "Tank",
+          "score": 0.7820270165478664,
+          "nodes": [
+            "T7"
+          ],
+          "ppr_score": 0.8322282564194088,
+          "direct_shap_mass": 0.32403766312318777
+        }
+      ],
+      "predicted_dma_zone": 3,
+      "topological_hop_distance": 38.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "T3"
+        ],
+        "links": []
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 2,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Tank",
+      "target_component": "T7",
+      "target_dma_zone": 4,
+      "timestamp_of_peak_window": "2016-09-27 04:00:00",
+      "raw_deviation_top_sensor": "P_J289",
+      "shap_top_sensor": "L_T3",
+      "shap_top_sensors": [
+        "L_T3",
+        "F_PU1",
+        "L_T4",
+        "P_J317",
+        "S_PU7"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T3",
+        "L_T7",
+        "P_J280",
+        "F_PU1",
+        "L_T4"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J289",
+          "nodes": [
+            "J289"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J300",
+          "nodes": [
+            "J300"
+          ],
+          "dma_zone": 3
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J422",
+          "nodes": [
+            "J422"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 32.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 2,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Tank",
+      "target_component": "T7",
+      "target_dma_zone": 4,
+      "timestamp_of_peak_window": "2016-09-27 04:00:00",
+      "raw_deviation_top_sensor": "P_J289",
+      "shap_top_sensor": "L_T3",
+      "shap_top_sensors": [
+        "L_T3",
+        "F_PU1",
+        "L_T4",
+        "P_J317",
+        "S_PU7"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T3",
+        "L_T7",
+        "P_J280",
+        "F_PU1",
+        "L_T4"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Tank",
+          "component_id": "T3",
+          "nodes": [
+            "T3"
+          ],
+          "dma_zone": 3
+        }
+      ],
+      "predicted_dma_zone": 3,
+      "topological_hop_distance": 38.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 2,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Tank",
+      "target_component": "T7",
+      "target_dma_zone": 4,
+      "timestamp_of_peak_window": "2016-09-27 04:00:00",
+      "raw_deviation_top_sensor": "P_J289",
+      "shap_top_sensor": "L_T3",
+      "shap_top_sensors": [
+        "L_T3",
+        "F_PU1",
+        "L_T4",
+        "P_J317",
+        "S_PU7"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T3",
+        "L_T7",
+        "P_J280",
+        "F_PU1",
+        "L_T4"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "T3",
+          "component_type": "Tank",
+          "score": 1.0,
+          "nodes": [
+            "T3"
+          ],
+          "ppr_score": 1.0,
+          "direct_shap_mass": 1.084301882632588
+        },
+        {
+          "component_id": "T7",
+          "component_type": "Tank",
+          "score": 0.29203148525354045,
+          "nodes": [
+            "T7"
+          ],
+          "ppr_score": 0.29194720977742933,
+          "direct_shap_mass": 0.3167416693058118
+        },
+        {
+          "component_id": "PU8",
+          "component_type": "Pump",
+          "score": 0.28073928510143215,
+          "nodes": [
+            "J301",
+            "J304"
+          ],
+          "upstream_node": "J301",
+          "downstream_node": "J304",
+          "ppr_score": 0.3137985890825178,
+          "direct_shap_mass": 0.26855986981919555
+        }
+      ],
+      "predicted_dma_zone": 3,
+      "topological_hop_distance": 38.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "T3"
+        ],
+        "links": []
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 3,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T1",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-10-11 13:00:00",
+      "raw_deviation_top_sensor": "P_J14",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T4",
+        "L_T7",
+        "L_T3",
+        "L_T6"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T6",
+        "L_T1",
+        "L_T7",
+        "P_J422"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J14",
+          "nodes": [
+            "J14"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Pump",
+          "component_id": "PU1",
+          "nodes": [
+            "J273",
+            "J285"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J302",
+          "nodes": [
+            "J302"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 16.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 3,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T1",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-10-11 13:00:00",
+      "raw_deviation_top_sensor": "P_J14",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T4",
+        "L_T7",
+        "L_T3",
+        "L_T6"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T6",
+        "L_T1",
+        "L_T7",
+        "P_J422"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J280",
+          "nodes": [
+            "J280"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 26.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 3,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T1",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-10-11 13:00:00",
+      "raw_deviation_top_sensor": "P_J14",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T4",
+        "L_T7",
+        "L_T3",
+        "L_T6"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T6",
+        "L_T1",
+        "L_T7",
+        "P_J422"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "T6",
+          "component_type": "Tank",
+          "score": 0.6406677735146478,
+          "nodes": [
+            "T6"
+          ],
+          "ppr_score": 0.28133554702929564,
+          "direct_shap_mass": 0.6004746814647769
+        },
+        {
+          "component_id": "T1",
+          "component_type": "Tank",
+          "score": 0.5881304368922372,
+          "nodes": [
+            "T1"
+          ],
+          "ppr_score": 0.2582685619017003,
+          "direct_shap_mass": 0.5512311410649229
+        },
+        {
+          "component_id": "PU2",
+          "component_type": "Pump",
+          "score": 0.5855279933245418,
+          "nodes": [
+            "J280",
+            "J269"
+          ],
+          "upstream_node": "J280",
+          "downstream_node": "J269",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.1027147890957516
+        }
+      ],
+      "predicted_dma_zone": 4,
+      "topological_hop_distance": 17.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "T6"
+        ],
+        "links": []
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 4,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T1",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-11-01 13:00:00",
+      "raw_deviation_top_sensor": "P_J14",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "F_V2",
+        "L_T6",
+        "P_J307",
+        "L_T4"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "P_J302",
+        "P_J307",
+        "L_T2",
+        "L_T1"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J14",
+          "nodes": [
+            "J14"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J302",
+          "nodes": [
+            "J302"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J307",
+          "nodes": [
+            "J307"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 16.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 4,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T1",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-11-01 13:00:00",
+      "raw_deviation_top_sensor": "P_J14",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "F_V2",
+        "L_T6",
+        "P_J307",
+        "L_T4"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "P_J302",
+        "P_J307",
+        "L_T2",
+        "L_T1"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J280",
+          "nodes": [
+            "J280"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 26.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 4,
+      "dataset": "Dataset04",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T1",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-11-01 13:00:00",
+      "raw_deviation_top_sensor": "P_J14",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "F_V2",
+        "L_T6",
+        "P_J307",
+        "L_T4"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "P_J302",
+        "P_J307",
+        "L_T2",
+        "L_T1"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "PU2",
+          "component_type": "Pump",
+          "score": 1.0,
+          "nodes": [
+            "J280",
+            "J269"
+          ],
+          "upstream_node": "J280",
+          "downstream_node": "J269",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.3824160478030943
+        },
+        {
+          "component_id": "T2",
+          "component_type": "Tank",
+          "score": 0.6175818436649599,
+          "nodes": [
+            "T2"
+          ],
+          "ppr_score": 0.2689669078137729,
+          "direct_shap_mass": 0.36948915382264264
+        },
+        {
+          "component_id": "T1",
+          "component_type": "Tank",
+          "score": 0.5410090331023285,
+          "nodes": [
+            "T1"
+          ],
+          "ppr_score": 0.23563004748067976,
+          "direct_shap_mass": 0.3236723610283147
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 25.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "J269",
+          "J280"
+        ],
+        "links": [
+          "PU2"
+        ]
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 5,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU7",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-11-27 16:00:00",
+      "raw_deviation_top_sensor": "F_PU6",
+      "shap_top_sensor": "L_T3",
+      "shap_top_sensors": [
+        "L_T3",
+        "S_PU6",
+        "L_T6",
+        "L_T2",
+        "P_J302"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T6",
+        "L_T1",
+        "L_T3",
+        "P_J280",
+        "P_J302"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Pump",
+          "component_id": "PU6",
+          "nodes": [
+            "J289",
+            "J415"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Tank",
+          "component_id": "T4",
+          "nodes": [
+            "T4"
+          ],
+          "dma_zone": 2
+        },
+        {
+          "component_type": "Pump",
+          "component_id": "PU4",
+          "nodes": [
+            "J292",
+            "J299"
+          ],
+          "dma_zone": 3
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 1.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 5,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU7",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-11-27 16:00:00",
+      "raw_deviation_top_sensor": "F_PU6",
+      "shap_top_sensor": "L_T3",
+      "shap_top_sensors": [
+        "L_T3",
+        "S_PU6",
+        "L_T6",
+        "L_T2",
+        "P_J302"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T6",
+        "L_T1",
+        "L_T3",
+        "P_J280",
+        "P_J302"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Tank",
+          "component_id": "T3",
+          "nodes": [
+            "T3"
+          ],
+          "dma_zone": 3
+        }
+      ],
+      "predicted_dma_zone": 3,
+      "topological_hop_distance": 9.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 5,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU7",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-11-27 16:00:00",
+      "raw_deviation_top_sensor": "F_PU6",
+      "shap_top_sensor": "L_T3",
+      "shap_top_sensors": [
+        "L_T3",
+        "S_PU6",
+        "L_T6",
+        "L_T2",
+        "P_J302"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T6",
+        "L_T1",
+        "L_T3",
+        "P_J280",
+        "P_J302"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "T6",
+          "component_type": "Tank",
+          "score": 1.0,
+          "nodes": [
+            "T6"
+          ],
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.1852495872978507
+        },
+        {
+          "component_id": "T1",
+          "component_type": "Tank",
+          "score": 0.732249779238398,
+          "nodes": [
+            "T1"
+          ],
+          "ppr_score": 0.732259340604416,
+          "direct_shap_mass": 0.13564719816374668
+        },
+        {
+          "component_id": "T3",
+          "component_type": "Tank",
+          "score": 0.7159911018108468,
+          "nodes": [
+            "T3"
+          ],
+          "ppr_score": 0.7166489198460215,
+          "direct_shap_mass": 0.13251519559985958
+        }
+      ],
+      "predicted_dma_zone": 4,
+      "topological_hop_distance": 28.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "T6"
+        ],
+        "links": []
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 6,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU7",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-12-09 21:00:00",
+      "raw_deviation_top_sensor": "F_PU6",
+      "shap_top_sensor": "F_PU6",
+      "shap_top_sensors": [
+        "F_PU6",
+        "S_PU6",
+        "L_T1",
+        "L_T7",
+        "F_PU1"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU6",
+        "S_PU6",
+        "L_T1",
+        "L_T7",
+        "P_J280"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Pump",
+          "component_id": "PU6",
+          "nodes": [
+            "J289",
+            "J415"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Tank",
+          "component_id": "T3",
+          "nodes": [
+            "T3"
+          ],
+          "dma_zone": 3
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J269",
+          "nodes": [
+            "J269"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 1.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 6,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU7",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-12-09 21:00:00",
+      "raw_deviation_top_sensor": "F_PU6",
+      "shap_top_sensor": "F_PU6",
+      "shap_top_sensors": [
+        "F_PU6",
+        "S_PU6",
+        "L_T1",
+        "L_T7",
+        "F_PU1"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU6",
+        "S_PU6",
+        "L_T1",
+        "L_T7",
+        "P_J280"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Pump",
+          "component_id": "PU6",
+          "nodes": [
+            "J289",
+            "J415"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 1.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 6,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU7",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-12-09 21:00:00",
+      "raw_deviation_top_sensor": "F_PU6",
+      "shap_top_sensor": "F_PU6",
+      "shap_top_sensors": [
+        "F_PU6",
+        "S_PU6",
+        "L_T1",
+        "L_T7",
+        "F_PU1"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU6",
+        "S_PU6",
+        "L_T1",
+        "L_T7",
+        "P_J280"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "PU6",
+          "component_type": "Pump",
+          "score": 1.0,
+          "nodes": [
+            "J289",
+            "J415"
+          ],
+          "upstream_node": "J289",
+          "downstream_node": "J415",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 4.717333486657468
+        },
+        {
+          "component_id": "T1",
+          "component_type": "Tank",
+          "score": 0.5404563671550368,
+          "nodes": [
+            "T1"
+          ],
+          "ppr_score": 0.6706796216988234,
+          "direct_shap_mass": 1.9352063994567743
+        },
+        {
+          "component_id": "T7",
+          "component_type": "Tank",
+          "score": 0.2403093847091463,
+          "nodes": [
+            "T7"
+          ],
+          "ppr_score": 0.2982111833604542,
+          "direct_shap_mass": 0.8604774139309951
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 1.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "J415",
+          "J289"
+        ],
+        "links": [
+          "PU6"
+        ]
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 7,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU7",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-12-18 21:00:00",
+      "raw_deviation_top_sensor": "F_PU11",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "F_PU1",
+        "F_PU2",
+        "S_PU2",
+        "P_J269"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T7",
+        "F_PU1",
+        "P_J269",
+        "L_T1"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Pump",
+          "component_id": "PU11",
+          "nodes": [
+            "J323",
+            "J309"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J317",
+          "nodes": [
+            "J317"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J307",
+          "nodes": [
+            "J307"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 23.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 7,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU7",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-12-18 21:00:00",
+      "raw_deviation_top_sensor": "F_PU11",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "F_PU1",
+        "F_PU2",
+        "S_PU2",
+        "P_J269"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T7",
+        "F_PU1",
+        "P_J269",
+        "L_T1"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J280",
+          "nodes": [
+            "J280"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 27.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 7,
+      "dataset": "Dataset04",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU7",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2016-12-18 21:00:00",
+      "raw_deviation_top_sensor": "F_PU11",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "F_PU1",
+        "F_PU2",
+        "S_PU2",
+        "P_J269"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T7",
+        "F_PU1",
+        "P_J269",
+        "L_T1"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "PU2",
+          "component_type": "Pump",
+          "score": 1.0,
+          "nodes": [
+            "J280",
+            "J269"
+          ],
+          "upstream_node": "J280",
+          "downstream_node": "J269",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.4140082082109224
+        },
+        {
+          "component_id": "T7",
+          "component_type": "Tank",
+          "score": 0.6169462437221903,
+          "nodes": [
+            "T7"
+          ],
+          "ppr_score": 0.3249460453092959,
+          "direct_shap_mass": 0.37631128786803925
+        },
+        {
+          "component_id": "PU1",
+          "component_type": "Pump",
+          "score": 0.441287676083039,
+          "nodes": [
+            "J285",
+            "J273"
+          ],
+          "upstream_node": "J285",
+          "downstream_node": "J273",
+          "ppr_score": 0.22433316978459603,
+          "direct_shap_mass": 0.2725176664966045
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 26.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "J269",
+          "J280"
+        ],
+        "links": [
+          "PU2"
+        ]
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 8,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T3",
+      "target_dma_zone": 3,
+      "timestamp_of_peak_window": "2017-01-17 06:00:00",
+      "raw_deviation_top_sensor": "P_J256",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "F_PU1",
+        "L_T4",
+        "L_T7",
+        "P_J415"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU1",
+        "P_J280",
+        "L_T4",
+        "L_T7",
+        "P_J415"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J256",
+          "nodes": [
+            "J256"
+          ],
+          "dma_zone": 3
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J300",
+          "nodes": [
+            "J300"
+          ],
+          "dma_zone": 3
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J289",
+          "nodes": [
+            "J289"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 3,
+      "topological_hop_distance": 4.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 8,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T3",
+      "target_dma_zone": 3,
+      "timestamp_of_peak_window": "2017-01-17 06:00:00",
+      "raw_deviation_top_sensor": "P_J256",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "F_PU1",
+        "L_T4",
+        "L_T7",
+        "P_J415"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU1",
+        "P_J280",
+        "L_T4",
+        "L_T7",
+        "P_J415"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J280",
+          "nodes": [
+            "J280"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 32.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 8,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T3",
+      "target_dma_zone": 3,
+      "timestamp_of_peak_window": "2017-01-17 06:00:00",
+      "raw_deviation_top_sensor": "P_J256",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "F_PU1",
+        "L_T4",
+        "L_T7",
+        "P_J415"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU1",
+        "P_J280",
+        "L_T4",
+        "L_T7",
+        "P_J415"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "V2",
+          "component_type": "Valve",
+          "score": 0.7793219925692818,
+          "nodes": [
+            "J14",
+            "J422"
+          ],
+          "upstream_node": "J14",
+          "downstream_node": "J422",
+          "ppr_score": 0.743027250397192,
+          "direct_shap_mass": 0.17525473593967292
+        },
+        {
+          "component_id": "T4",
+          "component_type": "Tank",
+          "score": 0.7687890018178856,
+          "nodes": [
+            "T4"
+          ],
+          "ppr_score": 0.5960429671913334,
+          "direct_shap_mass": 0.20231129053812716
+        },
+        {
+          "component_id": "PU1",
+          "component_type": "Pump",
+          "score": 0.759968397694786,
+          "nodes": [
+            "J285",
+            "J273"
+          ],
+          "upstream_node": "J285",
+          "downstream_node": "J273",
+          "ppr_score": 0.519936795389572,
+          "direct_shap_mass": 0.21487388435604546
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 9.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "J422",
+          "J14"
+        ],
+        "links": [
+          "V2"
+        ]
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 9,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T2",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-01-31 04:00:00",
+      "raw_deviation_top_sensor": "P_J289",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T1",
+        "L_T5",
+        "L_T7",
+        "L_T4"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T1",
+        "L_T4",
+        "L_T3",
+        "L_T5"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J289",
+          "nodes": [
+            "J289"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J300",
+          "nodes": [
+            "J300"
+          ],
+          "dma_zone": 3
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J422",
+          "nodes": [
+            "J422"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 4.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 9,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T2",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-01-31 04:00:00",
+      "raw_deviation_top_sensor": "P_J289",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T1",
+        "L_T5",
+        "L_T7",
+        "L_T4"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T1",
+        "L_T4",
+        "L_T3",
+        "L_T5"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J280",
+          "nodes": [
+            "J280"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 26.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 9,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T2",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-01-31 04:00:00",
+      "raw_deviation_top_sensor": "P_J289",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T1",
+        "L_T5",
+        "L_T7",
+        "L_T4"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T1",
+        "L_T4",
+        "L_T3",
+        "L_T5"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "T1",
+          "component_type": "Tank",
+          "score": 0.9644810054406368,
+          "nodes": [
+            "T1"
+          ],
+          "ppr_score": 0.9289620108812736,
+          "direct_shap_mass": 1.0772956486048324
+        },
+        {
+          "component_id": "T4",
+          "component_type": "Tank",
+          "score": 0.6248227610135524,
+          "nodes": [
+            "T4"
+          ],
+          "ppr_score": 0.6018089719113038,
+          "direct_shap_mass": 0.6979114964469187
+        },
+        {
+          "component_id": "T3",
+          "component_type": "Tank",
+          "score": 0.5268254008259079,
+          "nodes": [
+            "T3"
+          ],
+          "ppr_score": 0.5075625858895473,
+          "direct_shap_mass": 0.5882984585950687
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 20.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "T1"
+        ],
+        "links": []
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 10,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU3",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-02-10 03:00:00",
+      "raw_deviation_top_sensor": "F_PU3",
+      "shap_top_sensor": "F_PU3",
+      "shap_top_sensors": [
+        "F_PU3",
+        "F_PU2",
+        "S_PU2",
+        "L_T4",
+        "S_PU3"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU3",
+        "F_PU2",
+        "S_PU2",
+        "L_T4",
+        "S_PU3"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Pump",
+          "component_id": "PU3",
+          "nodes": [
+            "J276",
+            "J274"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Tank",
+          "component_id": "T3",
+          "nodes": [
+            "T3"
+          ],
+          "dma_zone": 3
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J422",
+          "nodes": [
+            "J422"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 0.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 10,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU3",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-02-10 03:00:00",
+      "raw_deviation_top_sensor": "F_PU3",
+      "shap_top_sensor": "F_PU3",
+      "shap_top_sensors": [
+        "F_PU3",
+        "F_PU2",
+        "S_PU2",
+        "L_T4",
+        "S_PU3"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU3",
+        "F_PU2",
+        "S_PU2",
+        "L_T4",
+        "S_PU3"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Pump",
+          "component_id": "PU3",
+          "nodes": [
+            "J276",
+            "J274"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 0.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 10,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU3",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-02-10 03:00:00",
+      "raw_deviation_top_sensor": "F_PU3",
+      "shap_top_sensor": "F_PU3",
+      "shap_top_sensors": [
+        "F_PU3",
+        "F_PU2",
+        "S_PU2",
+        "L_T4",
+        "S_PU3"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU3",
+        "F_PU2",
+        "S_PU2",
+        "L_T4",
+        "S_PU3"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "PU3",
+          "component_type": "Pump",
+          "score": 1.0,
+          "nodes": [
+            "J276",
+            "J274"
+          ],
+          "upstream_node": "J276",
+          "downstream_node": "J274",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 380.85869843737044
+        },
+        {
+          "component_id": "PU2",
+          "component_type": "Pump",
+          "score": 0.05350310941021567,
+          "nodes": [
+            "J280",
+            "J269"
+          ],
+          "upstream_node": "J280",
+          "downstream_node": "J269",
+          "ppr_score": 0.058062234340326646,
+          "direct_shap_mass": 18.64074222543153
+        },
+        {
+          "component_id": "T4",
+          "component_type": "Tank",
+          "score": 0.015467705699617185,
+          "nodes": [
+            "T4"
+          ],
+          "ppr_score": 0.01775678504251837,
+          "direct_shap_mass": 5.01919448141128
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 0.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "J274",
+          "J276"
+        ],
+        "links": [
+          "PU3"
+        ]
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 11,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU3",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-02-12 18:00:00",
+      "raw_deviation_top_sensor": "F_PU3",
+      "shap_top_sensor": "F_PU3",
+      "shap_top_sensors": [
+        "F_PU3",
+        "F_PU1",
+        "P_J14",
+        "P_J269",
+        "L_T5"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU3",
+        "P_J269",
+        "P_J14",
+        "S_PU3",
+        "F_PU1"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Pump",
+          "component_id": "PU3",
+          "nodes": [
+            "J276",
+            "J274"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Tank",
+          "component_id": "T3",
+          "nodes": [
+            "T3"
+          ],
+          "dma_zone": 3
+        },
+        {
+          "component_type": "Pump",
+          "component_id": "PU4",
+          "nodes": [
+            "J292",
+            "J299"
+          ],
+          "dma_zone": 3
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 0.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 11,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU3",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-02-12 18:00:00",
+      "raw_deviation_top_sensor": "F_PU3",
+      "shap_top_sensor": "F_PU3",
+      "shap_top_sensors": [
+        "F_PU3",
+        "F_PU1",
+        "P_J14",
+        "P_J269",
+        "L_T5"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU3",
+        "P_J269",
+        "P_J14",
+        "S_PU3",
+        "F_PU1"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Pump",
+          "component_id": "PU3",
+          "nodes": [
+            "J276",
+            "J274"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 0.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 11,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Pump",
+      "target_component": "PU3",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-02-12 18:00:00",
+      "raw_deviation_top_sensor": "F_PU3",
+      "shap_top_sensor": "F_PU3",
+      "shap_top_sensors": [
+        "F_PU3",
+        "F_PU1",
+        "P_J14",
+        "P_J269",
+        "L_T5"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "F_PU3",
+        "P_J269",
+        "P_J14",
+        "S_PU3",
+        "F_PU1"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "PU3",
+          "component_type": "Pump",
+          "score": 1.0,
+          "nodes": [
+            "J276",
+            "J274"
+          ],
+          "upstream_node": "J276",
+          "downstream_node": "J274",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 85.51754713265348
+        },
+        {
+          "component_id": "V2",
+          "component_type": "Valve",
+          "score": 0.037712220370001596,
+          "nodes": [
+            "J14",
+            "J422"
+          ],
+          "upstream_node": "J14",
+          "downstream_node": "J422",
+          "ppr_score": 0.0533603096122023,
+          "direct_shap_mass": 1.8868703736627594
+        },
+        {
+          "component_id": "PU2",
+          "component_type": "Pump",
+          "score": 0.021655448676437133,
+          "nodes": [
+            "J280",
+            "J269"
+          ],
+          "upstream_node": "J280",
+          "downstream_node": "J269",
+          "ppr_score": 0.035803726710983336,
+          "direct_shap_mass": 0.6419948192007799
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 0.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "J274",
+          "J276"
+        ],
+        "links": [
+          "PU3"
+        ]
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 12,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T2",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-02-26 04:00:00",
+      "raw_deviation_top_sensor": "P_J300",
+      "shap_top_sensor": "L_T2",
+      "shap_top_sensors": [
+        "L_T2",
+        "L_T4",
+        "L_T3",
+        "L_T7",
+        "L_T6"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T1",
+        "L_T2",
+        "L_T7",
+        "L_T3",
+        "L_T6"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J300",
+          "nodes": [
+            "J300"
+          ],
+          "dma_zone": 3
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J289",
+          "nodes": [
+            "J289"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Pump",
+          "component_id": "PU7",
+          "nodes": [
+            "J290",
+            "J291"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 3,
+      "topological_hop_distance": 5.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 12,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T2",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-02-26 04:00:00",
+      "raw_deviation_top_sensor": "P_J300",
+      "shap_top_sensor": "L_T2",
+      "shap_top_sensors": [
+        "L_T2",
+        "L_T4",
+        "L_T3",
+        "L_T7",
+        "L_T6"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T1",
+        "L_T2",
+        "L_T7",
+        "L_T3",
+        "L_T6"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Tank",
+          "component_id": "T2",
+          "nodes": [
+            "T2"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 0.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 12,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T2",
+      "target_dma_zone": 1,
+      "timestamp_of_peak_window": "2017-02-26 04:00:00",
+      "raw_deviation_top_sensor": "P_J300",
+      "shap_top_sensor": "L_T2",
+      "shap_top_sensors": [
+        "L_T2",
+        "L_T4",
+        "L_T3",
+        "L_T7",
+        "L_T6"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T1",
+        "L_T2",
+        "L_T7",
+        "L_T3",
+        "L_T6"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "T1",
+          "component_type": "Tank",
+          "score": 1.0,
+          "nodes": [
+            "T1"
+          ],
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.5866237619542592
+        },
+        {
+          "component_id": "T2",
+          "component_type": "Tank",
+          "score": 0.932304961903427,
+          "nodes": [
+            "T2"
+          ],
+          "ppr_score": 0.9322949157293989,
+          "direct_shap_mass": 0.5469181373648123
+        },
+        {
+          "component_id": "T7",
+          "component_type": "Tank",
+          "score": 0.8208974732673215,
+          "nodes": [
+            "T7"
+          ],
+          "ppr_score": 0.8208886275792552,
+          "direct_shap_mass": 0.4815631530376327
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 20.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "T1"
+        ],
+        "links": []
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 13,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Tank",
+      "target_component": "T7",
+      "target_dma_zone": 4,
+      "timestamp_of_peak_window": "2017-03-13 15:00:00",
+      "raw_deviation_top_sensor": "P_J289",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T3",
+        "L_T1",
+        "P_J317",
+        "F_PU10"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T6",
+        "L_T7",
+        "L_T3",
+        "P_J280",
+        "P_J302"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J289",
+          "nodes": [
+            "J289"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J300",
+          "nodes": [
+            "J300"
+          ],
+          "dma_zone": 3
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J422",
+          "nodes": [
+            "J422"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 32.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 13,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Tank",
+      "target_component": "T7",
+      "target_dma_zone": 4,
+      "timestamp_of_peak_window": "2017-03-13 15:00:00",
+      "raw_deviation_top_sensor": "P_J289",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T3",
+        "L_T1",
+        "P_J317",
+        "F_PU10"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T6",
+        "L_T7",
+        "L_T3",
+        "P_J280",
+        "P_J302"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J280",
+          "nodes": [
+            "J280"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 38.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 13,
+      "dataset": "Test Dataset",
+      "attack_type": "Actuator Manipulation",
+      "target_component_type": "Tank",
+      "target_component": "T7",
+      "target_dma_zone": 4,
+      "timestamp_of_peak_window": "2017-03-13 15:00:00",
+      "raw_deviation_top_sensor": "P_J289",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T3",
+        "L_T1",
+        "P_J317",
+        "F_PU10"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "L_T6",
+        "L_T7",
+        "L_T3",
+        "P_J280",
+        "P_J302"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "T6",
+          "component_type": "Tank",
+          "score": 1.0,
+          "nodes": [
+            "T6"
+          ],
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.7851227527197729
+        },
+        {
+          "component_id": "T7",
+          "component_type": "Tank",
+          "score": 0.4945279843887235,
+          "nodes": [
+            "T7"
+          ],
+          "ppr_score": 0.4945279843887235,
+          "direct_shap_mass": 0.3882651724002355
+        },
+        {
+          "component_id": "T3",
+          "component_type": "Tank",
+          "score": 0.39092478003681735,
+          "nodes": [
+            "T3"
+          ],
+          "ppr_score": 0.39115599138532303,
+          "direct_shap_mass": 0.30674241011847897
+        }
+      ],
+      "predicted_dma_zone": 4,
+      "topological_hop_distance": 11.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "T6"
+        ],
+        "links": []
+      }
+    },
+    {
+      "method": "baseline_a_raw_deviation",
+      "attack_id": 14,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T4",
+      "target_dma_zone": 2,
+      "timestamp_of_peak_window": "2017-03-25 21:00:00",
+      "raw_deviation_top_sensor": "S_V2",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T2",
+        "L_T3",
+        "F_PU1",
+        "L_T7"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T5",
+        "L_T2",
+        "L_T3",
+        "S_PU10"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Valve",
+          "component_id": "V2",
+          "nodes": [
+            "J14",
+            "J422"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J422",
+          "nodes": [
+            "J422"
+          ],
+          "dma_zone": 1
+        },
+        {
+          "component_type": "Junction",
+          "component_id": "J300",
+          "nodes": [
+            "J300"
+          ],
+          "dma_zone": 3
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 28.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "baseline_b_top1_shap",
+      "attack_id": 14,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T4",
+      "target_dma_zone": 2,
+      "timestamp_of_peak_window": "2017-03-25 21:00:00",
+      "raw_deviation_top_sensor": "S_V2",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T2",
+        "L_T3",
+        "F_PU1",
+        "L_T7"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T5",
+        "L_T2",
+        "L_T3",
+        "S_PU10"
+      ],
+      "predicted_components": [
+        {
+          "component_type": "Junction",
+          "component_id": "J280",
+          "nodes": [
+            "J280"
+          ],
+          "dma_zone": 1
+        }
+      ],
+      "predicted_dma_zone": 1,
+      "topological_hop_distance": 51.0,
+      "ppr_propagation_path": null
+    },
+    {
+      "method": "proposed_shap_reversed_flow_ppr",
+      "attack_id": 14,
+      "dataset": "Test Dataset",
+      "attack_type": "Sensor Spoofing/Concealment",
+      "target_component_type": "Tank",
+      "target_component": "T4",
+      "target_dma_zone": 2,
+      "timestamp_of_peak_window": "2017-03-25 21:00:00",
+      "raw_deviation_top_sensor": "S_V2",
+      "shap_top_sensor": "P_J280",
+      "shap_top_sensors": [
+        "P_J280",
+        "L_T2",
+        "L_T3",
+        "F_PU1",
+        "L_T7"
+      ],
+      "ppr_interval_shap_top_sensors": [
+        "P_J280",
+        "L_T5",
+        "L_T2",
+        "L_T3",
+        "S_PU10"
+      ],
+      "predicted_components": [
+        {
+          "component_id": "T5",
+          "component_type": "Tank",
+          "score": 0.7883606388724582,
+          "nodes": [
+            "T5"
+          ],
+          "ppr_score": 0.5767212777449165,
+          "direct_shap_mass": 0.29914630980193996
+        },
+        {
+          "component_id": "PU10",
+          "component_type": "Pump",
+          "score": 0.6862655700648697,
+          "nodes": [
+            "J307",
+            "J317"
+          ],
+          "upstream_node": "J307",
+          "downstream_node": "J317",
+          "ppr_score": 0.5452290014370348,
+          "direct_shap_mass": 0.24748438188117533
+        },
+        {
+          "component_id": "PU2",
+          "component_type": "Pump",
+          "score": 0.5840203199548339,
+          "nodes": [
+            "J280",
+            "J269"
+          ],
+          "upstream_node": "J280",
+          "downstream_node": "J269",
+          "ppr_score": 1.0,
+          "direct_shap_mass": 0.05026873732573371
+        }
+      ],
+      "predicted_dma_zone": 5,
+      "topological_hop_distance": 57.0,
+      "ppr_propagation_path": {
+        "nodes": [
+          "T5"
+        ],
+        "links": []
+      }
+    }
+  ]
+}

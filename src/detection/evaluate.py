@@ -64,6 +64,13 @@ class DetectionEvaluator:
         y_true = np.asarray(y_true).ravel()
         y_probs = np.asarray(y_probs).ravel()
 
+        if len(y_true) != len(y_probs):
+            raise ValueError("y_true and y_probs must contain the same number of samples")
+
+        labelled = np.isfinite(y_true) & (y_true != -999)
+        y_true = y_true[labelled].astype(int)
+        y_probs = y_probs[labelled]
+
         y_pred = (y_probs >= thresh).astype(int)
 
         # Confusion matrix elements

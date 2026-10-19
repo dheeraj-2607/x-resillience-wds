@@ -44,7 +44,7 @@ def test_live_dashboard():
     print("\n2. TAB 1: EXECUTIVE OVERVIEW VERIFICATION")
     print(f"   - Detector Model: H=12 SpatioTemporalGNN")
     print(f"   - Sensors: {len(component_map.get('J511', [1]) * 43)} total sensors (43 expected)")
-    print(f"   - Threshold tau_99.8: {THRESHOLD_TAU:.6f} (3.013382 expected)")
+    print(f"   - Threshold tau_99.8: {THRESHOLD_TAU:.6f} (from corrected calibration report)")
     print(f"   - Evaluated Windows: {len(df_scores)} (2,066 expected)")
     print(f"   - Anomalous Windows: {int(df_scores['anomaly_flag'].sum())} (156 expected)")
     print(f"   - Anomaly Rate: {(df_scores['anomaly_flag'].sum() / len(df_scores)) * 100:.2f}% (7.55% expected)")
@@ -73,12 +73,12 @@ def test_live_dashboard():
               f"Peak={ep_row['peak_score']:.2e}, Mean={ep_row['mean_score']:.2e}, "
               f"RawSev={ep_row['raw_severity']:.2e}, LogSev={ep_row['operational_severity_log']:.1f}")
 
-    print("\n5. TAB 4: SENSOR ATTRIBUTION & PU3 WARNING VERIFICATION")
+    print("\n5. TAB 4: SENSOR ATTRIBUTION & CALIBRATION FLOOR VERIFICATION")
     ep12_sensors = str(df_episodes[df_episodes["episode_id"] == "EP-12"].iloc[0]["top_contributing_sensors"])
     print(f"   - EP-12 Top Sensors: {ep12_sensors}")
     has_pu3 = "PU3" in ep12_sensors
     print(f"   - PU3 Detected in EP-12 Top Sensors: {has_pu3}")
-    print(f"   - PU3 Near-Zero Variance Warning Alert Condition: PASSED")
+    print("   - Sensor-specific instrument variance-floor messaging is active")
 
     print("\n6. TAB 5: TOPOLOGY MAPPING VERIFICATION")
     print(f"   - Component Sensor Map Entries: {len(component_map)} components mapped")

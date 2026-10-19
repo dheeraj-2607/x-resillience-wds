@@ -149,7 +149,16 @@ def train_model(
 
     val_y_arr = val_df[val_label_col].values
 
-    forecast_horizon = detection_cfg.get("forecast_horizon", 12)
+    requested_horizon = int(detection_cfg.get("forecast_horizon", 12))
+    available_horizon = max(1, min(len(train_df), len(calib_df), len(val_df)) - window_size)
+    forecast_horizon = min(requested_horizon, available_horizon)
+
+    if forecast_horizon != requested_horizon:
+        logger.warning(
+            "Forecast horizon reduced from H=%d to H=%d because the available sequence length is too short for the configured production horizon.",
+            requested_horizon,
+            forecast_horizon,
+        )
 
     # Construct forecasting sliding windows: X (B, W, F), Y_target (B, H, F)
     X_train, Y_train, _ = preprocessor.create_forecasting_windows(
@@ -202,7 +211,7 @@ def train_model(
         window_size=window_size,
         hidden_dim=detection_cfg.get("hidden_dim", 64),
         dropout=detection_cfg.get("dropout", 0.2),
-        forecast_horizon=detection_cfg.get("forecast_horizon", 12),
+        forecast_horizon=forecast_horizon,
     )
 
     optimizer = optim.Adam(model.parameters(), lr=detection_cfg.get("learning_rate", 0.001))

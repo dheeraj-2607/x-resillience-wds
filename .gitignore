@@ -13,6 +13,9 @@ logs/
 
 # Local/data files
 data/
+!data/
+data/*
+!data/ground_truth_attacks.csv
 
 # Model files
 *.pt

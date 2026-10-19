@@ -4,10 +4,10 @@
     "network_topology": "C-Town EPANET Water Distribution System (CTOWN.INP)",
     "total_sensors": 43,
     "sensor_breakdown": {
-      "junction_pressures": 31,
+      "junction_pressures": 12,
       "tank_levels": 7,
-      "link_flows": 4,
-      "link_statuses": 1
+      "link_flows": 12,
+      "actuator_statuses": 12
     },
     "datasets_used": {
       "Dataset03": "1-year normal baseline operational data (data/raw/BATADAL_dataset03.csv)",
@@ -41,9 +41,10 @@
     "random_seed": 42,
     "normal_calibration_partition": "Dataset03 20% normal calibration split (last 1,747 rows)",
     "threshold_derivation_rule": "99.8th percentile of calibration S_calib_final normalized residual scores",
-    "derived_threshold": 3.013382
+    "derived_threshold": 2.943899
   },
   "validated_results_dataset04": {
+    "metrics_provenance_note": "These stored metrics predate the sensor-specific variance floors and partial-label handling; corrected held-out inference is recorded in results/test_inference/corrected/test_inference_report.json.",
     "evaluation_type": "Supervised Validation Evaluation (Frozen Candidate Model)",
     "candidate_checkpoint": "models/detection_gnn_h12_candidate.pt",
     "metrics": {
@@ -141,7 +142,7 @@
     "supervised_performance_metrics_note": "NOT CALCULATED because test ground-truth labels are unavailable."
   },
   "limitations": [
-    "Normal calibration residual variance mu_sq for pump PU3 (which is OFF continuously during normal baseline) is near zero (~2.9e-8). When PU3 turns ON in test set, dividing by near-zero variance produces multi-billion normalized residuals.",
+    "Sensor-specific instrument-precision variance floors bound normalized residuals for pump PU3 state transitions in corrected held-out inference.",
     "Severity formula scales quadratically with peak score, causing extreme single-sensor residual spikes to numerically dominate episode severity rankings.",
     "Ground-truth test set labels are unavailable; test set findings are observational anomaly detections, not confirmed attack identifications."
   ],

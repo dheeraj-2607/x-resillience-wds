@@ -194,7 +194,9 @@ class DataPreprocessor:
         T, F = features.shape
         W = self.window_size
         S = self.stride
-        H = forecast_horizon
+
+        max_available_horizon = max(1, T - W)
+        H = min(int(forecast_horizon), max_available_horizon)
 
         if T < W + H:
             raise ValueError(f"Sequence length T={T} must be >= W+H={W+H} for forecasting horizon H={H}.")
