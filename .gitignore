@@ -17,6 +17,7 @@ temp.*
 data/
 !data/
 data/*
+!data/raw/**
 !data/ground_truth_attacks.csv
 
 # Model files
