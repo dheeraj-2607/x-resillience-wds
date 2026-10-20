@@ -14,7 +14,6 @@ logs/
 # Local/data files
 temp.*
 *.bin
-data/
 !data/
 data/*
 !data/raw/**
