@@ -1,0 +1,26 @@
+{
+  "num_sensors": 4,
+  "sensor_columns": [
+    "S_PU1",
+    "S_PU2",
+    "P_J280",
+    "L_T1"
+  ],
+  "sensor_to_ctown_nodes": {
+    "P_J280": [
+      "J280"
+    ],
+    "L_T1": [
+      "T1"
+    ],
+    "S_PU2": [
+      "J269",
+      "J280"
+    ],
+    "S_PU1": [
+      "J273",
+      "J285"
+    ]
+  },
+  "adjacency_nonzero_count": 10
+}
